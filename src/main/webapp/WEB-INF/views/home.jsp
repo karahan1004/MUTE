@@ -10,6 +10,6 @@
 	Hello world!  드디어 !!!
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<P>  The time on the server is ${serverTime}.</P>
 </body>
 </html>
