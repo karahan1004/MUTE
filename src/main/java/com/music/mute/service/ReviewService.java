@@ -1,6 +1,6 @@
 package com.music.mute.service;
 
-public class ReviewSerice {
+public class ReviewService {
 	int n=0;
 
 }
