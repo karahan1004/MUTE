@@ -1,4 +1,4 @@
-package com.music.mute.controller;
+package com.music.mute.main;
 
 import java.util.Locale;
 
