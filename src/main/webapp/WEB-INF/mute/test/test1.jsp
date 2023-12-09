@@ -44,12 +44,14 @@
             document.getElementById("hipHopValue").value = hipHopValue;
             document.getElementById("rnbValue").value = rnbValue;
         }
+        
+       
     </script>
 </head>
 <body>
     <h1>Q1. 오늘따라 우울한 당신! 지금 당신의 플레이리스트는?</h1>
     <form action="result.jsp" method="post">
-
+		
         <button type="button" class="btn" onclick="selectPlaylist('댄스')">분위기 바꿔! 기분 전환용 댄스파뤼</button>
         <br>
         <button type="button" class="btn" onclick="selectPlaylist('재즈')">이 감정 그대로 갈래... 말리지마 잔잔한 노래</button>

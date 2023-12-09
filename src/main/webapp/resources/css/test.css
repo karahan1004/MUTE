@@ -12,14 +12,44 @@
 	text-align:center;
 	color:#002EA5;
 }
-.btn {
+.btn:nth-child(4n-3) {
 	width:250px;
     height:35px;
-    background-color: pink;
+    background-color: #FFE2F8;
     border-radius: 10px;
     padding: 10px 20px;
+    margin-bottom: 3px;
+    border:none;
 }
+.btn:nth-child(4n-1) {
+	width:250px;
+    height:35px;
+    background-color: #FFC6F2;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-bottom: 3px;
+    border:none;
+}
+
 h1{
 	text-align:center;
 }
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0;
+    transform: scale(1.5);
+}
+
+
+
+
+
+
+
+
+
 

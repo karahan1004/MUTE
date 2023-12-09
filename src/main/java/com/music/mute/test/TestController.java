@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class TestController {
-	 @GetMapping("/test")
-	    public String showPlaylistPage() {
-	        return "test"; 
+	
+	 @GetMapping("/test1")
+	    public String TestPage() {
+	        return "test/test1"; 
 	    }
 
 }
