@@ -15,7 +15,7 @@
 	text-align: center;
 }
 
-table{
+#navi-head{
 	width:100%;
 }
 
@@ -41,4 +41,26 @@ table{
 	width: 160px;
 	height: 160px;
 	
+}
+
+.si{
+	font-size: 30px;
+	width:40%;
+	text-align:left;
+}
+
+.pi{
+	width:25%;
+	text-align:center;
+}
+
+.ga{
+	text-align:left;
+	width:35%;
+	font-size:30px;
+	
+}
+
+#sing-mi{
+	width:100%;
 }
