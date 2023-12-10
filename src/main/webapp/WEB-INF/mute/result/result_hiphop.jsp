@@ -13,8 +13,8 @@
 
 	<img alt="gom_hiphop" src="resources/images/gom_hiphop.png" height="500" width="500">	
 	
-	<a>힙합을 좋아하는 당신은 민트초콜릿 칩!</a>
-	<a>어쩔 민초 저쩔 힙합~</a>
+	<a class="hiphop">힙합을 좋아하는 당신은 민트초콜릿 칩!</a></br>
+	<a class="hiphop">어쩔 민초 저쩔 힙합~</a>
 	
 	<a>당신을 위한 #힙합 음악</a>
 	

@@ -13,8 +13,8 @@
 
 	<img alt="gom_rock" src="resources/images/gom_rock.png" height="500" width="500">	
 	
-	<a>락을 좋아하는 당신은 슈팅스타!</a>
-	<a>손 머리 위로 Hands Up!</a>
+	<a class="rock">락을 좋아하는 당신은 슈팅스타!</a></br>
+	<a class="rock">손 머리 위로 Hands Up!</a>
 	
 	<a>당신을 위한 #락 음악</a>
 	

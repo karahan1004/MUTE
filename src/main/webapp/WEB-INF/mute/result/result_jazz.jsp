@@ -13,8 +13,8 @@
 
 	<img alt="gom_jazz" src="resources/images/gom_jazz.png" height="500" width="500">	
 	
-	<a>재즈를 좋아하는 당신은 뉴욕치즈케이크!</a>
-	<a>재즈란 말이죠옹~</a>
+	<a class="jazz">재즈를 좋아하는 당신은 뉴욕치즈케이크!</a></br>
+	<a class="jazz">재즈란 말이죠옹~</a>
 	
 	<a>당신을 위한 #재즈 음악</a>
 	
