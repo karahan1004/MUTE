@@ -28,19 +28,37 @@
 		<tr>
 			<td><a class="disco">D.I.S.C.O 미친듯이 춤추고 봉봉!!</a></td>
 		</tr>
-		<tr>
-			<td><a>당신을 위한 #힙합 음악</a></td>
-		</tr>
 	</table>
-	
-	<!-- <img alt="gom_disco" src="resources/images/gom_disco.png" height="500" width="500">	
-	
-	<a class="disco">디스코를 좋아하는 당신은 아몬드 봉봉!</a></br>
-	<a class="disco">D.I.S.C.O 미친듯이 춤추고 봉봉!!</a>
-	
-	<a>당신을 위한 #디스코 음악</a>
-	 -->
-	
-	<a href="">유사한 3곡 다시 추천받기</a>
+    <br>
+    <div class="reco">
+        <br>
+        <a class="tag">당신을 위한 #힙합 음악</a><br><br>
+        <table class="table2">
+            <tr>
+                <td><div class="cover"></div></td>
+                <td>힙합왕</td>
+                <td>아티스트명</td>
+                <td><a><img src="resources/images/Group 4.png"></a></td>
+                <td><a class="star">☆</a></td>
+            </tr>
+            <tr>
+                <td><div class="cover"></div></td>
+                <td>힙합왕</td>
+                <td>아티스트명</td>
+                <td><a><img src="resources/images/Group 4.png"></a></td>
+                <td><a class="star">☆</a></td>
+            </tr>
+            <tr>
+                <td><div class="cover"></div></td>
+                <td>힙합왕</td>
+                <td>아티스트명</td>
+                <td><a><img src="resources/images/Group 4.png"></a></td>
+                <td><a class="star">☆</a></td>
+            </tr>
+        </table>
+        <br><br><br>
+        <a class="rereco" href="">유사한 3곡 다시 추천받기</a>
+    </div>
+
 </body>
 </html>
