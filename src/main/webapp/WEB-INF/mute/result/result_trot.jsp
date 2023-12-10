@@ -13,8 +13,8 @@
 
 	<img alt="gom_trot" src="resources/images/gom_trot.png" height="500" width="500">	
 	
-	<a>트로트를 좋아하는 당신은 베리베리스트로베리!</a>
-	<a>너 T로트야?</a>
+	<a class="trot">트로트를 좋아하는 당신은 베리베리스트로베리!</a></br>
+	<a class="trot">너 T로트야?</a>
 	
 	<a>당신을 위한 #트로트 음악</a>
 	

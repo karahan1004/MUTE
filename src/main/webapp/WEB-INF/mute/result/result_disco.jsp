@@ -13,8 +13,8 @@
 
 	<img alt="gom_disco" src="resources/images/gom_disco.png" height="500" width="500">	
 	
-	<a>디스코를 좋아하는 당신은 아몬드 봉봉!</a>
-	<a>D.I.S.C.O 미친듯이 춤추고 봉봉!!</a>
+	<a class="disco">디스코를 좋아하는 당신은 아몬드 봉봉!</a></br>
+	<a class="disco">D.I.S.C.O 미친듯이 춤추고 봉봉!!</a>
 	
 	<a>당신을 위한 #디스코 음악</a>
 	
