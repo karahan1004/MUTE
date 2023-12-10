@@ -11,7 +11,7 @@
 	<a href="">다시 테스트하기</a>
 	<a href="">마이페이지</a>
 
-	<img alt="gom_trot" src="resources/images/gom_trot.png" height="1000" width="100">	
+	<img alt="gom_trot" src="resources/images/gom_trot.png" height="500" width="500">	
 	
 	<a>트로트를 좋아하는 당신은 베리베리스트로베리!</a>
 	<a>너 T로트야?</a>

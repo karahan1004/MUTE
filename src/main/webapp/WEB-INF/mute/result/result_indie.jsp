@@ -11,7 +11,7 @@
 	<a href="">다시 테스트하기</a>
 	<a href="">마이페이지</a>
 
-	<img alt="gom_indie" src="resources/images/gom_indie.png" height="1000" width="100">	
+	<img alt="gom_indie" src="resources/images/gom_indie.png" height="500" width="500">	
 	
 	<a>인디를 좋아하는 당신을 사랑에 빠진 딸기!</a>
 	<a>나..꽤나 감성적일지도?</a>
