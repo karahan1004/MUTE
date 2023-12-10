@@ -25,11 +25,14 @@
 		<tr>
 			<td><a class="dance">댄스를 좋아하는 당신은 레인보우 샤베트!</a></td>
 		</tr>
+		<tr>
+			<td><a class="dance">이브 프시케 그리고 레인보우 샤베트.</a></td>
+		</tr>
 	</table>
     <br>
     <div class="reco">
         <br>
-	    <a class="tag">당신을 위한 #댄스 음악</a><br><br>
+        <a class="tag">당신을 위한 #댄스 음악</a><br><br>
 		<table class="table2">
             <tr>
                 <td><div class="cover"></div></td>
