@@ -26,7 +26,7 @@
 			<td><a class="indie">인디를 좋아하는 당신을 사랑에 빠진 딸기!</a></td>
 		</tr>
 		<tr>
-			<td><a class="classic">나..꽤나 감성적일지도?</a></td>
+			<td><a class="indie">나..꽤나 감성적일지도?</a></td>
 		</tr>
 	</table>
     <br>
