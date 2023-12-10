@@ -17,7 +17,7 @@
 		</nav>
 		
 	</header>
-	<table>
+	<table class="table1">
 		<tr>
 			<td>	
 				<img alt="gom_jazz" src="resources/images/gom_jazz.png" height="500" width="500">	

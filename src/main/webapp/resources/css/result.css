@@ -35,7 +35,10 @@ a{
 }
 table{
 	margin:auto;
+}
 
+.table1 {
+	padding-left:85px;
 }
 
 .ballad{
@@ -107,9 +110,9 @@ table{
 	height: 438px;
 	border-radius: 30px;
 }
-.table {
+.table2 {
 	padding-left: 90px;
-	margin: auto;
+	
 	font-size: 28px;
 }
 td {
@@ -119,4 +122,7 @@ td {
 .rereco {
 	font-size: 28px;
 	text-decoration: none;
+}
+.star {
+	font-size:60px;
 }

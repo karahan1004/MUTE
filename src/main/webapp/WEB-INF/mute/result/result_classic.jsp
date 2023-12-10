@@ -17,7 +17,7 @@
 		</nav>
 		
 	</header>
-	<table>
+	<table class="table1">
 		<tr>
 			<td>	
 				<img alt="gom_classic" src="resources/images/gom_classic.png" height="500" width="500">	
@@ -30,32 +30,32 @@
 			<td><a class="classic">피아노 선율에 너를 맡겨봐♬</a></td>
 		</tr>
 		<tr>
-	
+	</table>
     <br>
     <div class="reco">
         <br>
         <a class="tag">당신을 위한 #클래식 음악</a><br><br>
-        <table class="table">
+        <table class="table2">
             <tr>
                 <td><div class="cover"></div></td>
                 <td>힙합왕</td>
                 <td>아티스트명</td>
                 <td><a><img src="resources/images/Group 4.png"></a></td>
-                <td><a><img src="resources/images/.png"></a></td>
+                <td><a class="star">☆</a></td>
             </tr>
             <tr>
                 <td><div class="cover"></div></td>
                 <td>힙합왕</td>
                 <td>아티스트명</td>
                 <td><a><img src="resources/images/Group 4.png"></a></td>
-                <td><a><img src="resources/images/.png"></a></td>
+                <td><a class="star">☆</a></td>
             </tr>
             <tr>
                 <td><div class="cover"></div></td>
                 <td>힙합왕</td>
                 <td>아티스트명</td>
                 <td><a><img src="resources/images/Group 4.png"></a></td>
-                <td><a><img src="resources/images/.png"></a></td>
+                <td><a class="star">☆</a></td>
             </tr>
         </table>
         <br><br><br>
