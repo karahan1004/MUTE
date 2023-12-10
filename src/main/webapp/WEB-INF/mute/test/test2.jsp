@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="resources/css/test.css">
     <title>오늘따라 우울한 당신의 플레이리스트는?</title>
     <script>
-   		 /* 장르별 value 변수 설정 */
         var danceValue = 0;
         var discoValue = 0;
         var trotValue = 0;
@@ -16,7 +15,7 @@
         var rockValue = 0;
         var hipHopValue = 0;
         var rnbValue = 0;
-        /* 버튼 클릭시 value값 증가 script함수 -- 함수명 재설정, onclick시 증가처리 해야함 */
+
         function selectPlaylist(value) {
             if (value === '댄스') {
                 danceValue++;
@@ -50,19 +49,17 @@
     </script>
 </head>
 <body>
-    <h1>Q1. 오늘따라 우울한 당신! 지금 당신의 플레이리스트는?</h1>
+    <h1>Q2. 음악은 이렇게 즐겨야지~</h1>
     <form action="result.jsp" method="post">
-		<!-- 버튼 클릭시 다음 test페이지 이동 + 각 선택지 별 해당하는 장르 count++(구현 예정..어렵다) -->
-        <button type="button" class="btn" onclick="location.href='test2'">분위기 바꿔! 기분 전환용 댄스파뤼</button>
+		
+        <button type="button" class="btn" onclick="location.href='test3'">클럽에서 신나게! 스피커 볼륨 최대로~</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test2'">이 감정 그대로 갈래... 말리지마 잔잔한 노래</button>
+        <button type="button" class="btn" onclick="location.href='test3'">와인바에서 잔잔하게! 소음따윈 가볍게 무시한다는 마인드</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test2'">집어치워! 난 나의 길을 간다 락스피릿 예아~</button>
+        <button type="button" class="btn" onclick="location.href='test3'">햇살을 맞으며 창가에서 커피 한 잔 할래용~</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test2'">우울할 땐 난 힙합을 춰...</button>
+        <button type="button" class="btn" onclick="location.href='test3'">대한민국 음악의 중심은 바로 나! 엄마 난 커서 가수가 될래요!</button>
 
-
-		<!-- count 값을 hidden으로 전달... 다시 알아보자 -->
         <input type="hidden" id="danceValue" name="danceValue" value="">
         <input type="hidden" id="discoValue" name="discoValue" value="">
         <input type="hidden" id="trotValue" name="trotValue" value="">
