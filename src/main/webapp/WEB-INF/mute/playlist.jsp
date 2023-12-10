@@ -8,6 +8,12 @@
 <title>MU:TE</title>
 </head>
 <body>
-
+<div>
+<ul id="header">
+	<li><a href="#"><img class="back" src="resources/images/gom_button.png"><span class="backft">뒤로가기</span></a></li>
+</ul>
+	
+	
+</div>
 </body>
 </html>
