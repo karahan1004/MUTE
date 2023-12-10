@@ -12,12 +12,35 @@
 	text-align:center;
 	color:#002EA5;
 }
+header {
+    padding: 10px;
+    text-align: right;
+}
+ul{
+	list-style:none;
+}
+.header-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-item {
+    margin-left: 20px;
+    cursor: pointer;
+}
+a{
+	text-decoration: none;
+	outline: none;
+	font-size: 32px;
+}
+
 .ballad{
 	color:#512626;
 	font-size:50px;
 }
 .classic{
 	color:# ;
+	font-size: ;
 }
 .dance{
 	color:#FCAD36 ;
