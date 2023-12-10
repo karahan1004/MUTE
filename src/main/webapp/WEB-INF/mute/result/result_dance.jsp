@@ -11,7 +11,7 @@
 	<a href="">다시 테스트하기</a>
 	<a href="">마이페이지</a>
 
-	<img alt="gom_dance" src="resources/images/gom_dance.png" height="1000" width="100">	
+	<img alt="gom_dance" src="resources/images/gom_dance.png" height="500" width="500">	
 	
 	<a>댄스를 좋아하는 당신은 레인보우 샤베트!</a>
 	<a>이브 프시케 그리고 레인보우 샤베트</a>

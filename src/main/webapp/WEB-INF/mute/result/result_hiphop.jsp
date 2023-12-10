@@ -11,7 +11,7 @@
 	<a href="">다시 테스트하기</a>
 	<a href="">마이페이지</a>
 
-	<img alt="gom_hiphop" src="resources/images/gom_hiphop.png" height="1000" width="100">	
+	<img alt="gom_hiphop" src="resources/images/gom_hiphop.png" height="500" width="500">	
 	
 	<a>힙합을 좋아하는 당신은 민트초콜릿 칩!</a>
 	<a>어쩔 민초 저쩔 힙합~</a>

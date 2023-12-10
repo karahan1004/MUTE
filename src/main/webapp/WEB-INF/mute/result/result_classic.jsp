@@ -11,7 +11,7 @@
 	<a href="">다시 테스트하기</a>
 	<a href="">마이페이지</a>
 
-	<img alt="gom_classic" src="resources/images/gom_classic.png" height="1000" width="100">	
+	<img alt="gom_classic" src="resources/images/gom_classic.png" height="500" width="500">	
 	
 	<a>클래식을 좋아하는 당신은 피스타치오!</a>
 	<a>피아노 선율에 너를 맡겨봐♬</a>

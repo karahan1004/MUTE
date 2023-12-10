@@ -11,7 +11,7 @@
 	<a href="">다시 테스트하기</a>
 	<a href="">마이페이지</a>
 
-	<img alt="gom_jazz" src="resources/images/gom_jazz.png" height="1000" width="100">	
+	<img alt="gom_jazz" src="resources/images/gom_jazz.png" height="500" width="500">	
 	
 	<a>재즈를 좋아하는 당신은 뉴욕치즈케이크!</a>
 	<a>재즈란 말이죠옹~</a>

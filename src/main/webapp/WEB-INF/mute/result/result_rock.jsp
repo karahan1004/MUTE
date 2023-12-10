@@ -11,7 +11,7 @@
 	<a href="">다시 테스트하기</a>
 	<a href="">마이페이지</a>
 
-	<img alt="gom_rock" src="resources/images/gom_rock.png" height="1000" width="100">	
+	<img alt="gom_rock" src="resources/images/gom_rock.png" height="500" width="500">	
 	
 	<a>락을 좋아하는 당신은 슈팅스타!</a>
 	<a>손 머리 위로 Hands Up!</a>

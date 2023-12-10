@@ -11,7 +11,7 @@
 	<a href="">다시 테스트하기</a>
 	<a href="">마이페이지</a>
 
-	<img alt="gom_rnb" src="resources/images/gom_rnb.png" height="1000" width="100">	
+	<img alt="gom_rnb" src="resources/images/gom_rnb.png" height="500" width="500">	
 	
 	<a>R&B를 좋아하는 당신은 오레오 쿠키 앤 크림!</a>
 	<a>쿠키에 크림을 맡겨봐~RG?</a>
