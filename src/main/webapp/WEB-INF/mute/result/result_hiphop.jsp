@@ -16,7 +16,7 @@
 			</ul>
 		</nav>
 	</header>
-	<table>
+	<table class="table1">
 		<tr>
 			<td>	
 				<img alt="gom_hiphop" src="resources/images/gom_hiphop.png" height="500" width="500">	
