@@ -16,13 +16,30 @@
 			</ul>
 		</nav>
 	</header>
-	<img alt="gom_ballad" src="resources/images/gom_ballad.png" height="500" width="500">	
+	<table>
+		<tr>
+			<td>	
+				<img alt="gom_ballad" src="resources/images/gom_ballad.png" height="500" width="500">	
+			</td>
+		</tr>
+		<tr>
+			<td><a class="ballad">발라드를 좋아하는 당신은 초코, 우리 이제 헤이즐넛!</a></td>
+		</tr>
+		<tr>
+			<td><a class="ballad">ㄴr는 지금 눈물을 흘린ㄷr..</a></td>
+		</tr>
+		<tr>
+			<td><a>당신을 위한 #발라드 음악</a></td>
+		</tr>
+	</table>
+	
+	<!-- <img alt="gom_ballad" src="resources/images/gom_ballad.png" height="500" width="500">	
 	
 	<a class="ballad">발라드를 좋아하는 당신은 초코, 우리 이제 헤이즐넛!</a>
 	<a class="ballad">ㄴr는 지금 눈물을 흘린ㄷr..</a>
 	
 	<a>당신을 위한 #발라드 음악</a>
-	
+	 -->
 	
 	<a href="">유사한 3곡 다시 추천받기</a>
 </body>
