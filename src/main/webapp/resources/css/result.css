@@ -33,14 +33,18 @@ a{
 	outline: none;
 	font-size: 32px;
 }
+table{
+	margin:auto;
+
+}
 
 .ballad{
 	color:#512626;
 	font-size:50px;
 }
 .classic{
-	color:# ;
-	font-size: ;
+	color:#002EA5 ;
+	font-size: 50px ;
 }
 .dance{
 	color:#FCAD36 ;
@@ -73,4 +77,46 @@ a{
 .trot{
 	color:#FF3232 ;
 	font-size:50px;
+}
+
+
+
+
+
+.top {
+	position: fixed;
+	right: 10px;
+	top: 10px;
+}
+.result {
+	font-size: 50px;
+}
+.tag {
+	font-size: 36px;
+}
+.cover {
+	background-color: #D9D9D9;
+	border-radius: 50%;
+	width: 68px;
+	height: 67px;
+}
+.reco {
+	background-color: #FFE2F8;
+	margin: auto;
+	width: 841px;
+	height: 438px;
+	border-radius: 30px;
+}
+.table {
+	padding-left: 90px;
+	margin: auto;
+	font-size: 28px;
+}
+td {
+	padding-bottom: 10px;
+	padding-right: 90px;
+}
+.rereco {
+	font-size: 28px;
+	text-decoration: none;
 }

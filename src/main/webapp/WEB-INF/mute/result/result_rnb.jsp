@@ -16,14 +16,32 @@
 			</ul>
 		</nav>
 	</header>
-	<img alt="gom_rnb" src="resources/images/gom_rnb.png" height="500" width="500">	
+	<table>
+		<tr>
+			<td>	
+				<img alt="gom_rnb" src="resources/images/gom_rnb.png" height="500" width="500">	
+			</td>
+		</tr>
+		<tr>
+			<td><a class="rnb">R&B를 좋아하는 당신은 오레오 쿠키 앤 크림!</a></td>
+		</tr>
+		<tr>
+			<td><a class="rnb">쿠키에 크림을 맡겨봐~RG?</a></td>
+		</tr>
+		<tr>
+			<td><a>당신을 위한 #R&B 음악</a></td>
+		</tr>
+	</table>
+	
+	<!-- <img alt="gom_rnb" src="resources/images/gom_rnb.png" height="500" width="500">	
 	
 	<a class="rnb">R&B를 좋아하는 당신은 오레오 쿠키 앤 크림!</a></br>
 	<a class="rnb">쿠키에 크림을 맡겨봐~RG?</a>
 	
 	<a>당신을 위한 #R&B 음악</a>
+	-->
 	
+	<a href="">유사한 3곡 다시 추천받기</a> 
 	
-	<a href="">유사한 3곡 다시 추천받기</a>
 </body>
 </html>

@@ -16,12 +16,29 @@
 			</ul>
 		</nav>
 	</header>
-	<img alt="gom_hiphop" src="resources/images/gom_hiphop.png" height="500" width="500">	
+	<table>
+		<tr>
+			<td>	
+				<img alt="gom_hiphop" src="resources/images/gom_hiphop.png" height="500" width="500">	
+			</td>
+		</tr>
+		<tr>
+			<td><a class="hiphop">힙합을 좋아하는 당신은 민트초콜릿 칩!</a></td>
+		</tr>
+		<tr>
+			<td><a class="hiphop">어쩔 민초 저쩔 힙합~</a></td>
+		</tr>
+		<tr>
+			<td><a>당신을 위한 #힙합 음악</a></td>
+		</tr>
+	</table>
+	
+	<!-- <img alt="gom_hiphop" src="resources/images/gom_hiphop.png" height="500" width="500">	
 	
 	<a class="hiphop">힙합을 좋아하는 당신은 민트초콜릿 칩!</a></br>
 	<a class="hiphop">어쩔 민초 저쩔 힙합~</a>
 	
-	<a>당신을 위한 #힙합 음악</a>
+	<a>당신을 위한 #힙합 음악</a> -->
 	
 	
 	<a href="">유사한 3곡 다시 추천받기</a>
