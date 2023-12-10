@@ -10,7 +10,6 @@
 	font-family: 'KOTRAHOPE';
 	font-weight: 50;
 	text-align:center;
-	color:#002EA5;
 }
 header {
     padding: 10px;
@@ -29,6 +28,7 @@ ul{
     cursor: pointer;
 }
 a{
+	color: inherit;
 	text-decoration: none;
 	outline: none;
 	font-size: 32px;
@@ -106,12 +106,12 @@ table{
 .reco {
 	background-color: #FFE2F8;
 	margin: auto;
-	width: 841px;
+	width: 900px;
 	height: 438px;
 	border-radius: 30px;
 }
 .table2 {
-	padding-left: 90px;
+	padding-left: 80px;
 	
 	font-size: 28px;
 }

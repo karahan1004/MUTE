@@ -29,7 +29,6 @@
 		<tr>
 			<td><a class="classic">피아노 선율에 너를 맡겨봐♬</a></td>
 		</tr>
-		<tr>
 	</table>
     <br>
     <div class="reco">
@@ -61,8 +60,6 @@
         <br><br><br>
         <a class="rereco" href="">유사한 3곡 다시 추천받기</a>
     </div>
-    <div>
-    </div>
-	
+
 </body>
 </html>
