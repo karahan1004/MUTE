@@ -8,13 +8,13 @@
 <title>MU:TE</title>
 </head>
 <body>
-	<header>
-		<nav>
-			<ul class="header-container">
-				<li class="header-item"><a href="">다시 테스트하기</a></li>
-				<li class="header-item"><a href="">마이페이지</a></li>
-			</ul>
-		</nav>
+	<header class="header">
+		<table>
+			<tr class="header-container">
+				<td class="header-item"><a href="">다시 테스트하기</a></td>
+				<td class="header-item"><a href="">마이페이지</a></td>
+			</tr>
+		</table>
 	</header>
 	<table class="table1">
 		<tr>

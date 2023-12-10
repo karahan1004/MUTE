@@ -12,19 +12,24 @@
 	text-align:center;
 }
 header {
-    padding: 10px;
+    margin: 40px;
+  /*   padding:40px; */
     text-align: right;
+   /*  margin-bottom:40px; */
+    position:fixed;
+    right:65px;
 }
+
 ul{
 	list-style:none;
 }
 .header-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; 
 }
 
 .header-item {
-    margin-left: 20px;
+    margin-left: 50px;
     cursor: pointer;
 }
 a{
@@ -39,6 +44,7 @@ table{
 
 .table1 {
 	padding-left:85px;
+	padding-top:50px;
 }
 
 .ballad{
