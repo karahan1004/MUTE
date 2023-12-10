@@ -8,9 +8,14 @@
 <title>MU:TE</title>
 </head>
 <body>
-	<a href="">다시 테스트하기</a>
-	<a href="">마이페이지</a>
-
+	<header>
+		<nav>
+			<ul class="header-container">
+				<li class="header-item"><a href="">다시 테스트하기</a></li>
+				<li class="header-item"><a href="">마이페이지</a></li>
+			</ul>
+		</nav>
+	</header>
 	<img alt="gom_hiphop" src="resources/images/gom_hiphop.png" height="500" width="500">	
 	
 	<a class="hiphop">힙합을 좋아하는 당신은 민트초콜릿 칩!</a></br>
