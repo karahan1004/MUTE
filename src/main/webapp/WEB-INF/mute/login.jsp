@@ -24,12 +24,10 @@ function clickSpotifyLogin() {
 		<div>
 			<img id="logo" alt="logo" src="resources/images/logo.png" height="385" width="484"><!--로고 -->
 			<h1>간편로그인</h1>
+			<p><img id="spotify" alt="spotify-loginBtn" onclick="location.href='spotify.jsp'" src="resources/images/btn_spotify.png" height="130" width="450"></p>
+			<!-- spotifyBtn 이미지 바꿔야 함. 뒷배경 없는 걸로...! -->
 		</div>
 		
-		<div id="id_login">
-			<p><img id="spotify" alt="spotify-loginBtn" onclick="clickSpotifyLogin()" src="resources/images/btn_spotify.png" height="114" width="450"></p>
-		
-		</div>
 		
 	
 	</nav>
