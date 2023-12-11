@@ -29,15 +29,13 @@ h1{
 	text-decoration:none;
 	color:#000000;
 }
-#id_login{
-	position:relative;
-	
-}
 
 
 #spotify {
-    position: absolute;
-    right: 470px; /* Adjust this value as needed */
+
+    align-items:center;
+   	box-shadow:0px 4px 4px 0px #CBCBCB;
+    
 }
 
 
