@@ -55,10 +55,39 @@
                 <td><a><img src="resources/images/play_pl.png"></a></td>
                 <td><a class="star">☆</a></td>
             </tr>
+            
         </table>
         <br><br><br>
         <a class="rereco" href="">유사한 3곡 다시 추천받기</a>
     </div>
 
+
+<!--------====-----------!-->
+
+<div id="button-container">
+    <a id="toggleButton" onclick="toggleButton()">
+        <img id="buttonImage" src="resources/images/play_pl.png" alt="Start">
+    </a>
+</div>
+
+
+<script>
+
+    let isPaused = false;
+
+    function toggleButton() {
+        const button = document.getElementById('toggleButton');
+        const buttonImage = document.getElementById('buttonImage');
+
+        isPaused = !isPaused;
+
+        if (isPaused) {
+            buttonImage.src = 'resources/images/pause_pl.png';
+        } else {
+            buttonImage.src = 'resources/images/play_pl.png';
+        }
+    }
+</script>
+	<!--------====-----------!-->
 </body>
 </html>
