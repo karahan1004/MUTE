@@ -22,11 +22,14 @@ function clickSpotifyLogin() {
 
 	<nav>
 		<div>
-			<img id="logo" alt="logo" src="resources/images/mutelogo.png" height="385" width="484"><!--로고 -->
+			<img id="logo" alt="logo" src="resources/images/mutelogo.png" height="385" width="385"><!--로고 -->
 			<h1>간편로그인</h1>
+			<br><br>
 <!-- 			<p><img id="spotify" alt="spotify-loginBtn" onclick="location.href='spotify.jsp'" src="resources/images/btn_spotify.png" height="130" width="450"></p>
  -->			<!-- spotifyBtn 이미지 바꿔야 함. 뒷배경 없는 걸로...! -->
-			<input type="button" id="spotify-btn">
+			<button id="spotify-btn" type="button" onclick="location.href='spotifyLogin'">hi</button>
+			
+			
 		</div>
 		
 		
