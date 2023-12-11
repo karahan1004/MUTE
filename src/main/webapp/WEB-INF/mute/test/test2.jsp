@@ -3,7 +3,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="resources/css/test.css">
-    <title>오늘따라 우울한 당신의 플레이리스트는?</title>
+    <title>MU:TE</title>
     <script>
         var danceValue = 0;
         var discoValue = 0;
@@ -49,7 +49,10 @@
     </script>
 </head>
 <body>
-    <h1>Q2. 음악은 이렇게 즐겨야지~</h1>
+<div class="question">
+    <h1>Q2.    
+    <br>음악은 이렇게 즐겨야지~
+    </h1><br>
     <form action="result.jsp" method="post">
 		
         <button type="button" class="btn" onclick="location.href='test3'">클럽에서 신나게! 스피커 볼륨 최대로~</button>
@@ -72,5 +75,6 @@
         <input type="hidden" id="rnbValue" name="rnbValue" value="">
 
     </form>
+    </div>
 </body>
 </html>

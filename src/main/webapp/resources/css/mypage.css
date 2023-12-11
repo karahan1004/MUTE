@@ -16,53 +16,51 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
 }
-h1{
-	font-size:60px;
+.pl{
+	font-size:40px;
+}
+#head{
+	width:100%;
 }
 #mainpage {
 	width:100px;
     height:100px;
 }
 
-#logo {
-     width:200px;
-    height:200px;
+.logo {
+     width:160px;
+    height:160px;
+}
+.pl{
+	font-size: 40px;
 }
 
-
-.line {
-    /*border: none;*/
-    border-top: 3px solid #FFC6F2;
-}
 .myplay{
 	display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 30px;
-    margin-bottom:10;
+    padding: 10px;
+    margin-bottom:10px;
 }
 h2{
 	font-size:45px;
 }
+.back {
+	width: 120px;
+	height: 120px;
 
-.playlists {
-    /*display: flex;
-    flex-direction: column;
-      align-items: center;
-    padding: 20px;*/
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 30px;
-    font-size:40px;
+}
+.backft {
+	bottom: 0;
+	color: lightgray;
+	font-size: 32px;
+	text-decoration-line:none;
 }
 
-a {
-    text-decoration: none;
-    color: #333; /* 링크 색상 */
-    padding: 5px 0;
+#plname {
+    display:block;
+    margin-bottom:10px;
     font-size:40px;
 }
 
