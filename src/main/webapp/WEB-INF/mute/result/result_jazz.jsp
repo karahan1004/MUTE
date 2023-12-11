@@ -42,21 +42,21 @@
                 <td><div class="cover"></div></td>
                 <td>힙합왕</td>
                 <td>아티스트명</td>
-                <td><a><img src="resources/images/Group 4.png"></a></td>
+                <td><a><img src="resources/images/play_pl.png"></a></td>
                 <td><a class="star">☆</a></td>
             </tr>
             <tr>
                 <td><div class="cover"></div></td>
                 <td>힙합왕</td>
                 <td>아티스트명</td>
-                <td><a><img src="resources/images/Group 4.png"></a></td>
+                <td><a><img src="resources/images/play_pl.png"></a></td>
                 <td><a class="star">☆</a></td>
             </tr>
             <tr>
                 <td><div class="cover"></div></td>
                 <td>힙합왕</td>
                 <td>아티스트명</td>
-                <td><a><img src="resources/images/Group 4.png"></a></td>
+                <td><a><img src="resources/images/play_pl.png"></a></td>
                 <td><a class="star">☆</a></td>
             </tr>
         </table>
