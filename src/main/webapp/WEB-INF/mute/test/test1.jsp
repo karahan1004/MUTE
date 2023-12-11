@@ -3,7 +3,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="resources/css/test.css">
-    <title>오늘따라 우울한 당신의 플레이리스트는?</title>
+    <title>MU:TE</title>
     <script>
    		 /* 장르별 value 변수 설정 */
         var danceValue = 0;
@@ -50,7 +50,8 @@
     </script>
 </head>
 <body>
-    <h1>Q1. 오늘따라 우울한 당신! 지금 당신의 플레이리스트는?</h1>
+<div class="question">
+    <h1>Q1.<br> 오늘따라 우울한 당신! <br>지금 당신의 플레이리스트는?</h1>
     <form action="result.jsp" method="post">
 		<!-- 버튼 클릭시 다음 test페이지 이동 + 각 선택지 별 해당하는 장르 count++(구현 예정..어렵다) -->
         <button type="button" class="btn" onclick="location.href='test2'">분위기 바꿔! 기분 전환용 댄스파뤼</button>
@@ -75,5 +76,6 @@
         <input type="hidden" id="rnbValue" name="rnbValue" value="">
 
     </form>
+    </div>
 </body>
 </html>
