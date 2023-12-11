@@ -75,12 +75,31 @@
 }
 
 /* 여기서부터 css 정리 */
+
+#navi-foot{
+	width:100%;
+}
+
 .si_btn{
 	width:10%;
 }
 
-#navi-foot{
-	width:100%;
+.bt_img{
+	float:right;
+	width:50px;
+	height:50px;
+}
+
+.ft_img{
+	width:50px;
+	height:50px;
+	float:center;
+}
+
+.at_img{
+	float: left;
+	width:50px;
+	height:50px;
 }
 
 .si_foot{
@@ -96,24 +115,6 @@
 
 .sa_btn{
 	width:10%;
-}
-
-.ft_img{
-	width:50px;
-	height:50px;
-	float:center;
-}
-
-.bt_img{
-	float:right;
-	width:50px;
-	height:50px;
-}
-
-.at_img{
-	float: left;
-	width:50px;
-	height:50px;
 }
 
 .so_img{
