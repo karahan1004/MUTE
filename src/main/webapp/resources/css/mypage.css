@@ -10,12 +10,9 @@
 	font-family: 'KOTRAHOPE';
 	font-weight: 50;
 	text-align:center;
-	color:#002EA5;
 }
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+h2{
+	text-align:center;
 }
 .pl{
 	font-size:40px;
@@ -42,9 +39,7 @@
     justify-content: space-between;
     padding: 10px;
     margin-bottom:10px;
-}
-h2{
-	font-size:45px;
+    
 }
 
 .back {
@@ -61,16 +56,38 @@ h2{
 	font-size: 32px;
 	text-decoration-line:none;
 }
-.playListTable{
+.playListTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.mypl{
+	font-size:40px;
 	
 }
-#plname {
-	text-align:center;
-    display:block;
-    margin-bottom:10px;
-    font-size:30px;
+.playListTable tbody tr {
+	margin-bottom:50px;
 }
-#move{
-	text-decoration:none;
+.playListTable td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px;
+  
 }
+
+#plname a {
+  text-decoration: none;
+  color:black;
+  font-size: 30px;
+  display: block;
+  margin-bottom: 10px;
+  text-align:left;
+}
+
+.cover {
+  max-width: 100px; /* 이미지 최대 너비를 원하는 값으로 조절할 수 있습니다. */
+  height: auto;
+  display: block;
+  margin: 0 auto; /* 이미지를 가운데로 정렬합니다. */
+}
+
 
