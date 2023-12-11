@@ -15,79 +15,75 @@
 	text-align: center;
 }
 
-#navi-head{
-	width:100%;
+#navi-head {
+	width: 100%;
 }
-
 
 .back {
 	width: 120px;
 	height: 120px;
-
 }
 
 .backft {
 	bottom: 0;
 	color: lightgray;
 	font-size: 32px;
-	text-decoration-line:none;
+	text-decoration-line: none;
 }
 
-.pl{
-	font-size:40px;
+.pl {
+	font-size: 40px;
 }
 
-.logo{
+.logo {
 	width: 160px;
 	height: 160px;
-	
 }
 
-.si{
+.si {
 	font-size: 30px;
-	width:30%;
-	text-align:left;
+	width: 30%;
+	text-align: left;
 }
 
-.pi{
-	width:25%;
-	text-align:center;
+.pi {
+	width: 25%;
+	text-align: center;
 }
 
-.ga{
-	text-align:left;
-	width:25%;
-	font-size:30px;
-	
-}
-.del{
-	width:20%;
+.ga {
+	text-align: left;
+	width: 25%;
+	font-size: 30px;
 }
 
-.del_img{
-	width:30px;
-	height:40px;
-	float:left;
+.del {
+	width: 20%;
 }
 
-#sing-mi{
-	width:100%;
+.del_img {
+	width: 30px;
+	height: 40px;
+	float: left;
+}
+
+#sing-mi {
+	width: 100%;
 }
 
 /* 여기서부터 css 정리 */
-
-#navi-foot{
-	width:100%;
+#navi-foot {
+	width: 100%;
 }
 
-.si_btn{
-	width:10%;
+.si_btn {
+	width: 10%;
 }
 
-.bt_img{
-	float:right;
-	width:50px;
-	height:50px;
+.bt_img {
+	float: right;
+	width: 50px;
+	height: 50px;
 }
 
 /* .ft_img{
@@ -95,31 +91,51 @@
 	height:50px;
 	float:center;
 } */
-
-.at_img{
+.at_img {
 	float: left;
-	width:50px;
-	height:50px;
+	width: 50px;
+	height: 50px;
 }
 
-.si_foot{
-	width:30%;
-	font-size:30px;
+.si_foot {
+	width: 30%;
+	font-size: 30px;
 }
 
-.ga_foot{
+.ga_foot {
 	width: 20%;
-	font-size:30px;
-	text-align:left;
+	font-size: 30px;
+	text-align: left;
 }
 
-.sa_btn{
-	width:10%;
+.sa_btn {
+	width: 10%;
 }
 
-.so_img{
-	float:left;
-	width:50px;
-	height:50px;
+.so_img {
+	float: left;
+	width: 50px;
+	height: 50px;
 }
 
+/* .volume-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .volume-slider {
+      display: none;
+      position: absolute;
+      top: -30px; 바를 위로 올리기
+      left: 50%; 바를 가운데 정렬
+      transform: translateX(-50%); 가운데 정렬을 위한 조정
+      width: 100px;
+    }
+
+    .volume-container.active .volume-slider {
+      display: block;
+    } */
+    
+.volume-slider {
+      display: none;
+    }
