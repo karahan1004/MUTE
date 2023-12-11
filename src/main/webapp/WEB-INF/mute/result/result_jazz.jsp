@@ -11,7 +11,7 @@
 	<header>
 		<nav>
 			<ul class="header-container">
-				<li class="header-item"><a href="http://localhost:9088/MUTE/result_classic">다시 테스트하기</a></li>
+				<li class="header-item"><a href="http://localhost:9088/MUTE/main">다시 테스트하기</a></li>
 				<li class="header-item"><a href="">마이페이지</a></li>
 			</ul>
 		</nav>
