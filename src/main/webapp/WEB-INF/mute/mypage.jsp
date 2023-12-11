@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/mypage.css">
-<title>MU:TE My Page</title>
+<title>MU:TE</title>
 </head>
 <body>
 
@@ -30,17 +30,25 @@
 	    <!-- div 테이블로 변경해보자 -->
 	  
 	        <table class="playListTable">
+	       
 	        	<tr>
-	        		<td id="plname"><img class="back"
-				src="resources/images/gom_button.png">너무 우울해서 노래 플리 담았어ㅜㅜ</td>
-	        		<td id="plname"><img class="back"
-				src="resources/images/gom_button.png">너무 우울해서 노래 플리 담았어ㅜㅜ</td>
-	        		<td id="plname"><img class="back"
-				src="resources/images/gom_button.png">너무 우울해서 노래 플리 담았어ㅜㅜ</td>
-	        		<td id="plname"><img class="back"
-				src="resources/images/gom_button.png">너무 우울해서 노래 플리 담았어ㅜㅜ</td>
-	        	</tr>
-	        
+	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
+					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
+					<!-- <td class="del"><img class="del_img" src="resources/images/del_pl.png"></td>  -->
+				<tr>
+				<tr>
+	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
+					<td id="plname"><a href="playlist" id="move">사람이 할게 맞는건가?</a></td>
+				<tr>
+				<tr>
+	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
+					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
+				<tr>
+				<tr>
+	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
+					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
+				<tr>
+			 
 	        </table>
 
 </body>
