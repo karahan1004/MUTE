@@ -8,11 +8,12 @@
 <title>MU:TE My Page</title>
 </head>
 <body>
+
 	<div class="header">
 	        <h1>
 			안녕하세요 UserID님~
 			<a href="main">
-			<img id="mainpage" alt="page_gom" src="resources/images/page_gom.png">
+			<img id="mainpage" alt="page_gom" src="resources/images/gom_button.png">
 			</a>
 			</h1>
 	        <img id="logo" alt="logo" src="resources/images/mutelogo.png">
@@ -21,7 +22,7 @@
 	    <div class="myplay">
 	   		<h2>내 플레이리스트</h2>
 	    </div>
-	    
+	    <!-- div 테이블로 변경해보자 -->
 	    <div class="playlists">
 	    	<!--  -->
 	        <a href="playlist">너무 우울해서 노래 플리 담았어ㅜㅜ</a>
