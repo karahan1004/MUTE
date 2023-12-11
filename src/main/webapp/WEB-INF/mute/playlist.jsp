@@ -60,7 +60,7 @@
 			<tr>
 			<!-- 클래스명 정리 싹 해야됨 -->
 				<td class="si_btn"><img class="bt_img" src="resources/images/beforre_pl.png"></td>
-				<td class="si_btn"><img class="ft_img" src="resources/images/play_pl.png"></td>
+				<td class="si_btn"><img id="ft_img" onclick="toggleImg()" src="resources/images/play_pl.png"></td>
 				<td class="si_btn"><img class="at_img" src="resources/images/afterr_pl.png"></td>
 				<td class="si_btn"><img class="back" src="resources/images/gom_button.png"></td>
 				<td class="si_foot">노래 이름</td>
@@ -69,5 +69,21 @@
 			</tr>
 		</table>
 	</footer>
+	
+	<script>
+  var originalImgSrc = "resources/images/play_pl.png";
+  var altImgSrc = "resources/images/pause_pl.png";
+
+  function toggleImg() {
+    var imgElement = document.getElementById("ft_img");
+    if (imgElement.getAttribute("src") === originalImgSrc) {
+      imgElement.src = altImgSrc;
+    } else {
+      imgElement.src = originalImgSrc;
+    }
+  }
+</script>
+
+	
 </body>
 </html>
