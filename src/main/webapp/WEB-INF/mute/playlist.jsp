@@ -53,12 +53,12 @@
 	<footer>
 		<table id="navi-foot">
 			<tr>
-				<td class="si_btn"><img src="resources/images/before_pl.png"></td>
-				<td class="si_btn"><img src="resources/images/start_pl.png"></td>
-				<td class="si_btn"><img src="resources/images/after_pl.png"></td>
+				<td class="si_btn"><img class="ft_img" src="resources/images/before_pl.png"></td>
+				<td class="si_btn"><img class="ft_img" src="resources/images/start_pl.png"></td>
+				<td class="si_btn"><img class="ft_img" src="resources/images/after_pl.png"></td>
 				<td class="si_foot">노래 이름</td>
 				<td class="ga_foot">가수 이름</td>
-				<td class="sa_btn"><img src="resources/images/sound_pl.png"></td>
+				<td class="sa_btn"><img class="ft_img" src="resources/images/sound_pl.png"></td>
 			</tr>
 		</table>
 	</footer>
