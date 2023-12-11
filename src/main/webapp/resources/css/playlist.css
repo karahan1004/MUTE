@@ -45,7 +45,7 @@
 
 .si{
 	font-size: 30px;
-	width:40%;
+	width:30%;
 	text-align:left;
 }
 
@@ -56,9 +56,18 @@
 
 .ga{
 	text-align:left;
-	width:35%;
+	width:25%;
 	font-size:30px;
 	
+}
+.del{
+	width:20%;
+}
+
+.del_img{
+	width:30px;
+	height:40px;
+	float:left;
 }
 
 #sing-mi{
