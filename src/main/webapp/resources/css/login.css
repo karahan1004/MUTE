@@ -39,7 +39,11 @@ h1{
 }
 
 
-
+#spotify-btn{
+	background:"resources/images/btn_spotify.png" no-repeat;
+	height:114px;
+	width:450px;
+}
 #logo{
 	margin:0;
 }
