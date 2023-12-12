@@ -10,13 +10,14 @@
 	font-family: 'KOTRAHOPE';
 	font-weight: 50;
 	text-align:center;
+	
 }
 header {
     margin: 40px;
   /*   padding:40px; */
     text-align: right;
    /*  margin-bottom:40px; */
-  /*   position:fixed; */
+    position:fixed;
     right:65px;
 }
 
@@ -109,21 +110,27 @@ table{
 	width: 68px;
 	height: 67px;
 }
+.con{
+	width:100%;
+}
 .reco {
 	background-color: #FFE2F8;
 	margin: auto;
-	width: 900px;
-	height: 438px;
+	width: 45%;
+	/* height: 30%; */
 	border-radius: 30px;
 }
 .table2 {
 	/* padding: 90px; */
 	font-size: 28px;
+	/* border:1px solid; */
 }
 .table2 td {
-	padding-bottom: 10px;
-	padding-right: 50px;
-	padding-left: 50px;
+	/* padding-bottom: 10px;
+	padding-right: 50px; 
+	padding-left: 20px;*/
+	padding: 25px;
+	/* border:1px solid; */
 }
 .rereco {
 	font-size: 28px;
@@ -145,14 +152,14 @@ table{
         font-size: 14px;
     }
 
-    .reco {
-        width: 90%;
-    }
+     .reco {
+        width: 50%;
+    } 
 }
 
 @media (max-width: 800px) {
     .reco {
-        width: 70%;
+        width: 50%;
     }
 
     .table2 {
@@ -167,7 +174,7 @@ table{
 
 @media (max-width: 1200px) {
     .reco {
-        width: 50%;
+        width: 60%;
     }
 
     .table2 {
@@ -178,5 +185,12 @@ table{
 @media (max-width: 1600px) {
     .reco {
         width: 60%;
+    }
+}
+
+@media (max-width: 1800px) {
+    /* 추가적인 스타일을 필요에 따라 작성하세요. */
+    .reco {
+        width: 85%;
     }
 }
