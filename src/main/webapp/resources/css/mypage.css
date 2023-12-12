@@ -14,7 +14,9 @@
 #navi-head {
 	width: 100%;
 }
-
+.head-ba{
+	width:20%;
+}
 .back {
 	width: 120px;
 	height: 120px;
@@ -27,9 +29,15 @@
 	text-decoration-line: none;
 	
 }
-
+.head-na{
+	width:60%;
+}
 .pl {
 	font-size: 40px;
+}
+
+.head-lg{
+	width:20%;
 }
 
 .logo {
@@ -37,20 +45,11 @@
 	height: 160px;
 }
 
-
 .cover{
 	width: 120px;
 	height: 120px;
 }
 
-.myplay{
-	display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    margin-bottom:10px;
-    
-}
 .playListTable {
   width: 80%;
   margin: auto; /* 테이블을 가운데 정렬합니다. */
@@ -85,8 +84,8 @@
 }
 
 .del_img {
-	width: 30px;
-	height: 40px;
+	width: 45px;
+	height: 45px;
 }
 .edit {
 	width: 20%;
