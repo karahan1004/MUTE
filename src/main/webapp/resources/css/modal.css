@@ -42,5 +42,12 @@ a{
 	text-decoration: none;
 	outline: none;
 	font-size: 32px;
+}
+
+.close-btn {
+	width:97px !important;
+	height:43px !important;
+	background-color:#FFC6F2 !important;
 	
 }
+
