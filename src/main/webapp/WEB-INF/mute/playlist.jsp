@@ -11,14 +11,14 @@
 	<header>
 		<table id="navi-head">
 			<tr>
-				<td><img class="back" href=""
-					src="resources/images/gom_button.png"></td>
+				<td><a href="mypage"><img class="back"
+					src="resources/images/gom_button.png"></a></td>
 				<td rowspan="2"><a class="pl">플레이리스트 이름</a></td>
 				<td rowspan="2"><img class="logo"
 					src="resources/images/mutelogo.png"></td>
 			</tr>
 			<tr>
-				<td><a class="backft" href="">뒤로가기</a></td>
+				<td><a class="backft" href="mypage">뒤로가기</a></td>
 			</tr>
 		</table>
 	</header>
