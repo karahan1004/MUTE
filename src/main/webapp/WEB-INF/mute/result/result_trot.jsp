@@ -24,7 +24,7 @@
 	<header>
 		<nav>
 			<ul class="header-container">
-				<li class="header-item"><a href="http://localhost:9088/MUTE/main" style="color: black;">다시 테스트하기</a></li>
+				<li class="header-item"><a href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></li>
 				<li class="header-item"><a href="" style="color: black;">마이페이지</a></li>
 			</ul>
 		</nav>
@@ -123,9 +123,9 @@
 					</tr>
 				</table>
 				<br>
-				 <button class="close-btn" onclick="toggleModal('addModal')">닫기</button>
+				 <button class="close-btn" onclick="toggleModal('addModal')" >닫기</button>
 				<div id="add">
-					<button type="button" class="btn text-body" data-toggle="modal" data-target="#modalplus">+ 새로운 플레이리스트 </button>
+					<button type="button" class="btn text-body large-button" data-toggle="modal" data-target="#modalplus"  style="font-size: 24px;">+ 새로운 플레이리스트 </button>
 				</div>
 			</form>
 		</div>
@@ -144,10 +144,10 @@
 			        </button> -->
 	      </div>
 	      <div class="modal-body">
-	        <p>모달 내용</p>
+	         <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요"></textarea>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <button type="button" class="close-btn" data-dismiss="modal">확인</button>
 	      </div>
 	    </div>
 	  </div>

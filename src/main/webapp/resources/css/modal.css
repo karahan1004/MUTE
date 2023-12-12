@@ -36,22 +36,18 @@
 	font-size:27px;
 }
 
-a{
-	color: inherit;
-	text-decoration: none;
-	outline: none;
-	font-size: 32px;
-}
-
 .close-btn {
 	width:80px !important;
 	height:43px !important;
 	background-color:#FFC6F2 !important;
 	border: none;
 	border-radius:10px;
-	font-size:20px;
+	font-size:24px;
 }
 #modaltable{
 	padding:15px;
 	
+}
+#modalContent{
+	font-size:24px;
 }
