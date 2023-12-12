@@ -50,18 +50,18 @@
 </head>
 <body>
 <div class="question">
-    <h1><br>Q2.    
-    <br>음악은 이렇게 즐겨야지~
+    <h1>Q3.    
+    <br>친구가 음악을<br> 추천해 달라고 했을 때 당신의 반응은?
     </h1><br>
     <form action="result.jsp" method="post">
 		
-        <button type="button" class="btn" onclick="location.href='test3'">클럽에서 신나게! 스피커 볼륨 최대로~</button>
+        <button type="button" class="btn" onclick="location.href='test4'">너 말해봤자 모를걸?</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">와인바에서 잔잔하게! 소음따윈 가볍게 무시한다는 마인드</button>
+        <button type="button" class="btn" onclick="location.href='test4'">너 이거 몰라?</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">햇살을 맞으며 창가에서 커피 한 잔 할래용~</button>
+        <button type="button" class="btn" onclick="location.href='test4'">음악은 역시 클래식이지!</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">대한민국 음악의 중심은 바로 나! 엄마 난 커서 가수가 될래요!</button>
+        <button type="button" class="btn" onclick="location.href='test4'">내가 요즘 노래를 잘 몰라서…ㅜ</button>
 
         <input type="hidden" id="danceValue" name="danceValue" value="">
         <input type="hidden" id="discoValue" name="discoValue" value="">

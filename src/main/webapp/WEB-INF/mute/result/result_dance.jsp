@@ -92,10 +92,14 @@
 
 	<!-- ================================================ -->
 	<!-- The Modal -->
-	<div class="modal" id="addModal">
-		<div class="modal-content modal-lg ">
-			<form name="rf" id="rf">
-				<table id="modaltable">
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+        <div class="modal-dialog modal-md" role="document">
+        
+            <div class="modal-content">
+            
+                <form name="rf" id="rf">
+                    <table id="modaltable">
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
 						<td class="td"><a class="pltitle text-body" href="">너무
@@ -118,22 +122,21 @@
 					</tr>
 				</table>
 				<br>
-				<button class="close-btn" onclick="closeModal()">닫기</button>
+				 <button class="close-btn" onclick="toggleModal('addModal')">닫기</button>
 				<div id="add">
-					<a class="text-body" href="">+ 새로운 플레이리스트 </a>
+					<button type="button" class="btn text-body" data-toggle="modal" data-target="#modalplus">+ 새로운 플레이리스트 </button>
 				</div>
 			</form>
 		</div>
+		</div>
 	</div>
+	
+	
 	<script>
 	
-	function openModal() {
-		document.getElementById("addModal").style.display = "block";
-	}
-
-	function closeModal() {
-		document.getElementById("addModal").style.display = "none";
-	}
+	function toggleModal(modalId) {
+        $('#' + modalId).modal('show');
+    }
 
 	let isPaused = false;
 

@@ -57,7 +57,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton1" onclick="toggleButton1()"> <img
 						id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus1" onclick="openModal(); togglePlus1()">
+				<td><a id="togglePlus1" onclick="toggleModal('addModal'); togglePlus1()">
 						<img id="buttonPlus1" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -68,7 +68,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton2" onclick="toggleButton2()"> <img
 						id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus2" onclick="openModal(); togglePlus2();">
+				<td><a id="togglePlus2" onclick="toggleModal('addModal'); togglePlus2();">
 						<img id="buttonPlus2" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -79,7 +79,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton3" onclick="toggleButton3()"> <img
 						id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus3" onclick="openModal(); togglePlus3();">
+				<td><a id="togglePlus3" onclick="toggleModal('addModal'); togglePlus3();">
 						<img id="buttonPlus3" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -94,10 +94,14 @@
 
 	<!-- ================================================ -->
 	<!-- The Modal -->
-	<div class="modal" id="addModal">
-		<div class="modal-content modal-lg ">
-			<form name="rf" id="rf">
-				<table id="modaltable">
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+        <div class="modal-dialog modal-md" role="document">
+        
+            <div class="modal-content">
+            
+                <form name="rf" id="rf">
+                    <table id="modaltable">
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
 						<td class="td"><a class="pltitle text-body" href="">너무
@@ -120,22 +124,21 @@
 					</tr>
 				</table>
 				<br>
-				<button class="close-btn" onclick="closeModal()">닫기</button>
+				 <button class="close-btn" onclick="toggleModal('addModal')">닫기</button>
 				<div id="add">
-					<a class="text-body" href="">+ 새로운 플레이리스트 </a>
+					<button type="button" class="btn text-body" data-toggle="modal" data-target="#modalplus">+ 새로운 플레이리스트 </button>
 				</div>
 			</form>
 		</div>
+		</div>
 	</div>
+	
+	
 	<script>
 	
-	function openModal() {
-		document.getElementById("addModal").style.display = "block";
-	}
-
-	function closeModal() {
-		document.getElementById("addModal").style.display = "none";
-	}
+	function toggleModal(modalId) {
+        $('#' + modalId).modal('show');
+    }
 
 	let isPaused = false;
 

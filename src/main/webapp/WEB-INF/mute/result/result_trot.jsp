@@ -24,7 +24,7 @@
 	<header>
 		<nav>
 			<ul class="header-container">
-				<li class="header-item"><a href="http://localhost:9088/MUTE/main" style="color: black;">다시 테스트하기</a></li>
+				<li class="header-item"><a href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></li>
 				<li class="header-item"><a href="" style="color: black;">마이페이지</a></li>
 			</ul>
 		</nav>
@@ -56,7 +56,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton1" onclick="toggleButton1()"> <img
 						id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus1" onclick="openModal(); togglePlus1()">
+				<td><a id="togglePlus1" onclick="toggleModal('addModal');  togglePlus1()">
 						<img id="buttonPlus1" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -67,7 +67,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton2" onclick="toggleButton2()"> <img
 						id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus2" onclick="openModal(); togglePlus2();">
+				<td><a id="togglePlus2" onclick="toggleModal('addModal'); togglePlus2();">
 						<img id="buttonPlus2" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -78,7 +78,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton3" onclick="toggleButton3()"> <img
 						id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus3" onclick="openModal(); togglePlus3();">
+				<td><a id="togglePlus3" onclick="toggleModal('addModal'); togglePlus3();">
 						<img id="buttonPlus3" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -93,10 +93,14 @@
 
 	<!-- ================================================ -->
 	<!-- The Modal -->
-	<div class="modal" id="addModal">
-		<div class="modal-content modal-lg ">
-			<form name="rf" id="rf">
-				<table id="modaltable">
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+        <div class="modal-dialog modal-md" role="document">
+        
+            <div class="modal-content">
+            
+                <form name="rf" id="rf">
+                    <table id="modaltable">
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
 						<td class="td"><a class="pltitle text-body" href="">너무
@@ -119,45 +123,55 @@
 					</tr>
 				</table>
 				<br>
-				<button class="close-btn" onclick="closeModal()">닫기</button>
+				 <button class="close-btn" onclick="toggleModal('addModal')" >닫기</button>
 				<div id="add">
-					<button type="button" class="btn text-body" data-toggle="modal" data-target="#modalplus">+ 새로운 플레이리스트 </button>
+					<button type="button" class="btn text-body large-button" data-toggle="modal" data-target="#modalplus"  style="font-size: 24px;">+ 새로운 플레이리스트 </button>
 				</div>
 			</form>
 		</div>
+		</div>
 	</div>
+	
+		
+	
 	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h3 class="modal-title">플레이리스트 이름을 입력하세요</h5>
+	        <h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
 			        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button> -->
 	      </div>
 	      <div class="modal-body">
-	        <p>모달 내용</p>
+	         <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" ></textarea>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <button type="button" class="close-btn" data-dismiss="modal">확인</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 	
 	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	    var tareset = document.querySelector('#modalplus .close-btn');
+	    var mct = document.getElementById('modalContent');
+	    
+	    tareset.addEventListener('click', function () {
+	      mct.value = '';
+	    });
+	  });
 	
-	function openModal() {
-		document.getElementById("addModal").style.display = "block";
-	}
-
-	function closeModal() {
-		document.getElementById("addModal").style.display = "none";
-	}
-
-	let isPaused = false;
-
-	function toggleButton1() {
+	
+	
+	function toggleModal(modalId) {
+        $('#' + modalId).modal('show');
+    }
+	
+    let isPaused = false;
+    
+    function toggleButton1() {
 		const buttonImage = document.getElementById('buttonImage1');
 		isPaused = !isPaused;
 		if (isPaused) {
