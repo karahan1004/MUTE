@@ -52,7 +52,7 @@
 				<td><a id="toggleButton1" onclick="toggleButton1()"> <img
 						id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
 				<td><a id="toggleStar1" onclick="openModal(); toggleStar1()">
-						<img id="buttonStar1" src="resources/images/base_star.png"
+						<img id="buttonStar1" src="resources/images/plus_pl.png"
 						alt="base">
 				</a></td>
 			</tr>
@@ -63,7 +63,7 @@
 				<td><a id="toggleButton2" onclick="toggleButton2()"> <img
 						id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
 				<td><a id="toggleStar2" onclick="openModal(); toggleStar2();">
-						<img id="buttonStar2" src="resources/images/base_star.png"
+						<img id="buttonStar2" src="resources/images/plus_pl.png"
 						alt="base">
 				</a></td>
 			</tr>
@@ -74,7 +74,7 @@
 				<td><a id="toggleButton3" onclick="toggleButton3()"> <img
 						id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
 				<td><a id="toggleStar3" onclick="openModal(); toggleStar3();">
-						<img id="buttonStar3" src="resources/images/base_star.png"
+						<img id="buttonStar3" src="resources/images/plus_pl.png"
 						alt="base">
 				</a></td>
 			</tr>
@@ -89,7 +89,7 @@
 	<!-- The Modal -->
 	<div class="modal" id="addModal">
 		<div class="modal-content modal-lg ">
-			<span class="close-btn" onclick="closeModal()">x</span>
+			
 			<form name="rf" id="rf">
 				<table id="modaltable">
 					<tr>
@@ -114,6 +114,7 @@
 					</tr>
 				</table>
 				<br>
+				<button class="close-btn" onclick="closeModal()">닫기</button>
 				<div id="add">
 					<a class="text-body" href="">+ 새로운 플레이리스트 </a>
 				</div>
@@ -156,7 +157,8 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
-	let isPlus = false;
+	
+	/* let isPlus = false;
 	function toggleStar1() {
 		const buttonStar = document.getElementById('buttonStar1');
 		isPlus = !isPlus;
@@ -183,7 +185,7 @@
 		} else {
 			buttonStar.src = 'resources/images/base_star.png';
 		}
-	}
+	} */
 </script>
 </body>
 </html>

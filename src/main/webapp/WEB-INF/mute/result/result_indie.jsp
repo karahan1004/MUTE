@@ -92,7 +92,6 @@
 	<!-- The Modal -->
 	<div class="modal" id="addModal">
 		<div class="modal-content modal-lg ">
-			<span class="close-btn" onclick="closeModal()">x</span>
 			<form name="rf" id="rf">
 				<table id="modaltable">
 					<tr>
@@ -117,13 +116,13 @@
 					</tr>
 				</table>
 				<br>
+				<button class="close-btn" onclick="closeModal()">닫기</button>
 				<div id="add">
 					<a class="text-body" href="">+ 새로운 플레이리스트 </a>
 				</div>
 			</form>
 		</div>
 	</div>
-
 	<script>
 	
 	function openModal() {
