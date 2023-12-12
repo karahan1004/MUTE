@@ -45,9 +45,11 @@ a{
 }
 
 .close-btn {
-	width:97px !important;
+	width:80px !important;
 	height:43px !important;
 	background-color:#FFC6F2 !important;
-	
+	border: none;
+	border-radius:10px;
+	font-size:20px;
 }
 

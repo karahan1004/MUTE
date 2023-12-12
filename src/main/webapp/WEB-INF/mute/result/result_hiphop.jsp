@@ -92,7 +92,6 @@
 	<!-- The Modal -->
 	<div class="modal" id="addModal">
 		<div class="modal-content modal-lg ">
-			<span class="close-btn" onclick="closeModal()">x</span>
 			<form name="rf" id="rf">
 				<table id="modaltable">
 					<tr>
