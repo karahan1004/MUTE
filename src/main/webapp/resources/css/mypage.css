@@ -11,17 +11,36 @@
 	font-weight: 50;
 	text-align:center;
 }
-
-.pl{
-	font-size:40px;
+#navi-head {
+	width: 100%;
 }
-#head{
-	width:100%;
+
+.back {
+	width: 120px;
+	height: 120px;
+}
+
+.backft {
+	bottom: 0;
+	color: lightgray;
+	font-size: 32px;
+	text-decoration-line: none;
+	
+}
+
+.pl {
+	font-size: 40px;
 }
 
 .logo {
-     width:160px;
-    height:160px;
+	width: 160px;
+	height: 160px;
+}
+
+
+.cover{
+	width: 120px;
+	height: 120px;
 }
 
 .myplay{
@@ -31,21 +50,6 @@
     padding: 10px;
     margin-bottom:10px;
     
-}
-
-.back {
-	width: 120px;
-	height: 120px;
-}
-.cover{
-	width: 120px;
-	height: 120px;
-}
-.backft {
-	bottom: 0;
-	color: lightgray;
-	font-size: 32px;
-	text-decoration-line:none;
 }
 .playListTable {
   width: 80%;

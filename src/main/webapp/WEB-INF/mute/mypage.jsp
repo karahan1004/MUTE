@@ -10,20 +10,20 @@
 <body>
 <!-- 부트스트랩 적용하기 -->
 	<header>
-		<table id="head">
-		    <tr>
-	    		<td rowspan="3"><a class="pl">안녕하세요 UserID님~</a></td>
-				<td><a href="main"><img class="back" 
-					src="resources/images/gom_button.png"></a></td>
-					
-				<td rowspan="3"><img class="logo"
+		<table id="navi-head">
+			<tr>
+				
+				<td rowspan="2"><a class="pl">안녕하세요 USERID님~</a></td>
+				<td><img class="back" href=""
+					src="resources/images/gom_button.png"></td>
+				<td rowspan="2"><img class="logo"
 					src="resources/images/mutelogo.png"></td>
-				</tr>
-				<tr>
-					<td><a class="backft" href="main">메인페이지</a></td>
-				</tr>
-			</table>
-	    </header>
+			</tr>
+			<tr>
+				<td><a class="backft" href="">메인페이지</a></td>
+			</tr>
+		</table>
+	</header>
 	    <hr>
 	    <!-- div 테이블로 변경해보자 -->
 	  
