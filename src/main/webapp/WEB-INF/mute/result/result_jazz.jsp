@@ -52,32 +52,40 @@
 				<td><div class="cover"></div></td>
 				<td>힙합왕</td>
 				<td>아티스트명</td>
-				<td><a id="toggleButton1" onclick="toggleButton1()">
-					<img id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="toggleStar1" onclick="openModal(); toggleStar1()">
-					<img id="buttonStar1" src="resources/images/base_star.png" alt="base"></a></td>
+				<td><a id="toggleButton1" onclick="toggleButton1()"> <img
+						id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
+				<td><a id="togglePlus1" onclick="openModal(); togglePlus1()">
+						<img id="buttonPlus1" src="resources/images/plus_pl.png"
+						alt="plus">
+				</a></td>
 			</tr>
 			<tr>
 				<td><div class="cover"></div></td>
 				<td>힙합왕</td>
 				<td>아티스트명</td>
-				<td><a id="toggleButton2" onclick="toggleButton2()">
-					<img id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="toggleStar2" onclick="openModal(); toggleStar2();">
-					<img id="buttonStar2" src="resources/images/base_star.png" alt="base"></a></td>
+				<td><a id="toggleButton2" onclick="toggleButton2()"> <img
+						id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
+				<td><a id="togglePlus2" onclick="openModal(); togglePlus2();">
+						<img id="buttonPlus2" src="resources/images/plus_pl.png"
+						alt="plus">
+				</a></td>
 			</tr>
 			<tr>
 				<td><div class="cover"></div></td>
 				<td>힙합왕</td>
 				<td>아티스트명</td>
-				<td><a id="toggleButton3" onclick="toggleButton3()">
-					<img id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="toggleStar3" onclick="openModal(); toggleStar3();">
-					<img id="buttonStar3" src="resources/images/base_star.png" alt="base"></a></td>
+				<td><a id="toggleButton3" onclick="toggleButton3()"> <img
+						id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
+				<td><a id="togglePlus3" onclick="openModal(); togglePlus3();">
+						<img id="buttonPlus3" src="resources/images/plus_pl.png"
+						alt="plus">
+				</a></td>
 			</tr>
 		</table>
-		<br> <br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시
-			추천받기</a><br><br>
+		<br>
+		
+		<br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br><br>
+		
 
 	</div>
 
@@ -118,6 +126,7 @@
 	</div>
 
 	<script>
+	
 	function openModal() {
 		document.getElementById("addModal").style.display = "block";
 	}
@@ -158,37 +167,37 @@
 		}
 	}
 
-	let isPlus = false;
+	/* let isPlus = false;
 
-	function toggleStar1() {
-		const buttonStar = document.getElementById('buttonStar1');
+	function togglePlus1() {
+		const buttonPlus = document.getElementById('buttonPlus1');
 		isPlus = !isPlus;
 		if (isPlus) {
-			buttonStar.src = 'resources/images/plus_star.png';
+			buttonPlus.src = 'resources/images/plus_star.png';
 		} else {
-			buttonStar.src = 'resources/images/base_star.png';
+			buttonPlus.src = 'resources/images/base_star.png';
 		}
 	}
 
-	function toggleStar2() {
-		const buttonStar = document.getElementById('buttonStar2');
+	function togglePlus2() {
+		const buttonPlus = document.getElementById('buttonPlus2');
 		isPlus = !isPlus;
 		if (isPlus) {
-			buttonStar.src = 'resources/images/plus_star.png';
+			buttonPlus.src = 'resources/images/plus_star.png';
 		} else {
-			buttonStar.src = 'resources/images/base_star.png';
+			buttonPlus.src = 'resources/images/base_star.png';
 		}
 	}
 
-	function toggleStar3() {
-		const buttonStar = document.getElementById('buttonStar3');
+	function togglePlus3() {
+		const buttonPlus = document.getElementById('buttonPlus3');
 		isPlus = !isPlus;
 		if (isPlus) {
-			buttonStar.src = 'resources/images/plus_star.png';
+			buttonPlus.src = 'resources/images/plus_star.png';
 		} else {
-			buttonStar.src = 'resources/images/base_star.png';
+			buttonPlus.src = 'resources/images/base_star.png';
 		}
-	}
+	} */
 </script>
 
 </body>
