@@ -1,8 +1,13 @@
 @charset "UTF-8";
 
 
+
 .modal-content {
-	background-color: #EBEBEB;
+	background-color:#EBEBEB !important;
+	opacity:0.95;
+	position: fixed;
+    top: 25%;
+    left: 29%;
 }
 
 .cover1 {
@@ -23,10 +28,19 @@
 	display: flex;
 	justify-content : flex-end;
 	font-size:32px;
+	padding:3px;
 }
 
 .pltitle{
 	display: flex;
 	justify-content : flex-start;
 	font-size:40px;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+	outline: none;
+	font-size: 32px;
+	
 }
