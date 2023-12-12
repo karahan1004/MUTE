@@ -101,11 +101,12 @@
                 <form name="rf" id="rf">
                     <table id="modaltable">
 					<tr>
-						<td class="td"><a class="pltitle text-body" href="">이 플레이리스트를 삭제 하시겠습니까?</a></td>
+						<td class="del-td"><a class="singdel text-body">이 노래를 삭제 하시겠습니까?</a></td>
 					</tr>
 				</table>
 				<br>
-				 <button class="close-btn" onclick="toggleModal('addModal')">닫기</button>
+				<button class="close-btn" onclick="toggleModal('addModal')">삭제</button>
+				<br><br>
 				
 			</form>
 		</div>

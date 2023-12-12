@@ -138,16 +138,16 @@
 	
 }
 
-.td {
+.del-td {
 	padding:20px;
 	padding-right:40px;
 	padding-bottom:30px;
 }
 
-.pltitle{
+.singdel{
 	display: flex;
 	justify-content : flex-start;
-	font-size:40px;
+	font-size:36px;
 	text-align:center;
 }
 
@@ -157,6 +157,7 @@ a{
 	outline: none;
 	font-size: 32px;
 }
+
 .close-btn {
 	width:80px !important;
 	height:43px !important;
