@@ -11,26 +11,17 @@
 	font-weight: 50;
 	text-align:center;
 }
-h2{
-	text-align:center;
-}
+
 .pl{
 	font-size:40px;
 }
 #head{
 	width:100%;
 }
-#mainpage {
-	width:100px;
-    height:100px;
-}
 
 .logo {
      width:160px;
     height:160px;
-}
-.pl{
-	font-size: 40px;
 }
 
 .myplay{
@@ -57,18 +48,20 @@ h2{
 	text-decoration-line:none;
 }
 .playListTable {
-  width: 100%;
+  width: 80%;
+  margin: auto; /* 테이블을 가운데 정렬합니다. */
   border-collapse: collapse;
 }
 .mypl{
 	font-size:40px;
-	
+	margin:auto;
 }
 .playListTable tbody tr {
 	margin-bottom:50px;
+	
 }
 .playListTable td {
-  text-align: center;
+  align: center;
   vertical-align: middle;
   padding: 8px;
   
@@ -81,13 +74,22 @@ h2{
   display: block;
   margin-bottom: 10px;
   text-align:left;
+  padding: 8px;
+}
+.del {
+	width: 20%;
 }
 
-.cover {
-  max-width: 100px; /* 이미지 최대 너비를 원하는 값으로 조절할 수 있습니다. */
-  height: auto;
-  display: block;
-  margin: 0 auto; /* 이미지를 가운데로 정렬합니다. */
+.del_img {
+	width: 30px;
+	height: 40px;
+}
+.edit {
+	width: 20%;
 }
 
-
+.edit_img {
+	width: 40px;
+	height: 40px;
+	margin-right:40px;
+}
