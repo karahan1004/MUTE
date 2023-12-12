@@ -7,18 +7,15 @@
 <title>MU:TE</title>
 <link rel="stylesheet" href="resources/css/result.css">
 <link rel="stylesheet" href="resources/css/modal.css">
-
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 	<header>
@@ -29,7 +26,6 @@
 			</ul>
 		</nav>
 	</header>
-
 	<table class="table1">
 		<tr>
 			<td><img alt="gom_ballad" src="resources/images/gom_ballad.png"
@@ -43,13 +39,15 @@
 		</tr>
 	</table>
 	<br>
+	
+<div class="con">
 	<div class="reco">
 		<br> <a class="tag">당신을 위한 #발라드 음악</a><br>
 		<br>
 		<table class="table2">
 			<tr>
 				<td><div class="cover"></div></td>
-				<td>힙합왕</td>
+				<td>힙합왕힙합왕힙합왕음악추천</td>
 				<td>아티스트명</td>
 				<td><a id="toggleButton1" onclick="toggleButton1()"> <img
 						id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
@@ -81,12 +79,12 @@
 				</a></td>
 			</tr>
 		</table>
-		<br>
 		
-		<br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br><br>
-
+		
+		<br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br><br><br>
 	</div>
-
+	<br>
+</div>
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal" id="addModal">
@@ -122,19 +120,15 @@
 			</form>
 		</div>
 	</div>
-
 	<script>
 	
 	function openModal() {
 		document.getElementById("addModal").style.display = "block";
 	}
-
 	function closeModal() {
 		document.getElementById("addModal").style.display = "none";
 	}
-
 	let isPaused = false;
-
 	function toggleButton1() {
 		const buttonImage = document.getElementById('buttonImage1');
 		isPaused = !isPaused;
@@ -144,7 +138,6 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
-
 	function toggleButton2() {
 		const buttonImage = document.getElementById('buttonImage2');
 		isPaused = !isPaused;
@@ -154,7 +147,6 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
-
 	function toggleButton3() {
 		const buttonImage = document.getElementById('buttonImage3');
 		isPaused = !isPaused;
@@ -164,9 +156,7 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
-
 	let isPlus = false;
-
 	function toggleStar1() {
 		const buttonStar = document.getElementById('buttonStar1');
 		isPlus = !isPlus;
@@ -176,7 +166,6 @@
 			buttonStar.src = 'resources/images/base_star.png';
 		}
 	}
-
 	function toggleStar2() {
 		const buttonStar = document.getElementById('buttonStar2');
 		isPlus = !isPlus;
@@ -186,7 +175,6 @@
 			buttonStar.src = 'resources/images/base_star.png';
 		}
 	}
-
 	function toggleStar3() {
 		const buttonStar = document.getElementById('buttonStar3');
 		isPlus = !isPlus;
@@ -197,6 +185,5 @@
 		}
 	}
 </script>
-
 </body>
 </html>
