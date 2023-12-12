@@ -35,7 +35,7 @@ ul{
 }
 a{
 	color: inherit;
-	text-decoration: none;
+	text-decoration: none !important;
 	outline: none;
 	font-size: 32px;
 }
