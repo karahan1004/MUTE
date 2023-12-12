@@ -7,18 +7,15 @@
 <title>MU:TE</title>
 <link rel="stylesheet" href="resources/css/result.css">
 <link rel="stylesheet" href="resources/css/modal.css">
-
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 	<header>
@@ -29,9 +26,7 @@
 				<li class="header-item"><a href="" style="color: black;">마이페이지</a></li>
 			</ul>
 		</nav>
-
 	</header>
-
 	<table class="table1">
 		<tr>
 			<td><img alt="gom_classic"
@@ -57,7 +52,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton1" onclick="toggleButton1()"> <img
 						id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus1" onclick="openModal(); togglePlus1()">
+				<td><a id="togglePlus1" onclick="toggleModal('addModal'); togglePlus1()">
 						<img id="buttonPlus1" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -68,7 +63,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton2" onclick="toggleButton2()"> <img
 						id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus2" onclick="openModal(); togglePlus2();">
+				<td><a id="togglePlus2" onclick="toggleModal('addModal'); togglePlus2();">
 						<img id="buttonPlus2" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -79,7 +74,7 @@
 				<td>아티스트명</td>
 				<td><a id="toggleButton3" onclick="toggleButton3()"> <img
 						id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus3" onclick="openModal(); togglePlus3();">
+				<td><a id="togglePlus3" onclick="toggleModal('addModal'); togglePlus3();">
 						<img id="buttonPlus3" src="resources/images/plus_pl.png"
 						alt="plus">
 				</a></td>
@@ -89,15 +84,14 @@
 		
 		<br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br><br>
 		
-
 	</div>
-
 	<!-- ================================================ -->
 	<!-- The Modal -->
-	<div class="modal" id="addModal">
-		<div class="modal-content modal-lg ">
-			<form name="rf" id="rf">
-				<table id="modaltable">
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <form name="rf" id="rf">
+                    <table id="modaltable">
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
 						<td class="td"><a class="pltitle text-body" href="">너무
@@ -120,25 +114,22 @@
 					</tr>
 				</table>
 				<br>
-				<button class="close-btn" onclick="closeModal()">닫기</button>
+				 <button class="close-btn" onclick="toggleModal('addModal')">닫기</button>
 				<div id="add">
-					<a class="text-body" href="">+ 새로운 플레이리스트 </a>
+					<button type="button" class="btn text-body" data-toggle="modal" data-target="#modalplus">+ 새로운 플레이리스트 </button>
 				</div>
 			</form>
 		</div>
+		</div>
 	</div>
+	
+	
 	<script>
 	
-	function openModal() {
-		document.getElementById("addModal").style.display = "block";
-	}
-
-	function closeModal() {
-		document.getElementById("addModal").style.display = "none";
-	}
-
+	function toggleModal(modalId) {
+        $('#' + modalId).modal('show');
+    }
 	let isPaused = false;
-
 	function toggleButton1() {
 		const buttonImage = document.getElementById('buttonImage1');
 		isPaused = !isPaused;
@@ -148,7 +139,6 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
-
 	function toggleButton2() {
 		const buttonImage = document.getElementById('buttonImage2');
 		isPaused = !isPaused;
@@ -158,7 +148,6 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
-
 	function toggleButton3() {
 		const buttonImage = document.getElementById('buttonImage3');
 		isPaused = !isPaused;
@@ -168,9 +157,7 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
-
 	/* let isPlus = false;
-
 	function togglePlus1() {
 		const buttonPlus = document.getElementById('buttonPlus1');
 		isPlus = !isPlus;
@@ -180,7 +167,6 @@
 			buttonPlus.src = 'resources/images/base_star.png';
 		}
 	}
-
 	function togglePlus2() {
 		const buttonPlus = document.getElementById('buttonPlus2');
 		isPlus = !isPlus;
@@ -190,7 +176,6 @@
 			buttonPlus.src = 'resources/images/base_star.png';
 		}
 	}
-
 	function togglePlus3() {
 		const buttonPlus = document.getElementById('buttonPlus3');
 		isPlus = !isPlus;
@@ -201,6 +186,5 @@
 		}
 	} */
 </script>
-
 </body>
 </html>

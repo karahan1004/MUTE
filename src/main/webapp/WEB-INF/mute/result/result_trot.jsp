@@ -130,7 +130,7 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h3 class="modal-title">플레이리스트 이름을 입력하세요</h5>
+	        <h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
 			        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button> -->
@@ -139,7 +139,7 @@
 	        <p>모달 내용</p>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
 	      </div>
 	    </div>
 	  </div>
