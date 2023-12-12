@@ -11,14 +11,14 @@
 	<header>
 		<table id="navi-head">
 			<tr>
-				<td><a href="mypage"><img class="back"
+				<td class="head-ba"><a href="mypage"><img class="back"
 					src="resources/images/gom_button.png"></a></td>
-				<td rowspan="2"><a class="pl">플레이리스트 이름</a></td>
-				<td rowspan="2"><img class="logo"
+				<td class="head-na" rowspan="2"><a class="pl">플레이리스트란 바로 이거다</a></td>
+				<td class="head-lg" rowspan="2"><img class="logo"
 					src="resources/images/mutelogo.png"></td>
 			</tr>
 			<tr>
-				<td><a class="backft" href="mypage">뒤로가기</a></td>
+				<td class="head-ba"><a class="backft" href="mypage">뒤로가기</a></td>
 			</tr>
 		</table>
 	</header>
@@ -28,16 +28,16 @@
 			<!-- 임시로 곰버튼 이미지 넣어둠 -->
 			<td class="pi"><img class="back"
 				src="resources/images/gom_button.png"></td>
-			<td class="si">노래 이름</td>
-			<td class="ga">가수 이름</td>
+			<td class="si">Baddie</td>
+			<td class="ga">아이브</td>
 			<td class="del"><img class="del_img"
 				src="resources/images/del_pl.png"></td>
 		</tr>
 		<tr>
 			<td class="pi"><img class="back"
 				src="resources/images/gom_button.png"></td>
-			<td class="si">노래 이름</td>
-			<td class="ga">가수 이름</td>
+			<td class="si">사랑하긴 했었나요 스쳐가는 인연이었나요 짧지않은 우리 함께했던 시간들이 자꾸 내 마음을 가둬두네</td>
+			<td class="ga">잔나비</td>
 			<td class="del"><img class="del_img"
 				src="resources/images/del_pl.png"></td>
 		</tr>
@@ -63,11 +63,11 @@
 		<table id="navi-foot">
 			<tr>
 				<td class="si_btn"><img class="bt_img"
-					src="resources/images/beforre_pl.png"></td>
+					src="resources/images/before_pl.png"></td>
 				<td class="si_btn"><img id="ft_img" onclick="toggleImg()"
 					src="resources/images/play_pl.png"></td>
 				<td class="si_btn"><img class="at_img"
-					src="resources/images/afterr_pl.png"></td>
+					src="resources/images/after_pl.png"></td>
 				<td class="si_btn"><img class="back"
 					src="resources/images/gom_button.png"></td>
 				<td class="si_foot">노래 이름</td>
