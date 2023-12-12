@@ -7,15 +7,18 @@
 <title>MU:TE</title>
 <link rel="stylesheet" href="resources/css/result.css">
 <link rel="stylesheet" href="resources/css/modal.css">
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<header>
@@ -26,7 +29,9 @@
 				<li class="header-item"><a href="" style="color: black;">마이페이지</a></li>
 			</ul>
 		</nav>
+
 	</header>
+
 	<table class="table1">
 		<tr>
 			<td><img alt="gom_classic"
@@ -84,12 +89,17 @@
 		
 		<br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br><br>
 		
+
 	</div>
+
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
         <div class="modal-dialog modal-md" role="document">
+        
             <div class="modal-content">
+            
                 <form name="rf" id="rf">
                     <table id="modaltable">
 					<tr>
@@ -129,7 +139,9 @@
 	function toggleModal(modalId) {
         $('#' + modalId).modal('show');
     }
+
 	let isPaused = false;
+
 	function toggleButton1() {
 		const buttonImage = document.getElementById('buttonImage1');
 		isPaused = !isPaused;
@@ -139,6 +151,7 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
+
 	function toggleButton2() {
 		const buttonImage = document.getElementById('buttonImage2');
 		isPaused = !isPaused;
@@ -148,6 +161,7 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
+
 	function toggleButton3() {
 		const buttonImage = document.getElementById('buttonImage3');
 		isPaused = !isPaused;
@@ -157,7 +171,9 @@
 			buttonImage.src = 'resources/images/play_pl.png';
 		}
 	}
+
 	/* let isPlus = false;
+
 	function togglePlus1() {
 		const buttonPlus = document.getElementById('buttonPlus1');
 		isPlus = !isPlus;
@@ -167,6 +183,7 @@
 			buttonPlus.src = 'resources/images/base_star.png';
 		}
 	}
+
 	function togglePlus2() {
 		const buttonPlus = document.getElementById('buttonPlus2');
 		isPlus = !isPlus;
@@ -176,6 +193,7 @@
 			buttonPlus.src = 'resources/images/base_star.png';
 		}
 	}
+
 	function togglePlus3() {
 		const buttonPlus = document.getElementById('buttonPlus3');
 		isPlus = !isPlus;
@@ -186,5 +204,6 @@
 		}
 	} */
 </script>
+
 </body>
 </html>
