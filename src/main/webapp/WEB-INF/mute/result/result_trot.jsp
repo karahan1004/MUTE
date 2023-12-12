@@ -121,12 +121,30 @@
 				</table>
 				<br>
 				<div id="add">
-					<a class="text-body" href="">+ 새로운 플레이리스트 </a>
+					<button type="button" class="btn text-body" data-toggle="modal" data-target="#modalplus">+ 새로운 플레이리스트 </button>
 				</div>
 			</form>
 		</div>
 	</div>
-
+	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h3 class="modal-title">플레이리스트 이름을 입력하세요</h5>
+			        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button> -->
+	      </div>
+	      <div class="modal-body">
+	        <p>모달 내용</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	<script>
 	
 	function openModal() {
@@ -169,37 +187,39 @@
 		}
 	}
 
-	/* let isPlus = false;
-
+	let isPlus1 = false;
+	let isPlus2 = false;
+	let isPlus3 = false;
+	
 	function togglePlus1() {
-		const buttonPlus = document.getElementById('buttonPlus1');
-		isPlus = !isPlus;
-		if (isPlus) {
-			buttonPlus.src = 'resources/images/plus_star.png';
-		} else {
-			buttonPlus.src = 'resources/images/base_star.png';
-		}
+	    if (!isPlus1) {
+	        const buttonPlus = document.getElementById('buttonPlus1');
+	        isPlus1 = true;
+	        // 항목 추가 로직
+	    } else {
+	        alert("이미 플레이리스트에 추가된 항목입니다");
+	    }
 	}
 
 	function togglePlus2() {
-		const buttonPlus = document.getElementById('buttonPlus2');
-		isPlus = !isPlus;
-		if (isPlus) {
-			buttonPlus.src = 'resources/images/plus_star.png';
-		} else {
-			buttonPlus.src = 'resources/images/base_star.png';
-		}
+	    if (!isPlus2) {
+	        const buttonPlus = document.getElementById('buttonPlus2');
+	        isPlus2 = true;
+	     	// 항목 추가 로직
+	    } else {
+	        alert("이미 플레이리스트에 추가된 항목입니다");
+	    }
 	}
 
 	function togglePlus3() {
-		const buttonPlus = document.getElementById('buttonPlus3');
-		isPlus = !isPlus;
-		if (isPlus) {
-			buttonPlus.src = 'resources/images/plus_star.png';
-		} else {
-			buttonPlus.src = 'resources/images/base_star.png';
-		}
-	} */
+	    if (!isPlus3) {
+	        const buttonPlus = document.getElementById('buttonPlus3');
+	        isPlus3 = true;
+	     	// 항목 추가 로직
+	    } else {
+	        alert("이미 플레이리스트에 추가된 항목입니다");
+	    }
+	}
 </script>
 
 </body>
