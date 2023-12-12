@@ -12,7 +12,29 @@
 </head>
 
 <script>
-function clickSpotifyLogin() {
+function generateRandomString(length) {
+    // 랜덤 숫자 구현해야함 
+}
+
+function loginToSpotify() {
+    var client_id = '61731dfa4f5a4f81a934c76fe09958d8';
+    var redirect_uri = 'http://localhost:9089/mute/main';
+    
+    var state = generateRandomString(16);
+    var scope = 'user-read-private user-read-email user-read-currently-playing playlist-read-private playlist-modify-private user-modify-playback-state';
+
+    // Store the state in a cookie or local storage for later verification
+    document.cookie = 'spotify_state=' + state;
+
+    var spotifyAuthURL = 'https://accounts.spotify.com/authorize?' +
+        'response_type=code' +
+        '&client_id=' + client_id +
+        '&scope=' + encodeURIComponent(scope) +
+        '&redirect_uri=' + redirect_uri +
+        '&state=' + state;
+
+    // Redirect the user to the Spotify authentication page
+    window.location.href = spotifyAuthURL;
 
 }
 
@@ -27,8 +49,8 @@ function clickSpotifyLogin() {
 			<br><br>
 <!-- 			<p><img id="spotify" alt="spotify-loginBtn" onclick="location.href='spotify.jsp'" src="resources/images/btn_spotify.png" height="130" width="450"></p>
  -->			<!-- spotifyBtn 이미지 바꿔야 함. 뒷배경 없는 걸로...! -->
-			<button id="spotify-btn" type="button" onclick="location.href='spotifyLogin'">hi</button>
-			
+			<button id="spotify-btn" type="button" onclick="loginToSpotify()">hi</button>
+			<!-- 'location.href='spotifyLogin' -->
 			
 		</div>
 		

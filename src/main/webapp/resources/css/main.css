@@ -33,17 +33,32 @@ div{
 	text-align:center;
 }
 
-.head{
+header {
 	width:100%;
-	height:45%;
-}
-#td-t{
-	vertical-align:top;
 	
+    margin: 5px;
+  /*   padding:40px; */
+
+    position:fixed;
 }
-#td-b{
-	vertical-align:bottom;
-	width:50%;
+
+
+#center{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#td-t{
+	width:40%;
+}
+
+#td-m{
+	width:30%;
+}
+
+#td-l{
+	width:30%;
+	
 }
 
 #logo{
