@@ -13,10 +13,13 @@
 	<header>
 		<nav>
 			<table class="header-container">
-				<tr>
-					<td id="td-t"><img id="logo" alt="logo" src="resources/images/mutelogo.png" ></td>
+				<tr class="top">
+					<td rowspan="2" id="td-t"><img id="logo" alt="logo" src="resources/images/mutelogo.png" ></td>
 					<td id="td-m"><img id="mypage" alt="mypage" onclick="location.href='mypage'" src="resources/images/gom_button.png"></td>
-					<td id="td-l"><a id="login" href="login">간편로그인</a></td>
+					<td rowspan="2" id="td-l"><a id="login" href="login">간편로그인</a></td>
+				</tr>
+				<tr>
+					<td id="btn-font">마이페이지</td>
 				</tr>
 			</table>
 		</nav>

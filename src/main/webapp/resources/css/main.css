@@ -33,7 +33,7 @@ div{
 	text-align:center;
 }
 
-header {
+.header-container {
 	width:100%;
 	
     margin: 5px;
@@ -42,6 +42,10 @@ header {
     position:fixed;
 }
 
+#btn-font{
+	color:gray;
+	cellpadding:"0";
+}
 
 #center{
 	margin-left:auto;
@@ -49,21 +53,25 @@ header {
 }
 
 #td-t{
-	width:40%;
+	width:50%;
+	text-align: center;
 }
 
 #td-m{
 	width:30%;
+	text-align: center;
+	
 }
 
 #td-l{
-	width:30%;
+	width:20%;
 	
 }
 
 #logo{
 	width:239px;
 	height:244px;
+	display: inline-block;
 }
 #bear{
 	width:460px;
@@ -73,7 +81,9 @@ header {
 	width:125px;
 	height:123px;
 }
-
+.top{
+	 vertical-align: bottom;
+}
 #login{
 	font-size:32px;
 	color: #002EA5;
