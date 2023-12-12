@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 @font-face {
     font-family: 'KOTRAHOPE';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2') format('woff2');
@@ -19,13 +20,15 @@ header {
     /* position:fixed; */
     right:65px;
 }
+
 ul{
 	list-style:none;
 }
 .header-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; 
 }
+
 .header-item {
     margin-left: 50px;
     cursor: pointer;
@@ -39,10 +42,12 @@ a{
 table{
 	margin:auto;
 }
+
 .table1 {
 	padding-left:85px;
 	padding-top:50px;
 }
+
 .ballad{
 	color:#512626;
 	font-size:50px;
@@ -83,6 +88,11 @@ table{
 	color:#FF3232 ;
 	font-size:50px;
 }
+
+
+
+
+
 .top {
 	position: fixed;
 	right: 10px;
@@ -117,7 +127,7 @@ table{
 }
 .table2 td {
 	/* padding-bottom: 10px;
-	padding-right: 50px;
+	padding-right: 50px; 
 	padding-left: 20px;*/
 	padding: 25px;
 	/* border:1px solid; */
@@ -129,36 +139,48 @@ table{
 .star {
 	font-size:60px;
 }
+
+
+
+
 @media (max-width: 1200px) {
     .table2 {
         padding-left: 15px;
         font-size: 18px;
     }
+
     td {
         padding-right: 15px;
     }
 }
+
 @media (max-width: 800px) {
     .reco {
         width: 70%;
     }
+
     .table2 {
         padding-left: 10px;
         font-size: 14px;
     }
+
     td {
         padding-right: 10px;
     }
 }
+
 @media (max-width: 600px) {
     .reco {
         width: 80%;
     }
+
     .table2 {
         padding-left: 5px;
         font-size: 12px;
     }
+
     td {
         padding-right: 5px;
     }
 }
+ 
