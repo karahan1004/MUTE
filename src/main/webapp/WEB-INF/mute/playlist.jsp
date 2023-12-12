@@ -5,6 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/playlist.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <title>MU:TE</title>
 </head>
 <body>
@@ -31,8 +40,8 @@
 				src="resources/images/gom_button.png"></td>
 			<td class="si">Baddie</td>
 			<td class="ga">아이브</td>
-			<td class="del"><img class="del_img"
-				src="resources/images/del_pl.png"></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
+				src="resources/images/del_pl.png"></a></td>
 		</tr>
 		<tr>
 			<td class="pi"><img class="back"
@@ -40,24 +49,24 @@
 			<td class="si">사랑하긴 했었나요 스쳐가는 인연이었나요 짧지않은 우리 함께했던 시간들이 자꾸 내 마음을
 				가둬두네</td>
 			<td class="ga">잔나비</td>
-			<td class="del"><img class="del_img"
-				src="resources/images/del_pl.png"></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
+				src="resources/images/del_pl.png"></a></td>
 		</tr>
 		<tr>
 			<td class="pi"><img class="back"
 				src="resources/images/gom_button.png"></td>
 			<td class="si">노래 이름</td>
 			<td class="ga">가수 이름</td>
-			<td class="del"><img class="del_img"
-				src="resources/images/del_pl.png"></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
+				src="resources/images/del_pl.png"></a></td>
 		</tr>
 		<tr>
 			<td class="pi"><img class="back"
 				src="resources/images/gom_button.png"></td>
 			<td class="si">노래 이름</td>
 			<td class="ga">가수 이름</td>
-			<td class="del"><img class="del_img"
-				src="resources/images/del_pl.png"></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
+				src="resources/images/del_pl.png"></a></td>
 		</tr>
 	</table>
 	<hr>
@@ -83,7 +92,25 @@
 			</tr>
 		</table>
 	</footer>
-
+	
+	<!-- ================================================ -->
+	<!-- The Modal -->
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <form name="rf" id="rf">
+                    <table id="modaltable">
+					<tr>
+						<td class="td"><a class="pltitle text-body" href="">이 플레이리스트를 삭제 하시겠습니까?</a></td>
+					</tr>
+				</table>
+				<br>
+				 <button class="close-btn" onclick="toggleModal('addModal')">닫기</button>
+				
+			</form>
+		</div>
+		</div>
+	</div>
 
 	<script>
 		var originalImgSrc = "resources/images/play_pl.png";
@@ -108,6 +135,11 @@
 			// 여기에서 실제로 음량을 조절하는 코드를 추가할 수 있습니다.
 			console.log("Volume set to: " + volume);
 		}
+		
+		function toggleModal(modalId) {
+	        $('#' + modalId).modal('show');
+	    }
+		let isPaused = false;
 		
    
 	</script>
