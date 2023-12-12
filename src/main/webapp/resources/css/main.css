@@ -45,6 +45,9 @@ div{
 #btn-font{
 	color:gray;
 	cellpadding:"0";
+	text-align:center;
+	text-decoration:none;
+	vertical-align: top;
 }
 
 #center{
@@ -71,6 +74,7 @@ div{
 #logo{
 	width:239px;
 	height:244px;
+	vertical-align: top;
 	display: inline-block;
 }
 #bear{
@@ -80,12 +84,36 @@ div{
 #mypage{
 	width:125px;
 	height:123px;
+	vertical-align: top;
+	margin-top: 15px;
+	
 }
+
 .top{
-	 vertical-align: bottom;
+	 vertical-align: top;
 }
+#td-t, #td-m, #td-l {
+    vertical-align: top; /* Align cells content to the top */
+}
+
+
 #login{
 	font-size:32px;
 	color: #002EA5;
 	text-decoration:none;
+	vertical-align: top;
+	margin-top: 25px;
 }
+
+#table.tr{
+	width:50%;
+	align-items:center;
+	text-align: center; 
+	vertical-align: middle;
+}
+
+.button {
+        display: inline-block;
+        height:112px;
+        align:center;
+        }
