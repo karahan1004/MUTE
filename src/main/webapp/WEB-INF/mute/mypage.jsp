@@ -8,15 +8,15 @@
 <title>MU:TE</title>
 </head>
 <body>
-
+<!-- 부트스트랩 적용하기 -->
 	<header>
 		<table id="head">
 		    <tr>
-	    		<td rowspan="2"><a class="pl">안녕하세요 UserID님~</a></td>
+	    		<td rowspan="3"><a class="pl">안녕하세요 UserID님~</a></td>
 				<td><a href="main"><img class="back" 
 					src="resources/images/gom_button.png"></a></td>
 					
-				<td rowspan="2"><img class="logo"
+				<td rowspan="3"><img class="logo"
 					src="resources/images/mutelogo.png"></td>
 				</tr>
 				<tr>
@@ -34,22 +34,29 @@
             <br><br>
 				</tr>
 	        	<tr>
-	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
+	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
 					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
-					<!-- <td class="del"><img class="del_img" src="resources/images/del_pl.png"></td>  -->
-				<tr>
+					<td class="edit"><img class="edit_img" src="resources/images/more.png">
+					<img class="del_img" src="resources/images/del_pl.png"></td>
+				</tr>
 				<tr>
 	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
 					<td id="plname"><a href="playlist" id="move">사람이 할게 맞는건가?</a></td>
-				<tr>
-				<tr>
-	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
-					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
-				<tr>
+					<td class="edit"><img class="edit_img" src="resources/images/more.png">
+					<img class="del_img" src="resources/images/del_pl.png"></td>
+				</tr>
 				<tr>
 	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
 					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
+					<td class="edit"><img class="edit_img" src="resources/images/more.png">
+					<img class="del_img" src="resources/images/del_pl.png"></td>
+				</tr>
 				<tr>
+	        		<td ><img class="cover" src="resources/images/gom_button.png"></td>
+					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
+					<td class="edit"><img class="edit_img" src="resources/images/more.png">
+					<img class="del_img" src="resources/images/del_pl.png"></td>
+				</tr>
 			 
 	        </table>
 
