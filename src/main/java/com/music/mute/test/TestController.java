@@ -15,6 +15,19 @@ public class TestController {
 	    public String TestPage2() {
 	        return "test/test2"; 
 	    }
+	 @GetMapping("/test3")
+	    public String TestPage3() {
+	        return "test/test3"; 
+	    }
+	 @GetMapping("/test4")
+	    public String TestPage4() {
+	        return "test/test4"; 
+	    }
+	 @GetMapping("/test5")
+	    public String TestPage5() {
+	        return "test/test5"; 
+	    }
+	   
 
 }
 

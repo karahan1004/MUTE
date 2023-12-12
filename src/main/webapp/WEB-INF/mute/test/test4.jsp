@@ -50,18 +50,18 @@
 </head>
 <body>
 <div class="question">
-    <h1><br>Q2.    
-    <br>음악은 이렇게 즐겨야지~
+    <h1>Q4.    
+    <br>콘서트를 가기로 한 당신!<br> 당신이 가고 싶은 콘서트는?
     </h1><br>
     <form action="result.jsp" method="post">
 		
-        <button type="button" class="btn" onclick="location.href='test3'">클럽에서 신나게! 스피커 볼륨 최대로~</button>
+        <button type="button" class="btn" onclick="location.href='test5'">이것이 진정한 페스티벌! 락페스티벌</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">와인바에서 잔잔하게! 소음따윈 가볍게 무시한다는 마인드</button>
+        <button type="button" class="btn" onclick="location.href='test5'">가슴이 웅장해진다.. 영화 오케스트라 콘서트</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">햇살을 맞으며 창가에서 커피 한 잔 할래용~</button>
+        <button type="button" class="btn" onclick="location.href='test5'">내 최애 영접! 아이돌 콘서트</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">대한민국 음악의 중심은 바로 나! 엄마 난 커서 가수가 될래요!</button>
+        <button type="button" class="btn" onclick="location.href='test5'">이번년도 효도완 트로트 콘서트</button>
 
         <input type="hidden" id="danceValue" name="danceValue" value="">
         <input type="hidden" id="discoValue" name="discoValue" value="">

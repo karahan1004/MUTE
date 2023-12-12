@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="resources/css/test.css">
     <title>MU:TE</title>
     <script>
+   		 /* 장르별 value 변수 설정 */
         var danceValue = 0;
         var discoValue = 0;
         var trotValue = 0;
@@ -15,7 +16,7 @@
         var rockValue = 0;
         var hipHopValue = 0;
         var rnbValue = 0;
-
+        /* 버튼 클릭시 value값 증가 script함수 -- 함수명 재설정, onclick시 증가처리 해야함 */
         function selectPlaylist(value) {
             if (value === '댄스') {
                 danceValue++;
@@ -50,19 +51,19 @@
 </head>
 <body>
 <div class="question">
-    <h1><br>Q2.    
-    <br>음악은 이렇게 즐겨야지~
-    </h1><br>
+    <h1>Q5.<br> 첫 눈이 내린 날, <br>당신이 들을 노래는?</h1>
     <form action="result.jsp" method="post">
-		
-        <button type="button" class="btn" onclick="location.href='test3'">클럽에서 신나게! 스피커 볼륨 최대로~</button>
+		<!-- 버튼 클릭시 다음 test페이지 이동 + 각 선택지 별 해당하는 장르 count++(구현 예정..어렵다) -->
+        <button type="button" class="btn" onclick="location.href='test6'">Snowman - SIA</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">와인바에서 잔잔하게! 소음따윈 가볍게 무시한다는 마인드</button>
+        <button type="button" class="btn" onclick="location.href='test6'">All I Want For Christmas Is You - Mariah Carey</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">햇살을 맞으며 창가에서 커피 한 잔 할래용~</button>
+        <button type="button" class="btn" onclick="location.href='test6'">Last Christmas - Wham!</button>
         <br>
-        <button type="button" class="btn" onclick="location.href='test3'">대한민국 음악의 중심은 바로 나! 엄마 난 커서 가수가 될래요!</button>
+        <button type="button" class="btn" onclick="location.href='test6'">Santa Tell Me - Ariana Grande</button>
 
+
+		<!-- count 값을 hidden으로 전달... 다시 알아보자 -->
         <input type="hidden" id="danceValue" name="danceValue" value="">
         <input type="hidden" id="discoValue" name="discoValue" value="">
         <input type="hidden" id="trotValue" name="trotValue" value="">
