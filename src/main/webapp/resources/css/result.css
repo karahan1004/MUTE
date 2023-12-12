@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 @font-face {
     font-family: 'KOTRAHOPE';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2') format('woff2');
@@ -17,18 +16,16 @@ header {
   /*   padding:40px; */
     text-align: right;
    /*  margin-bottom:40px; */
-    position:fixed;
+    /* position:fixed; */
     right:65px;
 }
-
 ul{
 	list-style:none;
 }
 .header-container {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
 }
-
 .header-item {
     margin-left: 50px;
     cursor: pointer;
@@ -42,12 +39,10 @@ a{
 table{
 	margin:auto;
 }
-
 .table1 {
 	padding-left:85px;
 	padding-top:50px;
 }
-
 .ballad{
 	color:#512626;
 	font-size:50px;
@@ -88,11 +83,6 @@ table{
 	color:#FF3232 ;
 	font-size:50px;
 }
-
-
-
-
-
 .top {
 	position: fixed;
 	right: 10px;
@@ -127,7 +117,7 @@ table{
 }
 .table2 td {
 	/* padding-bottom: 10px;
-	padding-right: 50px; 
+	padding-right: 50px;
 	padding-left: 20px;*/
 	padding: 25px;
 	/* border:1px solid; */
@@ -139,58 +129,36 @@ table{
 .star {
 	font-size:60px;
 }
-
-
-
-@media (max-width: 600px) {
-    .header-item {
-        margin-left: 10px;
-    }
-
-    .result, .tag, .cover, .reco, 
-    .table2, .rereco, .star,td  {
-        font-size: 14px;
-    }
-
-     .reco {
-        width: 50%;
-    } 
-}
-
-@media (max-width: 800px) {
-    .reco {
-        width: 50%;
-    }
-
+@media (max-width: 1200px) {
     .table2 {
-        padding-left: 20px;
+        padding-left: 15px;
         font-size: 18px;
     }
-
     td {
-        padding-right: 20px;
+        padding-right: 15px;
     }
 }
-
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
     .reco {
-        width: 60%;
+        width: 70%;
     }
-
     .table2 {
-        padding-left: 30px;
+        padding-left: 10px;
+        font-size: 14px;
+    }
+    td {
+        padding-right: 10px;
     }
 }
-
-@media (max-width: 1600px) {
+@media (max-width: 600px) {
     .reco {
-        width: 60%;
+        width: 80%;
     }
-}
-
-@media (max-width: 1800px) {
-    /* 추가적인 스타일을 필요에 따라 작성하세요. */
-    .reco {
-        width: 85%;
+    .table2 {
+        padding-left: 5px;
+        font-size: 12px;
+    }
+    td {
+        padding-right: 5px;
     }
 }
