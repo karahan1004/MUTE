@@ -85,33 +85,13 @@
 }
 
 .albumimg {
-    width: 10vh;
-    height: 10vh;
+    width: 120px;
+    height: 120px;
     object-fit: cover; /* 이미지가 자동으로 크기에 맞게 잘리지 않도록 설정 */
 }
 
 #sing-mi {
     width: 100%;
-    height: 80vh;
-    overflow-y: auto;
-    display: block;
-}
-
-#sing-mi table tr {
-    height: 15%;
-}
-
-#sing-mi table tr:last-child {
-    margin-bottom: 50px;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    background-color:#ffffff;
-    text-align: center;
 }
 
 /* 여기서부터 css 정리 */
