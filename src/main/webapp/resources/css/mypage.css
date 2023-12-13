@@ -6,32 +6,30 @@
     font-weight: normal;
     font-style: normal;
 }
+
 * {
 	font-family: 'KOTRAHOPE';
 	font-weight: 50;
 	text-align:center;
 }
+/* --헤더-- */
 #navi-head {
 	width: 100%;
 }
+
 .head-ba{
 	width:20%;
 }
+
 .back {
 	width: 120px;
 	height: 120px;
 }
 
-.backft {
-	bottom: 0;
-	color: lightgray;
-	font-size: 32px;
-	text-decoration-line: none;
-	
-}
 .head-na{
 	width:60%;
 }
+
 .pl {
 	font-size: 40px;
 }
@@ -45,29 +43,38 @@
 	height: 160px;
 }
 
-.cover{
-	width: 120px;
-	height: 120px;
+.backft {
+	bottom: 0;
+	color: lightgray;
+	font-size: 32px;
+	text-decoration-line: none;
 }
 
+/* --플레이리스트 목록-- */
 .playListTable {
   width: 80%;
   margin: auto; /* 테이블을 가운데 정렬합니다. */
   border-collapse: collapse;
 }
+
 .mypl{
 	font-size:40px;
 	margin:auto;
 }
+
+.cover{
+	width: 120px;
+	height: 120px;
+}
+
 .playListTable tbody tr {
 	margin-bottom:50px;
-	
 }
+
 .playListTable td {
   align: center;
   vertical-align: middle;
   padding: 8px;
-  
 }
 
 #plname a {
@@ -79,14 +86,7 @@
   text-align:left;
   padding: 8px;
 }
-.del {
-	width: 20%;
-}
 
-.del_img {
-	width: 45px;
-	height: 45px;
-}
 .edit {
 	width: 20%;
 }
@@ -95,4 +95,69 @@
 	width: 40px;
 	height: 40px;
 	margin-right:40px;
+}
+
+.del {
+	width: 20%;
+}
+
+.del_img {
+	width: 45px;
+	height: 45px;
+}
+
+/* --모달 css-- */
+.modal-content {
+	background-color:#EBEBEB !important;
+	opacity:0.95;
+	margin-top: 50px;
+	
+}
+.del-td {
+	padding:20px;
+	padding-right:40px;
+	padding-bottom:30px;
+}
+
+.singdel{
+	display: flex;
+	justify-content : flex-start;
+	font-size:36px;
+	text-align:center;
+}
+
+#del_pl{
+	color: inherit;
+	text-decoration: none;
+	outline: none;
+	font-size: 32px;
+}
+
+.close-btn {
+	width:80px !important;
+	height:43px !important;
+	background-color:#FFC6F2 !important;
+	border: none;
+	border-radius:10px;
+	font-size:20px;
+}
+.re-btn {
+	width:80px !important;
+	height:43px !important;
+	background-color:#FFC6F2 !important;
+	border: none;
+	border-radius:10px;
+	font-size:20px;
+	margin-left:50px;
+}
+
+#modaltable{
+	padding:15px;
+}
+
+#modalContent{
+	font-size:24px;
+	border:none;
+	resize:none;
+	background-color:#D9D9D9;
 }
