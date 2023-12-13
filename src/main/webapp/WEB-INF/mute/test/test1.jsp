@@ -5,8 +5,7 @@
 <link rel="stylesheet" href="resources/css/test.css">
     <title>MU:TE</title>
     <script>
-   		 /* 장르별 value 변수 설정 */
-        var danceValue = 0;
+   		 /* 장르별 value 변수 설정 
         var discoValue = 0;
         var trotValue = 0;
         var jazzValue = 0;
@@ -15,7 +14,8 @@
         var balladValue = 0;
         var rockValue = 0;
         var hipHopValue = 0;
-        var rnbValue = 0;
+        var rnbValue = 0;*/
+        var danceValue = 0;
         /* 버튼 클릭시 value값 증가 script함수 -- 함수명 재설정, onclick시 증가처리 해야함 */
         function selectPlaylist(value) {
             if (value === '댄스') {

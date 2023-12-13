@@ -91,13 +91,10 @@
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    
-        <div class="modal-dialog modal-md" role="document">
-        
-            <div class="modal-content">
-            
-                <form name="rf" id="rf">
-                    <table id="modaltable">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <form name="rf" id="rf">
+                <table id="modaltable">
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
 						<td class="td"><a class="pltitle text-body" href="">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
@@ -114,38 +111,46 @@
 						<td class="td"><div class="cover1"></div></td>
 						<td class="td"><a class="pltitle text-body" href="">신나고 싶을 때 듣는 노래</a></td>
 					</tr>
-				</table>
-				<br>
-				 <button class="close-btn" onclick="toggleModal('addModal')" >닫기</button>
-				<div id="add">
-					<button type="button" class="btn text-body large-button" data-toggle="modal" data-target="#modalplus"  style="font-size: 24px;">+ 새로운 플레이리스트 </button>
-				</div>
-			</form>
-		</div>
-		</div>
-	</div>
+				 </table>
+                <br>
+                <button type="button" class="close-btn" onclick="toggleModal('addModal')">닫기</button>
+                <div id="add">
+                    <button type="button" class="btn text-body large-button" data-toggle="modal" data-target="#modalplus" style="font-size: 24px;">+ 새로운 플레이리스트 </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 	
-		
+	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog" data-target="#alert">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
+            </div>
+            <div class="modal-body">
+                <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close-btn" data-dismiss="modal" onclick="checkAndSubmit()">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
 	
-	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
-			        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button> -->
-	      </div>
-	      <div class="modal-body">
-	         <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="close-btn" data-dismiss="modal">확인</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	
+	<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>플레이리스트 제목은 공백일 수 없습니다</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close-btn" data-dismiss="modal" onclick="submitAlert()">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 	<script>
 	document.addEventListener('DOMContentLoaded', function () {
 	    var tareset = document.querySelector('#modalplus .close-btn');
@@ -158,7 +163,7 @@
 		
 	
 	function toggleModal(modalId) {
-        $('#' + modalId).modal('show');
+        $('#' + modalId).modal('toggle');
     }
 	
     let isPaused = false;
@@ -194,53 +199,48 @@
 	}
 
 	let isPlus1 = false;
-	let isPlus2 = false;
-	let isPlus3 = false;
-	
-	function togglePlus1() {
-        const buttonPlus = document.getElementById('buttonPlus1');
-        const modalContent = document.getElementById('modalContent');
-        if (!modalContent.value.trim()) {
-            alert('텍스트를 입력해주세요');
-            return;
-        }
-        if (!isPlus1) {
-            isPlus1 = true;
-            // 항목 추가 로직
+    let isPlus2 = false;
+    let isPlus3 = false;
+    
+    toggleButton('buttonImage1', isPaused1);
+    toggleButton('buttonImage2', isPaused2);
+    toggleButton('buttonImage3', isPaused3);
+    
+    ctp('buttonPlus1', isPlus1);
+    ctp('buttonPlus2', isPlus2);
+    ctp('buttonPlus3', isPlus3);
+
+    function toggleModal(modalId) {
+        $('#' + modalId).modal('toggle');
+    }
+
+    function toggleButton(buttonId, isPause) {
+        const buttonImage = document.getElementById(buttonId);
+        isPause = !isPause;
+
+        if (isPause) {
+            buttonImage.src = 'resources/images/pause_pl.png';
         } else {
-            alert("이미 플레이리스트에 추가된 항목입니다");
+            buttonImage.src = 'resources/images/play_pl.png';
+        }
+    }
+    
+    function openModalAlert() {
+        $('#modalAlert').modal('show');
+    }
+    
+    function checkAndSubmit() {
+        const mcv = $('#modalContent').val().trim();
+        // textarea 값이 비어있을 경우 modalAlert 모달을 열고, 아닐 경우 다른 로직 수행
+        if (mcv === '') {
+            openModalAlert();
+        } else {
+            
         }
     }
 
-    function togglePlus2() {
-        const buttonPlus = document.getElementById('buttonPlus2');
-        const modalContent = document.getElementById('modalContent');
-        if (!modalContent.value.trim()) {
-            alert('텍스트를 입력해주세요');
-            return;
-        }
-        if (!isPlus2) {
-            isPlus2 = true;
-            // 항목 추가 로직
-        } else {
-            alert("이미 플레이리스트에 추가된 항목입니다");
-        }
-    }
-
-    function togglePlus3() {
-        const buttonPlus = document.getElementById('buttonPlus3');
-        const modalContent = document.getElementById('modalContent');
-        if (!modalContent.value.trim()) {
-            alert('텍스트를 입력해주세요');
-            return;
-        }
-        if (!isPlus3) {
-            isPlus3 = true;
-            // 항목 추가 로직
-        } else {
-            alert("이미 플레이리스트에 추가된 항목입니다");
-        }
-	}
+    
+    
 </script>
 
 </body>

@@ -36,47 +36,82 @@
 	<table id="sing-mi">
 		<tr>
 			<!-- 임시로 곰버튼 이미지 넣어둠 -->
-			<td class="pi"><img class="back"
+			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
 			<td class="si">Baddie</td>
 			<td class="ga">아이브</td>
-			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
-				src="resources/images/del_pl.png"></a></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
 		<tr>
-			<td class="pi"><img class="back"
+			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
-			<td class="si">사랑하긴 했었나요 스쳐가는 인연이었나요 짧지않은 우리 함께했던 시간들이 자꾸 내 마음을
-				가둬두네</td>
+			<td class="si">Baddie</td>
 			<td class="ga">잔나비</td>
-			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
-				src="resources/images/del_pl.png"></a></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
 		<tr>
-			<td class="pi"><img class="back"
+			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
 			<td class="si">노래 이름</td>
 			<td class="ga">가수 이름</td>
-			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
-				src="resources/images/del_pl.png"></a></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
 		<tr>
-			<td class="pi"><img class="back"
+			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
 			<td class="si">노래 이름</td>
 			<td class="ga">가수 이름</td>
-			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
-				src="resources/images/del_pl.png"></a></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
 		<tr>
-			<td class="pi"><img class="back"
+			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
 			<td class="si">노래 이름</td>
 			<td class="ga">가수 이름</td>
-			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
-				src="resources/images/del_pl.png"></a></td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
+		</tr>
+
+		<tr>
+			<td class="pi"><img class="albumimg"
+				src="resources/images/gom_button.png"></td>
+			<td class="si">노래 이름</td>
+			<td class="ga">가수 이름</td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
 		
+		<tr>
+			<td class="pi"><img class="albumimg"
+				src="resources/images/gom_button.png"></td>
+			<td class="si">노래 이름</td>
+			<td class="ga">가수 이름</td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
+		</tr>
+		
+		<tr>
+			<td class="pi"><img class="albumimg"
+				src="resources/images/gom_button.png"></td>
+			<td class="si">노래 이름</td>
+			<td class="ga">가수 이름</td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
+		</tr>
+		
+		<tr>
+			<td class="pi"><img class="albumimg"
+				src="resources/images/gom_button.png"></td>
+			<td class="si">노래 이름</td>
+			<td class="ga">가수 이름</td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img
+					class="del_img" src="resources/images/del_pl.png"></a></td>
+		</tr>
+
 	</table>
 	<hr>
 	<footer>
@@ -101,26 +136,30 @@
 			</tr>
 		</table>
 	</footer>
-	
+
 	<!-- ================================================ -->
 	<!-- The Modal -->
-	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <form name="rf" id="rf">
-                <table id="modaltable">
-                    <tr>
-                        <td class="del-td"><a class="singdel text-body">이 노래를 삭제 하시겠습니까?</a></td>
-                    </tr>
-                </table>
-                <br>
-                <button type="button" class="close-btn" onclick="confirmDelete()">삭제</button>
-                <button type="button" class="close-btn" onclick="toggleModal('addModal')">취소</button>
-                <br><br>
-            </form>
-        </div>
-    </div>
-</div>
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md" role="document">
+			<div class="modal-content">
+				<form name="rf" id="rf">
+					<table id="modaltable">
+						<tr>
+							<td class="del-td text-center"><a class="singdel text-body">이
+									노래를 삭제 하시겠습니까?</a></td>
+						</tr>
+					</table>
+					<br>
+					<button type="button" class="close-btn" onclick="confirmDelete()">삭제</button>
+					<button type="button" class="close-btn"
+						onclick="toggleModal('addModal')">취소</button>
+					<br>
+					<br>
+				</form>
+			</div>
+		</div>
+	</div>
 
 	<script>
 		var originalImgSrc = "resources/images/play_pl.png";
@@ -145,22 +184,21 @@
 			// 여기에서 실제로 음량을 조절하는 코드를 추가할 수 있습니다.
 			console.log("Volume set to: " + volume);
 		}
-		
-		function toggleModal(modalId) {
-	        $('#' + modalId).modal('toggle');
-	    }
 
-	    function confirmDelete() {
-	        // 여기에 실제 삭제 동작을 추가할 수 있음
-	        // 삭제가 성공하면 모달을 닫도록 처리
-	        // 예시: 삭제 성공 후 모달을 닫고 싶다면 toggleModal('addModal')을 호출
-	        // toggleModal('addModal');
-	        
-	        // 아래는 간단한 예시 코드입니다. 실제 삭제 동작에 맞게 수정하세요.
-	        alert("노래가 삭제되었습니다."); // 삭제 성공 메시지 (임시)
-	        toggleModal('addModal'); // 모달 닫기
-	    }
-   
+		function toggleModal(modalId) {
+			$('#' + modalId).modal('toggle');
+		}
+
+		function confirmDelete() {
+			// 여기에 실제 삭제 동작을 추가할 수 있음
+			// 삭제가 성공하면 모달을 닫도록 처리
+			// 예시: 삭제 성공 후 모달을 닫고 싶다면 toggleModal('addModal')을 호출
+			// toggleModal('addModal');
+
+			// 아래는 간단한 예시 코드입니다. 실제 삭제 동작에 맞게 수정하세요.
+			alert("노래가 삭제되었습니다."); // 삭제 성공 메시지 (임시)
+			toggleModal('addModal'); // 모달 닫기
+		}
 	</script>
 </body>
 </html>

@@ -137,7 +137,7 @@
 			        </button> -->
 	      </div>
 	      <div class="modal-body">
-	         <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" ></textarea>
+	         <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="close-btn" data-dismiss="modal">확인</button>
@@ -155,11 +155,10 @@
 	      mct.value = '';
 	    });
 	  });
-	
-	
+		
 	
 	function toggleModal(modalId) {
-        $('#' + modalId).modal('show');
+        $('#' + modalId).modal('toggle');
     }
 	
     let isPaused = false;
