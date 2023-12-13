@@ -25,7 +25,87 @@
 	border-radius:30px;
 	box-shadow:0px 4px 4px 0px #CBCBCB;
 }
-#headline{
+
+table {
+    width: 80%;
+    height:100%;
+   /*  border: 1px solid #444444; */
+    margin:auto;
+  }
+  td {
+/*      border: 1px solid #444444;
+ */   }
+  
+  
+  /* 상단바 부분 image 위치 및 크기 조정 */
+	/* td별 width % 지정  */
+	#logo{
+		width:28%;
+		vertical-align:middle;
+	}
+	#mainGom{
+		width:26%;
+		height:480px;
+	}
+	#btnGom{
+		width:14%;
+		vertical-align:bottom;
+	}
+	#login{
+		width:12%;
+		vertical-align:bottom;
+		padding-bottom:15px;
+		
+	}
+	#tr-2.td{
+		height:200px;
+	}
+	
+	/* 이미지 크기 변경 */
+	#logoImg{
+		width:239px;
+		height:244px;
+	}
+	
+	#bear{
+		width:460px;
+		height:460px;
+	}
+	
+	#mypage{
+		width:125px;
+		height:123px;
+		vertical-align:top;
+		text-align:center;
+		
+		
+	}
+	#mypageFont{
+		color:gray;
+		text-decoration:none;
+		margin-right:25%
+	}
+  /* 글꼴 크기 변경 및 스타일 */
+	  #loginText{
+		font-size:32px;
+		color: #002EA5;
+		text-decoration:none;
+		/* vertical-align: top; */
+		/* margin-top: 25px; */
+ 	}
+ 	
+  /* 메인 가운데 부분 센터 정렬  */
+  .bottom{
+  	text-align:center;
+  }
+ 	
+ .top{
+ 	height:80px;
+ }
+ 	
+ 	
+ 	
+/* #headline{
 	font-size:46px;
 }
 
@@ -37,7 +117,7 @@ div{
 	width:100%;
 	
     margin: 5px;
-  /*   padding:40px; */
+    padding:40px;
 
     position:fixed;
 }
@@ -93,7 +173,7 @@ div{
 	 vertical-align: top;
 }
 #td-t, #td-m, #td-l {
-    vertical-align: top; /* Align cells content to the top */
+    vertical-align: top; Align cells content to the top
 }
 
 
@@ -116,4 +196,4 @@ div{
         display: inline-block;
         height:112px;
         align:center;
-        }
+        } */
