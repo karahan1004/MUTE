@@ -132,7 +132,8 @@
                 <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="close-btn" data-dismiss="modal" onclick="checkAndSubmit()">확인</button>
+                <button type="button" class="close-btn"  onclick="checkAndSubmit()">확인</button>
+                <button type="button" class="close-btn" data-dismiss="modal" >취소</button>
             </div>
         </div>
     </div>
