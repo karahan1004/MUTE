@@ -80,7 +80,21 @@
 }
 
 #sing-mi {
-	width: 100%;
+    width: 100%;
+    height: auto; /* 높이를 화면 높이의 80%로 설정하거나 필요에 따라 조절 */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+   	display: block; /*block 요소로 설정*/
+   /*  position:fixed;
+   	bottom:0; */
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background-color:#ffffff;
+    text-align: center;
 }
 
 /* 여기서부터 css 정리 */
@@ -165,6 +179,8 @@ a{
 	border: none;
 	border-radius:10px;
 	font-size:20px;
+	margin-left:20px;
+	margin-right:20px;
 }
 
 #modaltable{

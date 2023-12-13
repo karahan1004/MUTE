@@ -68,6 +68,15 @@
 			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
 				src="resources/images/del_pl.png"></a></td>
 		</tr>
+		<tr>
+			<td class="pi"><img class="back"
+				src="resources/images/gom_button.png"></td>
+			<td class="si">노래 이름</td>
+			<td class="ga">가수 이름</td>
+			<td class="del"><a onclick="toggleModal('addModal');"><img class="del_img"
+				src="resources/images/del_pl.png"></a></td>
+		</tr>
+		
 	</table>
 	<hr>
 	<footer>
@@ -96,22 +105,22 @@
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <form name="rf" id="rf">
-                    <table id="modaltable">
-					<tr>
-						<td class="del-td"><a class="singdel text-body">이 노래를 삭제 하시겠습니까?</a></td>
-					</tr>
-				</table>
-				<br>
-				<button class="close-btn" onclick="toggleModal('addModal')">삭제</button>
-				<br><br>
-				
-			</form>
-		</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <form name="rf" id="rf">
+                <table id="modaltable">
+                    <tr>
+                        <td class="del-td"><a class="singdel text-body">이 노래를 삭제 하시겠습니까?</a></td>
+                    </tr>
+                </table>
+                <br>
+                <button type="button" class="close-btn" onclick="confirmDelete()">삭제</button>
+                <button type="button" class="close-btn" onclick="toggleModal('addModal')">취소</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+</div>
 
 	<script>
 		var originalImgSrc = "resources/images/play_pl.png";
@@ -138,10 +147,19 @@
 		}
 		
 		function toggleModal(modalId) {
-	        $('#' + modalId).modal('show');
+	        $('#' + modalId).modal('toggle');
 	    }
-		let isPaused = false;
-		
+
+	    function confirmDelete() {
+	        // 여기에 실제 삭제 동작을 추가할 수 있음
+	        // 삭제가 성공하면 모달을 닫도록 처리
+	        // 예시: 삭제 성공 후 모달을 닫고 싶다면 toggleModal('addModal')을 호출
+	        // toggleModal('addModal');
+	        
+	        // 아래는 간단한 예시 코드입니다. 실제 삭제 동작에 맞게 수정하세요.
+	        alert("노래가 삭제되었습니다."); // 삭제 성공 메시지 (임시)
+	        toggleModal('addModal'); // 모달 닫기
+	    }
    
 	</script>
 </body>
