@@ -8,15 +8,17 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	
-	<!-- jQuery 라이브러리 추가 -->
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- jQuery 라이브러리 추가 -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Bootstrap JS와 Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 
 <title>MU:TE</title>
@@ -89,7 +91,7 @@
 			<td class="del"><a onclick="toggleModal('addModal');"><img
 					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
-		
+
 		<tr>
 			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
@@ -98,7 +100,7 @@
 			<td class="del"><a onclick="toggleModal('addModal');"><img
 					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
-		
+
 		<tr>
 			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
@@ -107,7 +109,7 @@
 			<td class="del"><a onclick="toggleModal('addModal');"><img
 					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
-		
+
 		<tr>
 			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
@@ -159,8 +161,7 @@
 					<button type="button" class="close-btn" onclick="confirmDelete()">삭제</button>
 					<button type="button" class="close-btn"
 						onclick="toggleModal('addModal')">취소</button>
-					<br>
-					<br>
+					<br> <br>
 				</form>
 			</div>
 		</div>
@@ -204,22 +205,74 @@
 			alert("노래가 삭제되었습니다."); // 삭제 성공 메시지 (임시)
 			toggleModal('addModal'); // 모달 닫기
 		}
+
+		//노래 실행 부분
+
+		$(document).ready(
+				function() {
+					$('.pi, .si, .ga').on(
+							'click',
+							function() {
+								var albumImageSrc = $(this).closest('tr').find(
+										'.pi img').attr('src');
+								var songTitle = $(this).closest('tr').find(
+										'.si').text();
+								var artistName = $(this).closest('tr').find(
+										'.ga').text();
+
+								// 선택한 행에 맞게 footer 부분 변경
+								$('.im_foot').attr('src', albumImageSrc);
+								$('.si_foot').text(songTitle);
+								$('.ga_foot').text(artistName);
+							});
+				});
+
+		$(document).ready(function () {
+		    var currentIndex = 0; // 현재 보여지는 행의 인덱스를 추적하는 변수
+
+		    // 초기에 footer 부분 설정
+		    updateFooter();
+
+		    // .pi, .si, .ga 클릭 이벤트
+		    $('.pi, .si, .ga').on('click', function () {
+		      currentIndex = $(this).closest('tr').index();
+		      updateFooter();
+
+		      // .ft_img를 pause_pl 이미지로 변경
+		      $('.ft_img').attr('src', 'resources/images/pause_pl.png');
+		    });
+
+		    // .bt_img(이전), .at_img(다음) 클릭 이벤트
+		    $('.bt_img').on('click', function () {
+		      if (currentIndex > 0) {
+		        currentIndex--;
+		        updateFooter();
+		      }
+		    });
+
+		    $('.at_img').on('click', function () {
+		      var totalRows = $('.pi').length;
+		      if (currentIndex < totalRows - 1) {
+		        currentIndex++;
+		        updateFooter();
+		      }
+		    });
+
+		    // footer 부분 업데이트 함수
+		    function updateFooter() {
+		      var albumImageSrc = $('.pi').eq(currentIndex).find('img').attr('src');
+		      var songTitle = $('.si').eq(currentIndex).text();
+		      var artistName = $('.ga').eq(currentIndex).text();
+
+		      // footer 부분 변경
+		      $('.im_foot').attr('src', albumImageSrc);
+		      $('.si_foot').text(songTitle);
+		      $('.ga_foot').text(artistName);
+		    }
+		  });
 	</script>
-	
-<script>
-  $(document).ready(function () {
-    $('.pi, .si, .ga').on('click', function () {
-      var albumImageSrc = $(this).closest('tr').find('.pi img').attr('src');
-      var songTitle = $(this).closest('tr').find('.si').text();
-      var artistName = $(this).closest('tr').find('.ga').text();
-      
-      // 선택한 행에 맞게 footer 부분 변경
-      $('.im_foot').attr('src', albumImageSrc);
-      $('.si_foot').text(songTitle);
-      $('.ga_foot').text(artistName);
-    });
-  });
-</script>
+
+
 
 </body>
 </html>
