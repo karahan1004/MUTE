@@ -93,7 +93,7 @@
 	        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;새로운 플레이리스트 이름을 입력하세요</h2>
 	      </div>
 	      <div class="modal-body">
-	         <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
+	         <textarea required id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="close-btn" data-dismiss="modal" onclick="check()">확인</button>
@@ -131,8 +131,10 @@
         var textAreaContent = document.getElementById('modalContent').value.trim();
         if (textAreaContent === '') {
             window.alert('이름을 입력하세요!');
+            /* 모달이랑 alert 같이 쓰면 충돌 남 */
         }
     }
+	
 	function deletePlaylist() {
         $('#addModal').modal('hide');
         window.alert('플레이리스트가 삭제 되었습니다');
