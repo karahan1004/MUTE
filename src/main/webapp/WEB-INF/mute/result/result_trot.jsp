@@ -46,6 +46,7 @@
 	</table>
     <br>
     
+  <div class="con">  
     <div class="reco">
         <br>
         <a class="tag">당신을 위한 #트로트 음악</a><br><br>
@@ -84,10 +85,9 @@
 		<br>
 		
 		<br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br><br>
-		
-
+		</div>
+		<br>
 	</div>
-
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
