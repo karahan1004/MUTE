@@ -14,6 +14,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	<!-- jQuery 라이브러리 추가 -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 <title>MU:TE</title>
 </head>
 <body>
@@ -45,7 +50,7 @@
 		</tr>
 		<tr>
 			<td class="pi"><img class="albumimg"
-				src="resources/images/gom_button.png"></td>
+				src="resources/images/gom_dance.png"></td>
 			<td class="si">Baddie</td>
 			<td class="ga">잔나비</td>
 			<td class="del"><a onclick="toggleModal('addModal');"><img
@@ -123,7 +128,7 @@
 					src="resources/images/play_pl.png"></td>
 				<td class="si_btn"><img class="at_img"
 					src="resources/images/after_pl.png"></td>
-				<td class="si_btn"><img class="back"
+				<td class="si_btn"><img class="im_foot"
 					src="resources/images/gom_button.png"></td>
 				<td class="si_foot">Baddie</td>
 				<td class="ga_foot">아이브</td>
@@ -200,5 +205,21 @@
 			toggleModal('addModal'); // 모달 닫기
 		}
 	</script>
+	
+<script>
+  $(document).ready(function () {
+    $('.pi, .si, .ga').on('click', function () {
+      var albumImageSrc = $(this).closest('tr').find('.pi img').attr('src');
+      var songTitle = $(this).closest('tr').find('.si').text();
+      var artistName = $(this).closest('tr').find('.ga').text();
+      
+      // 선택한 행에 맞게 footer 부분 변경
+      $('.im_foot').attr('src', albumImageSrc);
+      $('.si_foot').text(songTitle);
+      $('.ga_foot').text(artistName);
+    });
+  });
+</script>
+
 </body>
 </html>
