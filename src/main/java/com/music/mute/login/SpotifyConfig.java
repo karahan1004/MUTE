@@ -17,6 +17,7 @@ public class SpotifyConfig {
 
 	private String redirectUri = "http://localhost:9089/mute/main";
 
+			
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
@@ -24,7 +25,11 @@ public class SpotifyConfig {
 
 	@Bean
 	public SpotifyApi spotifyApi() {
-		return new SpotifyApi.Builder().setClientId(clientId).setClientSecret(clientSecret)
-				.setRedirectUri(URI.create(redirectUri)).build();
+		return new SpotifyApi
+				.Builder()
+				.setClientId(clientId)
+				.setClientSecret(clientSecret)
+				.setRedirectUri(URI.create(redirectUri))
+				.build();
 	}
 }
