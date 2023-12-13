@@ -54,33 +54,30 @@
 				<td><div class="cover"></div></td>
 				<td>힙합왕</td>
 				<td>아티스트명</td>
-				<td><a id="toggleButton1" onclick="toggleButton1()"> <img
-						id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
+				<td><a id="toggleButton1" onclick="toggleButton1()"> 
+					<img id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
 				<td><a id="togglePlus1" onclick="toggleModal('addModal');  togglePlus1()">
-						<img id="buttonPlus1" src="resources/images/plus_pl.png"
-						alt="plus">
+					<img id="buttonPlus1" src="resources/images/plus_pl.png" alt="plus">
 				</a></td>
 			</tr>
 			<tr>
 				<td><div class="cover"></div></td>
 				<td>힙합왕</td>
 				<td>아티스트명</td>
-				<td><a id="toggleButton2" onclick="toggleButton2()"> <img
-						id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
+				<td><a id="toggleButton2" onclick="toggleButton2()"> 
+					<img id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
 				<td><a id="togglePlus2" onclick="toggleModal('addModal'); togglePlus2();">
-						<img id="buttonPlus2" src="resources/images/plus_pl.png"
-						alt="plus">
+					<img id="buttonPlus2" src="resources/images/plus_pl.png" alt="plus">
 				</a></td>
 			</tr>
 			<tr>
 				<td><div class="cover"></div></td>
 				<td>힙합왕</td>
 				<td>아티스트명</td>
-				<td><a id="toggleButton3" onclick="toggleButton3()"> <img
-						id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
+				<td><a id="toggleButton3" onclick="toggleButton3()"> 
+					<img id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
 				<td><a id="togglePlus3" onclick="toggleModal('addModal'); togglePlus3();">
-						<img id="buttonPlus3" src="resources/images/plus_pl.png"
-						alt="plus">
+					<img id="buttonPlus3" src="resources/images/plus_pl.png" alt="plus">
 				</a></td>
 			</tr>
 		</table>
@@ -103,23 +100,19 @@
                     <table id="modaltable">
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
-						<td class="td"><a class="pltitle text-body" href="">너무
-								우울해서 노래 플리 담았어ㅜㅜ</a></td>
+						<td class="td"><a class="pltitle text-body" href="">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
 					</tr>
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
-						<td class="td"><a class="pltitle text-body" href="">너무
-								우울해서 노래 플리 담았어ㅜㅜ</a></td>
+						<td class="td"><a class="pltitle text-body" href="">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
 					</tr>
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
-						<td class="td"><a class="pltitle text-body" href="">코딩할 때
-								듣는 노동요</a></td>
+						<td class="td"><a class="pltitle text-body" href="">코딩할 때 듣는 노동요</a></td>
 					</tr>
 					<tr>
 						<td class="td"><div class="cover1"></div></td>
-						<td class="td"><a class="pltitle text-body" href="">신나고
-								싶을 때 듣는 노래</a></td>
+						<td class="td"><a class="pltitle text-body" href="">신나고 싶을 때 듣는 노래</a></td>
 					</tr>
 				</table>
 				<br>
@@ -144,7 +137,7 @@
 			        </button> -->
 	      </div>
 	      <div class="modal-body">
-	         <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" ></textarea>
+	         <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="close-btn" data-dismiss="modal">확인</button>
@@ -162,8 +155,7 @@
 	      mct.value = '';
 	    });
 	  });
-	
-	
+		
 	
 	function toggleModal(modalId) {
         $('#' + modalId).modal('show');
@@ -206,33 +198,48 @@
 	let isPlus3 = false;
 	
 	function togglePlus1() {
-	    if (!isPlus1) {
-	        const buttonPlus = document.getElementById('buttonPlus1');
-	        isPlus1 = true;
-	        // 항목 추가 로직
-	    } else {
-	        alert("이미 플레이리스트에 추가된 항목입니다");
-	    }
-	}
+        const buttonPlus = document.getElementById('buttonPlus1');
+        const modalContent = document.getElementById('modalContent');
+        if (!modalContent.value.trim()) {
+            alert('텍스트를 입력해주세요');
+            return;
+        }
+        if (!isPlus1) {
+            isPlus1 = true;
+            // 항목 추가 로직
+        } else {
+            alert("이미 플레이리스트에 추가된 항목입니다");
+        }
+    }
 
-	function togglePlus2() {
-	    if (!isPlus2) {
-	        const buttonPlus = document.getElementById('buttonPlus2');
-	        isPlus2 = true;
-	     	// 항목 추가 로직
-	    } else {
-	        alert("이미 플레이리스트에 추가된 항목입니다");
-	    }
-	}
+    function togglePlus2() {
+        const buttonPlus = document.getElementById('buttonPlus2');
+        const modalContent = document.getElementById('modalContent');
+        if (!modalContent.value.trim()) {
+            alert('텍스트를 입력해주세요');
+            return;
+        }
+        if (!isPlus2) {
+            isPlus2 = true;
+            // 항목 추가 로직
+        } else {
+            alert("이미 플레이리스트에 추가된 항목입니다");
+        }
+    }
 
-	function togglePlus3() {
-	    if (!isPlus3) {
-	        const buttonPlus = document.getElementById('buttonPlus3');
-	        isPlus3 = true;
-	     	// 항목 추가 로직
-	    } else {
-	        alert("이미 플레이리스트에 추가된 항목입니다");
-	    }
+    function togglePlus3() {
+        const buttonPlus = document.getElementById('buttonPlus3');
+        const modalContent = document.getElementById('modalContent');
+        if (!modalContent.value.trim()) {
+            alert('텍스트를 입력해주세요');
+            return;
+        }
+        if (!isPlus3) {
+            isPlus3 = true;
+            // 항목 추가 로직
+        } else {
+            alert("이미 플레이리스트에 추가된 항목입니다");
+        }
 	}
 </script>
 
