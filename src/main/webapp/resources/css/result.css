@@ -116,7 +116,7 @@ table{
 .reco {
 	background-color: #FFE2F8;
 	margin: auto;
-	width: 45%;
+	width: 50%;
 	/* height: 30%; */
 	border-radius: 30px;
 }
@@ -142,7 +142,7 @@ table{
 
 
 
-
+ 
 @media (max-width: 1200px) {
     .table2 {
         padding-left: 15px;
@@ -152,7 +152,10 @@ table{
     td {
         padding-right: 15px;
     }
-}
+    .reco {
+        width: 70%;
+    }
+} 
 
 @media (max-width: 800px) {
     .reco {
