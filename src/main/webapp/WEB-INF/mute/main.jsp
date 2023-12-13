@@ -10,36 +10,36 @@
 </head>
 	<body>
 		<table>
-			<tr>
-				<td id="logo" rowspan="2"></td>
-				<td id="mainGom" rowspan="3"></td>
-				<td id="btnGom"></td>
-				<td id="login"><a href="login">간편 로그인</a></td>
+			<tr class="top">
+				<td id="logo" rowspan="2"><img id="logoImg" alt="logo" src="resources/images/mutelogo.png" ></td>
+				<td id="mainGom" rowspan="3"><img id="bear" alt="bear" src="resources/images/origin_gom.png" ></td>
+				<td id="btnGom"><img id="mypage" alt="mypage" onclick="location.href='mypage'" src="resources/images/gom_button.png"></td>
+				<td id="login"><a id="loginText" href="login">간편 로그인</a></td>
 			</tr>
 			
-			<tr>
+			<tr id="tr-2">
 				<!-- <td></td> -->
 				<!-- <td></td> -->
-				<td id="mypage"><a href="mypage">마이페이지</a></td>
-				<td></td>
-			</tr>
-			
-			<tr>
-				<td></td>
-				<!-- <td></td> -->
-				<td></td>
+				<td id="mypage"><a href="mypage" id="mypageFont">마이페이지</a></td>
 				<td></td>
 			</tr>
 			
 			<tr>
+				<td></td>
+				<!-- <td></td> -->
+				<td></td>
+				<td></td>
+			</tr>
+			
+			<tr class="bottom">
 				<td id="title" colspan="4"><h1>내가 듣는 노래가 아이스크림이라면?</h1></td>
 				<!-- <td></td>
 				<td></td>
 				<td></td> -->
 			</tr>
 			
-			<tr>
-				<td id="button" colspan="4"><button class="button" onclick="location.href='question1.jsp'">눌러서 맛보기</button></td>
+			<tr class="bottom">
+				<td id="button" colspan="4"><button class="button" onclick="location.href='test1.jsp'">눌러서 맛보기</button></td>
 				<!-- <td></td>
 				<td></td>
 				<td></td> -->
