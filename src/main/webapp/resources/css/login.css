@@ -39,11 +39,10 @@ h1{
 }
 
 #spotify-btn {
-    background-image: url("resources/images/btn_spotify.png");
-    background-repeat: no-repeat;
-    height: 114px;
+    height: 100px;
     width: 450px;
     border: none;
+    border-radius: 30px;
 }
 
 #logo{
