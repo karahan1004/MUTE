@@ -141,8 +141,8 @@
 	<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3>텍스트를 입력하세요</h3>
+            <div class="modal-body">
+                <h3>플레이리스트 제목은 공백일 수 없습니다</h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="close-btn" data-dismiss="modal" onclick="submitAlert()">확인</button>
