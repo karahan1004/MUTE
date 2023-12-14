@@ -161,6 +161,10 @@
     </div>
 </div>
 
+<div class="notification" id="notification">
+    	<h3>음악을 플레이리스에 저장했습니다!</h3>
+  	</div>
+
 	<script>
 	
 	// 알림 띄우기
@@ -178,6 +182,23 @@
 		}, 3000);
 
 	}
+	
+	
+
+	
+
+
+	
+	/* let notification = document.getElementById('notification');
+
+    function notify() {
+        notification.style.display = 'block';
+
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    } */
+
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    var tareset = document.querySelector('#modalplus .close-btn');
