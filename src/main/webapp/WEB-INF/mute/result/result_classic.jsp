@@ -105,23 +105,23 @@
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
 							<td class="td"><a class="pltitle text-body" href=""
-								onclick="notify('너무 우울해서 노래 플리 담았어ㅜㅜ')">너무 우울해서 노래 플리 담았어ㅜㅜ
+								onclick="notify()">너무 우울해서 노래 플리 담았어ㅜㅜ
 							</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
 							<td class="td"><a class="pltitle text-body" href=""
-								onclick="notify('너무 우울해서 노래 플리 담았어ㅜㅜ')">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
+								onclick="notify()">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
 							<td class="td"><a class="pltitle text-body" href=""
-								onclick="notify('코딩할 때 듣는 노동요')">코딩할 때 듣는 노동요</a></td>
+								onclick="notify()">코딩할 때 듣는 노동요</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
 							<td class="td"><a class="pltitle text-body" href=""
-								onclick="notify('신나고 싶을 때 듣는 노래')">신나고 싶을 때 듣는 노래</a></td>
+								onclick="notify()">신나고 싶을 때 듣는 노래</a></td>
 						</tr>
 					</table>
                 <br>
@@ -164,32 +164,41 @@
     </div>
 </div>
 
+<div class="notification" id="notification">
+    <h3>음악을 플레이리스트에 저장했습니다!</h3>
+</div>
+
 	<script>
 	
-	// 알림 띄우기
-	function notify(msg) {
-		var options = {
-			body : msg
-		}
-		// 데스크탑 알림 요청    
-		var notification = new Notification("플레이리스트에 음악을 저장했어요", options);
-
-		setTimeout(function() {
-			if (!notification.closed) {
-				notification.close();
-			}
-		}, 3000);
-
-	}
-	
 	document.addEventListener('DOMContentLoaded', function () {
-	    var tareset = document.querySelector('#modalplus .close-btn');
-	    var mct = document.getElementById('modalContent');
-	    
-	    tareset.addEventListener('click', function () {
-	      mct.value = '';
+	    const pltitles = document.querySelectorAll('.pltitle'); // 여러 개의 .pltitle을 선택
+
+	    const notification = document.getElementById('notification');
+	    const tareset = document.querySelector('#modalplus .close-btn');
+	    const mct = document.getElementById('modalContent');
+
+	    // 각 .pltitle에 대해 이벤트 리스너 등록
+	    pltitles.forEach(function (pltitle) {
+	        pltitle.addEventListener('click', function (event) {
+	            event.preventDefault();
+	            console.log('pltitle clicked');
+	            notify();
+	        });
 	    });
-	  });
+
+	    function notify() {
+	        notification.style.display = 'block';
+
+	        setTimeout(function () {
+	            notification.style.display = 'none';
+	        }, 1000);
+	    }
+
+	    tareset.addEventListener('click', function () {
+	        mct.value = '';
+	    });
+	});
+
 		
 	
 	function toggleModal(modalId) {
@@ -232,13 +241,13 @@
     let isPlus2 = false;
     let isPlus3 = false;
     
-    toggleButton('buttonImage1', isPaused1);
+   /*  toggleButton('buttonImage1', isPaused1);
     toggleButton('buttonImage2', isPaused2);
     toggleButton('buttonImage3', isPaused3);
     
     ctp('buttonPlus1', isPlus1);
     ctp('buttonPlus2', isPlus2);
-    ctp('buttonPlus3', isPlus3);
+    ctp('buttonPlus3', isPlus3); */
 
     function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');
