@@ -70,3 +70,19 @@
 #modalAlert .modal-content {
     text-align: center;
 }
+
+#modalplus .modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modalplus .modal-content {
+    text-align: center;
+}
+
+#modalplus .modal-title {
+    display: block;
+    margin: 0 auto;
+}
+

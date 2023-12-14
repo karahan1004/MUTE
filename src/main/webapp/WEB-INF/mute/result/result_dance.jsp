@@ -94,151 +94,181 @@
 	</div>
 	<!-- ================================================ -->
 	<!-- The Modal -->
-	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-		<div class="modal-dialog modal-md" role="document">
-
-			<div class="modal-content">
-
-				<form name="rf" id="rf">
-					<table id="modaltable">
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <form name="rf" id="rf">
+                <table id="modaltable">
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href="">너무
-									우울해서 노래 플리 담았어ㅜㅜ</a></td>
+							<td class="td"><a class="pltitle text-body" href=""
+								onclick="notify('너무 우울해서 노래 플리 담았어ㅜㅜ')">너무 우울해서 노래 플리 담았어ㅜㅜ
+							</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href="">너무
-									우울해서 노래 플리 담았어ㅜㅜ</a></td>
+							<td class="td"><a class="pltitle text-body" href=""
+								onclick="notify('너무 우울해서 노래 플리 담았어ㅜㅜ')">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href="">코딩할
-									때 듣는 노동요</a></td>
+							<td class="td"><a class="pltitle text-body" href=""
+								onclick="notify('코딩할 때 듣는 노동요')">코딩할 때 듣는 노동요</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href="">신나고
-									싶을 때 듣는 노래</a></td>
+							<td class="td"><a class="pltitle text-body" href=""
+								onclick="notify('신나고 싶을 때 듣는 노래')">신나고 싶을 때 듣는 노래</a></td>
 						</tr>
 					</table>
-					<br>
-					<button type="button" class="close-btn"
-						onclick="toggleModal('addModal')">닫기</button>
-					<div id="add">
-						<button type="button" class="btn text-body large-button"
-							data-toggle="modal" data-target="#modalplus"
-							style="font-size: 24px;">+ 새로운 플레이리스트</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-
-
-	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
-					<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button> -->
-				</div>
-				<div class="modal-body">
-					<textarea id="modalContent" rows="1" cols="40"
-						placeholder="제목은 20글자 이내로 입력하세요" maxlength="20"></textarea>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="close-btn" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                <br>
+                <button type="button" class="close-btn" onclick="toggleModal('addModal')">닫기</button>
+                <div id="add">
+                    <button type="button" class="btn text-body large-button" data-toggle="modal" data-target="#modalplus" style="font-size: 24px;">+ 새로운 플레이리스트 </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+	
+	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog" data-target="#alert">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
+            </div>
+            <div class="modal-body">
+                <textarea id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close-btn"  onclick="checkAndSubmit()">확인</button>
+                <button type="button" class="close-btn" data-dismiss="modal" >취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+	
+	<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>플레이리스트 제목은 공백일 수 없습니다</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close-btn" data-dismiss="modal" onclick="submitAlert()">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			var tareset = document.querySelector('#modalplus .close-btn');
-			var mct = document.getElementById('modalContent');
-
-			tareset.addEventListener('click', function() {
-				mct.value = '';
-			});
-		});
-
-		function toggleModal(modalId) {
-			$('#' + modalId).modal('toggle');
+	
+	// 알림 띄우기
+	function notify(msg) {
+		var options = {
+			body : msg
 		}
+		// 데스크탑 알림 요청    
+		var notification = new Notification("플레이리스트에 음악을 저장했어요", options);
 
-		let isPaused = false;
-
-		function toggleButton1() {
-			const buttonImage = document.getElementById('buttonImage1');
-			isPaused = !isPaused;
-			if (isPaused) {
-				buttonImage.src = 'resources/images/pause_pl.png';
-			} else {
-				buttonImage.src = 'resources/images/play_pl.png';
+		setTimeout(function() {
+			if (!notification.closed) {
+				notification.close();
 			}
-		}
+		}, 3000);
 
-		function toggleButton2() {
-			const buttonImage = document.getElementById('buttonImage2');
-			isPaused = !isPaused;
-			if (isPaused) {
-				buttonImage.src = 'resources/images/pause_pl.png';
-			} else {
-				buttonImage.src = 'resources/images/play_pl.png';
-			}
+	}
+	
+	document.addEventListener('DOMContentLoaded', function () {
+	    var tareset = document.querySelector('#modalplus .close-btn');
+	    var mct = document.getElementById('modalContent');
+	    
+	    tareset.addEventListener('click', function () {
+	      mct.value = '';
+	    });
+	  });
+		
+	
+	function toggleModal(modalId) {
+        $('#' + modalId).modal('toggle');
+    }
+	
+    let isPaused = false;
+    
+    function toggleButton1() {
+		const buttonImage = document.getElementById('buttonImage1');
+		isPaused = !isPaused;
+		if (isPaused) {
+			buttonImage.src = 'resources/images/pause_pl.png';
+		} else {
+			buttonImage.src = 'resources/images/play_pl.png';
 		}
+	}
 
-		function toggleButton3() {
-			const buttonImage = document.getElementById('buttonImage3');
-			isPaused = !isPaused;
-			if (isPaused) {
-				buttonImage.src = 'resources/images/pause_pl.png';
-			} else {
-				buttonImage.src = 'resources/images/play_pl.png';
-			}
+	function toggleButton2() {
+		const buttonImage = document.getElementById('buttonImage2');
+		isPaused = !isPaused;
+		if (isPaused) {
+			buttonImage.src = 'resources/images/pause_pl.png';
+		} else {
+			buttonImage.src = 'resources/images/play_pl.png';
 		}
+	}
 
-		let isPlus1 = false;
-		let isPlus2 = false;
-		let isPlus3 = false;
-
-		function togglePlus1() {
-			if (!isPlus1) {
-				const buttonPlus = document.getElementById('buttonPlus1');
-				isPlus1 = true;
-				// 항목 추가 로직
-			} else {
-				alert("이미 플레이리스트에 추가된 항목입니다");
-			}
+	function toggleButton3() {
+		const buttonImage = document.getElementById('buttonImage3');
+		isPaused = !isPaused;
+		if (isPaused) {
+			buttonImage.src = 'resources/images/pause_pl.png';
+		} else {
+			buttonImage.src = 'resources/images/play_pl.png';
 		}
+	}
 
-		function togglePlus2() {
-			if (!isPlus2) {
-				const buttonPlus = document.getElementById('buttonPlus2');
-				isPlus2 = true;
-				// 항목 추가 로직
-			} else {
-				alert("이미 플레이리스트에 추가된 항목입니다");
-			}
-		}
+	let isPlus1 = false;
+    let isPlus2 = false;
+    let isPlus3 = false;
+    
+    toggleButton('buttonImage1', isPaused1);
+    toggleButton('buttonImage2', isPaused2);
+    toggleButton('buttonImage3', isPaused3);
+    
+    ctp('buttonPlus1', isPlus1);
+    ctp('buttonPlus2', isPlus2);
+    ctp('buttonPlus3', isPlus3);
 
-		function togglePlus3() {
-			if (!isPlus3) {
-				const buttonPlus = document.getElementById('buttonPlus3');
-				isPlus3 = true;
-				// 항목 추가 로직
-			} else {
-				alert("이미 플레이리스트에 추가된 항목입니다");
-			}
-		}
-	</script>
+    function toggleModal(modalId) {
+        $('#' + modalId).modal('toggle');
+    }
+
+    function toggleButton(buttonId, isPause) {
+        const buttonImage = document.getElementById(buttonId);
+        isPause = !isPause;
+
+        if (isPause) {
+            buttonImage.src = 'resources/images/pause_pl.png';
+        } else {
+            buttonImage.src = 'resources/images/play_pl.png';
+        }
+    }
+    
+    function openModalAlert() {
+        $('#modalAlert').modal('show');
+    }
+    
+    function checkAndSubmit() {
+        const mcv = $('#modalContent').val().trim();
+        // textarea 값이 비어있을 경우 modalAlert 모달을 열고, 아닐 경우 다른 로직 수행
+        if (mcv === '') {
+            openModalAlert();
+        } else {
+        	$('#modalplus').modal('hide');
+        }
+    }
+
+    
+    
+</script>
 
 </body>
 </html>
