@@ -90,7 +90,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h2 class="modal-title">
-	        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;새로운 플레이리스트 이름을 입력하세요</h2>
+	        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수정할 플레이리스트 이름을 입력하세요</h2>
 	      </div>
 	      <div class="modal-body">
 	         <textarea required id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
