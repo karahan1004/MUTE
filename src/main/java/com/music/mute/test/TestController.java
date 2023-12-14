@@ -14,7 +14,6 @@ public class TestController {
 		 int[] genres = new int[10];
 		 session.setAttribute("musicGenres", genres);
 			 /* setAttribute(String name, Object value):
-			 *  name은 데이터를 식별하는데 사용되는 이름이며, value는 저장하려는 객체입니다.
 			 */
 	        return "test/test1";
 	    }
