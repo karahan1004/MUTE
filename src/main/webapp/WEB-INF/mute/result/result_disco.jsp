@@ -104,23 +104,24 @@
 					<table id="modaltable">
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href="">너무
-									우울해서 노래 플리 담았어ㅜㅜ</a></td>
+							<td class="td"><a class="pltitle text-body" href=""
+								onclick="notify('너무 우울해서 노래 플리 담았어ㅜㅜ')">너무 우울해서 노래 플리 담았어ㅜㅜ
+							</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href="">너무
-									우울해서 노래 플리 담았어ㅜㅜ</a></td>
+							<td class="td"><a class="pltitle text-body" href=""
+								onclick="notify('너무 우울해서 노래 플리 담았어ㅜㅜ')">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href="">코딩할
-									때 듣는 노동요</a></td>
+							<td class="td"><a class="pltitle text-body" href=""
+								onclick="notify('코딩할 때 듣는 노동요')">코딩할 때 듣는 노동요</a></td>
 						</tr>
 						<tr>
 							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href="">신나고
-									싶을 때 듣는 노래</a></td>
+							<td class="td"><a class="pltitle text-body" href=""
+								onclick="notify('신나고 싶을 때 듣는 노래')">신나고 싶을 때 듣는 노래</a></td>
 						</tr>
 					</table>
 					<br>
@@ -159,6 +160,22 @@
 	</div>
 
 	<script>
+		// 알림 띄우기
+		function notify(msg) {
+			var options = {
+				body : msg
+			}
+			// 데스크탑 알림 요청    
+			var notification = new Notification("플레이리스트에 음악을 저장했어요", options);
+
+			setTimeout(function() {
+				if (!notification.closed) {
+					notification.close();
+				}
+			}, 3000);
+
+		}
+
 		document.addEventListener('DOMContentLoaded', function() {
 			var tareset = document.querySelector('#modalplus .close-btn');
 			var mct = document.getElementById('modalContent');
