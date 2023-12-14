@@ -3,6 +3,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="resources/css/test.css">
+<meta charset="UTF-8">
     <title>MU:TE</title>
     <script>
    		 /* 장르별 value 변수 설정 
