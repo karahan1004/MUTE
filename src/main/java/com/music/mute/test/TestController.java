@@ -15,8 +15,6 @@ public class TestController {
 		 session.setAttribute("musicGenres", genres);
 			 /* setAttribute(String name, Object value):
 			  * name은 데이터를 식별하는데 사용되는 이름이며, value는 저장하려는 객체입니다.
-			  * 한글 주석 깨짐... 다른 프로젝트도 마찬가지
-			  * 안녕하세요
 			 */
 	        return "test/test1";
 	    }
@@ -30,8 +28,8 @@ public class TestController {
 	 @GetMapping("/test5")
 	    public String showTestPage5() { return "test/test5"; }
 	         
-	 /*@PostMapping(""/submit-data"")
-	  * public String submit-data() {
+	 /*@PostMapping("/update-genres")
+	  * public String update-genres() {
 	  * return "";
 		}
 	  * 
