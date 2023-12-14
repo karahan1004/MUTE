@@ -16,6 +16,8 @@ private static final Logger logger = LoggerFactory.getLogger(PlaylistController.
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+
+	//기본예제, 추후 수정 예정
 	@RequestMapping(value = "/playlist", method = RequestMethod.GET)
 	public String home(Locale locale) {
 		logger.info("Welcome home! The client locale is {}.", locale);
