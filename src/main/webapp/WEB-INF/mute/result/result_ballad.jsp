@@ -141,7 +141,7 @@
 
 	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog"
 		data-target="#alert">
-		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-dialog modalpladd" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
