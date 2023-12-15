@@ -23,7 +23,8 @@ public class TestController {
 	    public String showTestPage2() { return "test/test2"; }
 	 @GetMapping("/test3")
 	    public String showTestPage3() { return "test/test3"; } 
-	 
+	 @GetMapping("/test4")
+	    public String showTestPage4() { return "test/test4"; } 
 	         
 	 /*@PostMapping("/update-genres")
 	  * public String updateGenres(HttpSession session) {

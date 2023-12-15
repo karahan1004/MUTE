@@ -8,12 +8,12 @@
 </head>
 <body>
 	<div class="question">
-	    <h1>Q2.<br>음악은 이렇게 즐겨야지!<br><br></h1>
+	    <h1>Q4.<br> 콘서트를 가기로 한 당신! <br>당신이 가고 싶은 콘서트는?</h1>
 			<!-- 버튼 클릭시 selectGenre(value) 함수를 통해 각 선택지 별 해당하는 장르 count++ -->
-	        <button class="btn" onclick="selectGenre(1)">클럽에서 신나게! 스피커 볼륨 최대로~</button>
-	        <button class="btn" onclick="selectGenre(2)">와인바에서 잔잔하게! 소음따윈 가볍게 무시한다는 마인드</button>
-	        <button class="btn" onclick="selectGenre(3)">햇살을 맞으며 창가에서 커피 한 잔 할래용</button>
-	        <button class="btn" onclick="selectGenre(4)">대한민국 음악의 중심은 바로 나! 엄마 난 커서 가수가 될래요!</button>
+	        <button class="btn" onclick="selectGenre(1)">이것이 진정한 페스티벌! 락페스티벌</button>
+	        <button class="btn" onclick="selectGenre(2)">가슴이 웅장해진다… 영화 오케스트라 콘서트</button>
+	        <button class="btn" onclick="selectGenre(3)">내 최애 영접! 아이돌 콘서트</button>
+	        <button class="btn" onclick="selectGenre(4)">이번년도 효도완 트로트 콘서트</button>
     </div>
     
    <script>
@@ -23,27 +23,27 @@
         function selectGenre(value) {
             if (value === 1) {	/* 인덱스 증가 처리 */
             	//장르별 카운트 배열값 다시설정
-                // 락, 힙합, 디스코
+            	// 락, 힙합, 인디
                 Genres[0]++;
                 Genres[4]++;
-                Genres[7]++;
+                Genres[6]++;
             } else if (value === 2) {
-                // 발라드, 클래식, 재즈 
-                Genres[1]++;
+            	// 클래식, 재즈
                 Genres[5]++;
                 Genres[8]++;
             } else if (value === 3) {
-                // 알앤비, 인디
+            	// 발라드, 알앤비, 댄스
+                Genres[1]++;
                 Genres[3]++;
-                Genres[6]++;
-            } else if (value === 4) {
-                // 트로트, 댄스 
-                Genres[2]++;
                 Genres[9]++;
+            } else if (value === 4) {
+            	// 트로트, 디스코
+                Genres[2]++;
+                Genres[7]++;
             }
             
 	       	sendGenresToServer(Genres);//Genres 카운트 후 Genres 배열을 서버로 보내는 함수 작성 필요
-	        window.location.href = `test3`;// test2에서 해당 장르 배열 인덱스 값 증가 후 스크립트 내에서 페이지 이동하게
+	        window.location.href = `result_trot`;// test3에서 해당 장르 배열 인덱스 값 증가 후 스크립트 내에서 페이지 이동하게
         }//------------------------------------
         
         //서버에 배열 전달 하는 함수
