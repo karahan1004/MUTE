@@ -14,7 +14,7 @@ public class TestController {
 		 int[] genres = new int[10];
 		 session.setAttribute("musicGenres", genres);
 			 /* setAttribute(String name, Object value):
-			  * name은 데이터를 식별하는데 사용되는 이름이며, value는 저장하려는 객체입니다.
+			  * name은 데이터를 식별하는데 사용되는 이름value는 저장하려는 객체
 			 */
 	        return "test/test1";
 	    }
@@ -23,14 +23,11 @@ public class TestController {
 	    public String showTestPage2() { return "test/test2"; }
 	 @GetMapping("/test3")
 	    public String showTestPage3() { return "test/test3"; } 
-	 @GetMapping("/test4")
-	    public String showTestPage4() { return "test/test4"; }
-	 @GetMapping("/test5")
-	    public String showTestPage5() { return "test/test5"; }
+	 
 	         
 	 /*@PostMapping("/update-genres")
-	  * public String update-genres() {
-	  * return "";
+	  * public String updateGenres(HttpSession session) {
+	  * return "result_*";
 		}
 	  * 
 	  * */   

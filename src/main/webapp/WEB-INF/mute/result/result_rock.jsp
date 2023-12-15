@@ -166,7 +166,7 @@
 </div>
 
 <div class="notification" id="notification">
-    <h3>음악을 플레이리스트에 저장했습니다!</h3>
+    음악을 플레이리스트에 저장했습니다!
 </div>
 
 	<script>
