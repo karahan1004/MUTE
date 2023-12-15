@@ -113,8 +113,8 @@
 		<tr>
 			<td class="pi"><img class="albumimg"
 				src="resources/images/gom_button.png"></td>
-			<td class="si">노래 이름</td>
-			<td class="ga">가수 이름</td>
+			<td class="si">OMG</td>
+			<td class="ga">뉴진스</td>
 			<td class="del"><a onclick="toggleModal('addModal');"><img
 					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
