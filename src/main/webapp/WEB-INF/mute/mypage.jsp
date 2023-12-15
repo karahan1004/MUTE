@@ -98,6 +98,7 @@
 	      <div class="modal-footer">
 	        <button type="button" class="close-btn" data-dismiss="modal" onclick="check()">확인</button>
 	      </div>
+	      
 	    </div>
 	  </div>
 	</div>
@@ -130,10 +131,12 @@
 	function check() {
         var textAreaContent = document.getElementById('modalContent').value.trim();
         if (textAreaContent === '') {
-            window.alert('이름을 입력하세요!');
+        	  window.alert('이름을 입력하세요!'); // 브라우저 창에 팝업 알림 띄우기
+              return; 
             /* 모달이랑 alert 같이 쓰면 충돌 남 */
         }
     }
+	
 	
 	function deletePlaylist() {
         $('#addModal').modal('hide');
