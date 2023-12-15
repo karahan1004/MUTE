@@ -39,7 +39,7 @@
 			</tr>
 			
 			<tr class="bottom">
-				<td id="button" colspan="4"><button class="button" onclick="location.href='test1.jsp'">눌러서 맛보기</button></td>
+				<td id="button" colspan="4"><button class="button" onclick="location.href='test1'">눌러서 맛보기</button></td>
 				<!-- <td></td>
 				<td></td>
 				<td></td> -->

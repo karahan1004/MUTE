@@ -46,6 +46,8 @@ table {
 	#mainGom{
 		width:26%;
 		height:480px;
+		margin:0;
+		padding:0;
 	}
 	#btnGom{
 		width:14%;
@@ -73,17 +75,22 @@ table {
 	}
 	
 	#mypage{
-		width:125px;
-		height:123px;
+		width:120px;
+		height:118px;
 		vertical-align:top;
 		text-align:center;
 		
 		
 	}
+	#title{
+		padding:0;
+		margin:0;
+	}
 	#mypageFont{
 		color:gray;
 		text-decoration:none;
-		margin-right:25%
+		margin-right:25%;
+		font-size:150%;
 	}
   /* 글꼴 크기 변경 및 스타일 */
 	  #loginText{

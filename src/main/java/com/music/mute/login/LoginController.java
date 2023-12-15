@@ -30,6 +30,8 @@ public class LoginController {
 
 	@RequestMapping("/main")
 	public String loginProcess(@RequestParam(required = false) String code, HttpSession session) {
+		//@RequestParam("가져올 데이터의 이름") [데이터타입] [가져온데이터를 담을 변수]
+
 		String accessToken=null;
 		if (code != null) {
 			System.out.println("code>>>" + code);
