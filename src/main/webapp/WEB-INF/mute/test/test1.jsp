@@ -42,7 +42,8 @@
             } 
             
 	       	sendGenresToServer(Genres);//Genres 카운트 후 Genres 배열을 서버로 보내는 함수 작성 필요
-	        window.location.href = `test2`;// test1에서 해당 장르 배열 인덱스 값 증가 후 스크립트 내에서 페이지 이동하게
+	       	console.log(Genres);//콘솔에 배열 찍히는지 확인용
+	       	window.location.href = `test2`;// test1에서 해당 장르 배열 인덱스 값 증가 후 스크립트 내에서 페이지 이동하게
         }//------------------------------------
         
         //서버에 배열 전달 하는 함수
@@ -50,6 +51,7 @@
         	fetch("/update-genres", {
         		method: "POST",
         	})
+        	 .catch(error => console.error("Error:", error));
         }//------------------------------------
        
 </script>

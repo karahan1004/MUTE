@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/mypage.css">
+<link rel="stylesheet" href="resources/css/modal.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -23,8 +24,8 @@
 				<td class="head-ba"><a href="main"><img class="back"
 					src="resources/images/gom_button.png"></a></td>
 				<td class="head-na" rowspan="2"><a class="pl">안녕하세요 USERID님~</a></td>
-				<td class="head-lg" rowspan="2"><img class="logo"
-					src="resources/images/mutelogo.png"></td>
+				<td class="head-lg" rowspan="2"><a href="main"><img class="logo"
+					src="resources/images/mutelogo.png"></a></td><!-- 로고를 눌러도 메인페이지로 이동 -->
 			</tr>
 			<tr>
 				<td class="head-ba"><a class="backft" href="main">메인페이지</a></td>
@@ -85,24 +86,36 @@
 	<!-- ======================Modal========================== -->
 	
 	<!-- 이름 수정 모달 -->
-	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog">
+	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog" data-target="#alert">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h2 class="modal-title">
-	        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수정할 플레이리스트 이름을 입력하세요</h2>
+	        &nbsp;&nbsp;&nbsp;수정할 플레이리스트 이름을 입력하세요</h2>
 	      </div>
 	      <div class="modal-body">
 	         <textarea required id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="close-btn" data-dismiss="modal" onclick="check()">확인</button>
+	        <button type="button" class="close-btn" onclick="checkAndSubmit()">확인</button>
+	        <button type="button" class="close-btn" data-dismiss="modal" >취소</button>
 	      </div>
-	      
 	    </div>
 	  </div>
 	</div>
-	
+	<!-- 이름 수정 시 공백 입력 할 경우 모달 다시 띄움 -->
+	<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>플레이리스트 제목은 공백일 수 없습니다</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close-btn" data-dismiss="modal" onclick="submitAlert()">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
 	<!-- 플레이리스트 삭제 모달 -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
@@ -122,22 +135,28 @@
 		</div>
 		</div>
 	</div>
+	
 <script>
 	<!-- 모달 오픈 함수 -->
 	
 	function toggleModal(modalId) {
 	    $('#' + modalId).modal('toggle');
 	}
-	function check() {
-        var textAreaContent = document.getElementById('modalContent').value.trim();
-        if (textAreaContent === '') {
-        	  window.alert('이름을 입력하세요!'); // 브라우저 창에 팝업 알림 띄우기
-              return; 
-            /* 모달이랑 alert 같이 쓰면 충돌 남 */
+	
+	function checkAndSubmit() {
+        const mcv = $('#modalContent').val().trim();
+        // textarea 값이 비어있을 경우 modalAlert 모달을 열고, 아닐 경우 다른 로직 수행
+        if (mcv === '') {
+            openModalAlert();
+        } else {
+        	$('#modalplus').modal('hide');
         }
     }
 	
-	
+	function openModalAlert() {
+        $('#modalAlert').modal('show');
+    }
+    
 	function deletePlaylist() {
         $('#addModal').modal('hide');
         window.alert('플레이리스트가 삭제 되었습니다');
