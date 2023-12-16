@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class TestController {
@@ -27,8 +28,8 @@ public class TestController {
 	    public String showTestPage4() { return "test/test4"; } 
 	         
 	 /*@PostMapping("/update-genres")
-	  * public String updateGenres(HttpSession session) {
-	  * return "result_*";
+	  * public String updateGenres(@RequestBody int[] genres, HttpSession session) {
+	  * return ;
 		}
 	  * 
 	  * */   
