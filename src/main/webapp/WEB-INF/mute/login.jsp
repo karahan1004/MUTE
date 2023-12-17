@@ -43,8 +43,12 @@ function loginToSpotify() {
 			<br><br><br>
 <!-- 			<p><img id="spotify" alt="spotify-loginBtn" onclick="location.href='spotify.jsp'" src="resources/images/btn_spotify.png" height="130" width="450"></p>
  -->			<!-- spotifyBtn 이미지 바꿔야 함. 뒷배경 없는 걸로...! -->
-			<img src="resources/images/btn_spotify.png" id="spotify-btn" type="button" onclick="loginToSpotify()">
-			<!-- 'location.href='spotifyLogin' -->
+ <!-- HTML !-->
+			<button class="button-68" role="button" onclick="loginToSpotify()"><img id="spotifyLogo" src="resources/images/spotifyLogo.png" alt="spotifyLogo">Sign in with Spotify</button>
+
+	
+<!-- 			<img src="resources/images/btn_spotify.png" id="spotify-btn" type="button" onclick="loginToSpotify()">
+ -->			<!-- 'location.href='spotifyLogin' -->
 			
 		</div>
 		

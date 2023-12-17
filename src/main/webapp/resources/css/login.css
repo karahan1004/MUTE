@@ -38,13 +38,69 @@ h1{
     
 }
 
-#spotify-btn {
+/* #spotify-btn {
     height: 100px;
     width: 450px;
     border: none;
     border-radius: 30px;
-}
+} */
 
 #logo{
 	margin:0;
 }
+
+#spotifyLogo{
+	width:50px;
+	height:50px;	
+}
+
+ 
+.button-68 { appearance: none; 
+backface-visibility: hidden; 
+background-color: #0EB815; 
+border-radius: 8px; 
+border-style: none; 
+box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+ box-sizing: border-box; 
+ height:15%;
+ width:35%;
+ color: #fff; 
+ cursor: pointer; 
+ display: inline-block; 
+ font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif; 
+ font-size: 80%; 
+ font-weight: 600;
+  letter-spacing: normal; 
+  line-height: 1.5; 
+  outline: none; 
+  overflow: hidden; 
+  padding: 13px 20px; 
+  position: relative;
+  text-align: center; 
+  text-decoration: none; 
+   transform: translate3d(0, 0, 0); 
+   transition: all .3s;
+   user-select: none; 
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   vertical-align: top;
+   white-space: nowrap;
+   display: flex center; 
+   align-items: center;
+   justify-content: center; 
+   margin:0 auto;
+   } 
+   
+ .button-68:hover { 
+ background-color: #1e8449;
+ opacity: 1; 
+ transform: translateY(0); 
+ transition-duration: .35s;
+  } 
+ .button-68:active { 
+ transform: translateY(2px); 
+ transition-duration: .35s; 
+ } 
+ .button-68:hover {
+  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px; 
+  }
