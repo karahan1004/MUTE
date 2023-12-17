@@ -29,8 +29,7 @@
 			<tr>
 				<td class="head-ba"><a href="mypage"><img class="back"
 						src="resources/images/gom_button.png"></a></td>
-				<td class="head-na" rowspan="2"><a class="pl">플레이리스트란 바로
-						이거다</a></td>
+				<td class="head-na" rowspan="2"><a class="pl">${playlist.name}</a></td>
 				<td class="head-lg" rowspan="2"><img class="logo"
 					src="resources/images/mutelogo.png"></td>
 			</tr>

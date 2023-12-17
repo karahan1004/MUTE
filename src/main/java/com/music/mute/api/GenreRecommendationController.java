@@ -45,8 +45,8 @@ public class GenreRecommendationController {
                 String playlistId = playlists[0].getId(); // 첫 번째 플레이리스트 사용 (예시)
                 final GetRecommendationsRequest recommendationsRequest = spotifyApi
                         .getRecommendations()
-                        .seed_genres("pop") // 원하는 장르를 나열
-                        .limit(10)
+                        .seed_genres("trot") // 원하는 장르를 나열
+                        .limit(3)
                         .build();
 
 
