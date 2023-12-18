@@ -44,20 +44,24 @@
             
 	       	sendGenresToServer(Genres);//Genres 카운트 후 Genres 배열을 서버로 보내는 함수 작성 필요
 	       	console.log(Genres);//콘솔에 배열 찍히는지 확인용
-	       	window.location.href = `result_ballad`;// test4에서 해당 장르 배열 인덱스 값 증가 후 스크립트 내에서 페이지 이동하게
+	       	window.location.href = `test5`;// test4에서 해당 장르 배열 인덱스 값 증가 후 스크립트 내에서 페이지 이동하게
         }//------------------------------------
         
         //서버에 배열 전달 하는 함수
-         function sendGenresToServer(Genres) {
-        	fetch("/updategenres", {
-        		method: "POST",
-        		header: {
-        			"Content-Type": "application/json"
-        		},//header--------------
-        		body: JSON.stringify(Genres)//Genres배열을 json형태로 변환하여 서버에 전달
-        	})
-        	 .catch(error => console.error("Error:", error));
-        }//------------------------------------
+       function sendGenresToServer(Genres) {
+        fetch("updategenres", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(Genres)//Genres 배열을 json형태로 변환하여 서버에 전달
+        })
+            .then(response => response.json())
+            .then(Genres => {
+                console.log("서버 응답:", Genres);
+            })
+            .catch(error => console.error("Error:", error));
+    }//------------------------------------
 </script>
 </body>
 </html>
