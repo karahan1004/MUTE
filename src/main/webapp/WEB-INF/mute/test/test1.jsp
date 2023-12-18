@@ -15,7 +15,7 @@
 	        <button class="btn" onclick="selectGenre(3)">집어치워! 난 나의 길을 간다 락스피릿 예아~</button>
 	        <button class="btn" onclick="selectGenre(4)">우울할 땐 난 힙합을 춰...</button>
     </div>
-    
+
 <script>
    		// 길이가 10인 Genres 배열을 선언하고 모든 인덱스값을 0으로 초기화
    		/* 장르 배열 (0:락, 1:발라드, 2:트로트, 3:알앤비, 4:힙합, 5:클래식, 6:인디, 7:디스코, 8:재즈, 9:댄스) */
@@ -48,19 +48,19 @@
         
         //서버에 배열 전달 하는 함수
         function sendGenresToServer(Genres) {
-        	fetch("updategenres", {
-        		method: "POST",
-        		header: {
-        			"Content-Type": "application/json"
-        		},
-        		body: JSON.stringify(Genres) //Genres배열을 json형태로 변환하여 서버에 전달
-        	})
-	        	 .then(response => response.json())
-	        	 .then(Genres => {
-	                console.log("서버 응답:", Genres);
+        fetch("updategenres", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(Genres)//Genres 배열을 json형태로 변환하여 서버에 전달
+        })
+            .then(response => response.json())
+            .then(Genres => {
+                console.log("서버 응답:", Genres);
             })
-        	 .catch(error => console.error("Error:", error));
-        }//------------------------------------
+            .catch(error => console.error("Error:", error));
+    }//------------------------------------
        
 </script>
 </body>

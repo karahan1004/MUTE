@@ -48,16 +48,20 @@
         }//------------------------------------
         
         //서버에 배열 전달 하는 함수
-        function sendGenresToServer(Genres) {
-        	fetch("/updategenres", {
-        		method: "POST",
-        		header: {
-        			"Content-Type": "application/json"
-        		},//header--------------
-        		body: JSON.stringify(Genres)//Genres배열을 json형태로 변환하여 서버에 전달
-        	})
-        	 .catch(error => console.error("Error:", error));
-        }//------------------------------------
+       function sendGenresToServer(Genres) {
+        fetch("updategenres", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(Genres)//Genres 배열을 json형태로 변환하여 서버에 전달
+        })
+            .then(response => response.json())
+            .then(Genres => {
+                console.log("서버 응답:", Genres);
+            })
+            .catch(error => console.error("Error:", error));
+    }//------------------------------------
        
 </script>
 </body>
