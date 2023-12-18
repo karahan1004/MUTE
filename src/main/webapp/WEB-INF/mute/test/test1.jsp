@@ -22,9 +22,8 @@
         let Genres = Array(10).fill(0);
         function selectGenre(value) {
             if (value === 1) {	/* 인덱스 증가 처리 */
-            	// 트로트, 디스코, 댄스 
-            	Genres[2]++;
-            	Genres[7]++;
+            	// 댄스 
+            	// 값이 중복이라 락이랑 트로트 3번에서 증가시킴
             	Genres[9]++;
             }else if (value === 2) {
             	// 발라드, 클래식, 인디, 재즈
@@ -33,8 +32,10 @@
                 Genres[6]++;
                 Genres[8]++;
             }else if (value === 3) {
-            	// 락
+            	// 락, 트로트, 디스코
                 Genres[0]++;
+                Genres[2]++;
+                Genres[7]++;
             }else if (value === 4) {
             	// 알앤비, 힙합 
                 Genres[3]++;

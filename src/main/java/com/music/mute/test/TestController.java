@@ -91,6 +91,12 @@ public class TestController {
 	}//---------------------------------------
 	
 	 // 테스트를 통해 나온 최종 배열 인덱스 중 최댓값에 해당하는 결과페이지로 GetMapping
+	 @GetMapping("/result_genres")
+	 public String showResultPage(HttpSession session) {
+		 int max=0;
+		 int [] ResultGenres=(int [])(session.getAttribute("musicGenres"));
+		 return null;
+	 }
 	 
 }///////////////////////////////////
 
