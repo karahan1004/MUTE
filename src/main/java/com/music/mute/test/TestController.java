@@ -41,6 +41,21 @@ public class TestController {
 		 System.out.println("--------------------------");
 		 System.out.println("test5에서 생성되는 장르 배열");
 		 return "test/test5"; } 
+	 @GetMapping("/test6")
+	    public String showTestPage6() { 
+		 System.out.println("--------------------------");
+		 System.out.println("test6에서 생성되는 장르 배열");
+		 return "test/test6"; } 
+	 @GetMapping("/test7")
+	    public String showTestPage7() { 
+		 System.out.println("--------------------------");
+		 System.out.println("test7에서 생성되는 장르 배열");
+		 return "test/test7"; } 
+	 @GetMapping("/test8")
+	    public String showTestPage8() { 
+		 System.out.println("--------------------------");
+		 System.out.println("test8에서 생성되는 장르 배열");
+		 return "test/test8"; } 
 	         
 	 @RequestMapping(value = "/updategenres", method = RequestMethod.POST)
 	    //GET 요청이 오면 200뜨고 res 출력 / 페이지가 원래 가지고 있던 배열
