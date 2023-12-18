@@ -256,11 +256,8 @@
 			<version>2.9.8</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<!-- <dependency> 충돌남!!
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.5</version>
-		</dependency> -->
+		<!-- <dependency> 충돌남!! <groupId>com.google.code.gson</groupId> <artifactId>gson</artifactId> 
+			<version>2.8.5</version> </dependency> -->
 		<!-- Add MongoDB Lib -->
 
 		<!-- spring-core 5.3.8 추가하니 에러가 나지 않음 -->
@@ -304,6 +301,15 @@
 			<artifactId>httpclient5</artifactId>
 			<version>5.2.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>se.michaelthelin.spotify</groupId>
+			<artifactId>spotify-web-api-java</artifactId>
+			<version>8.3.4</version>
+		</dependency>
+
+
+
 		<!--================================== -->
 
 	</dependencies>
