@@ -17,5 +17,19 @@
         </c:forEach>
     </ul>
 
+    <form action="/mute/addPlaylist" method="post">
+        <label for="playlistName">New Playlist Name:</label>
+        <input type="text" id="playlistName" name="playlistName" required>
+        <button type="submit">Create Playlist</button>
+    </form>
+
+    <!-- Show success or error messages -->
+    <c:if test="${not empty message}">
+        <p style="color: green;">${message}</p>
+    </c:if>
+    <c:if test="${not empty error}">
+        <p style="color: red;">${error}</p>
+    </c:if>
+
 </body>
 </html>
