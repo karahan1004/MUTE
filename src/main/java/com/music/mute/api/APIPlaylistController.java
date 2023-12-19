@@ -1,95 +1,175 @@
 package com.music.mute.api;
 
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import se.michaelthelin.spotify.SpotifyApi;
+import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
+import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.TrackSimplified;
 import se.michaelthelin.spotify.model_objects.specification.User;
+import se.michaelthelin.spotify.requests.data.albums.GetAlbumsTracksRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
-import se.michaelthelin.spotify.requests.data.users_profile.GetUsersProfileRequest;
-
 
 @Controller
 public class APIPlaylistController {
 
-    @Autowired
-    private SpotifyApi spotifyApi;
+	@Autowired
+	private SpotifyApi spotifyApi;
 
-    @GetMapping("/apiTest")
-    public String getUserPlaylists(Model model, HttpSession session) {
-        // 사용자의 Access Token을 세션에서 가져옴
-        String accessToken = (String) session.getAttribute("accessToken");
+	@GetMapping("/apiTest")
+	public String getUserPlaylists(Model model, HttpSession session) {
+		// 사용자의 Access Token을 세션에서 가져옴
+		String accessToken = (String) session.getAttribute("accessToken");
 
-        if (accessToken != null) {
-            try {
-                spotifyApi.setAccessToken(accessToken);
+		if (accessToken != null) {
+			try {
+				spotifyApi.setAccessToken(accessToken);
 
-                final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
-                        .getListOfCurrentUsersPlaylists()
-                        .limit(10)
-                        .build();
+				final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
+						.getListOfCurrentUsersPlaylists().limit(10).build();
 
-                final CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
+				final CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
 
-                // 실제 코드에서는 결과를 처리해야 합니다.
-                PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
+				// 실제 코드에서는 결과를 처리해야 합니다.
+				PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
+				System.out.println(playlists[0]);
+				model.addAttribute("playlists", playlists);
+			} catch (Exception e) {
+				// 예외 처리
+				e.printStackTrace();
+			}
+		} else {
+			// Access Token이 없는 경우, 로그인 페이지로 리다이렉트 또는 에러 처리
+			return "redirect:/login"; // 예시: 로그인 페이지로 리다이렉트
+		}
 
-                model.addAttribute("playlists", playlists);
-            } catch (Exception e) {
-                // 예외 처리
-                e.printStackTrace();
+		return "/apiTest";
+	}
+	
+	public  Track[] getTrack() {
+	       
+
+		  
+
+        // Build the request to search for tracks
+		//이 부분 수정해야됩니다
+        SearchTracksRequest request = spotifyApi.searchTracks("OMG").build();
+
+        try {
+            // Execute the request and get the search results
+            Track[] tracks = request.execute().getItems();
+
+            if (tracks.length > 0) {
+                // Get the ID of the first track in the search results
+                String trackId = tracks[0].getId();
+                System.out.println("Track ID: " + trackId);
+                
+            } else {
+                System.out.println("No tracks found.");
             }
-        } else {
-            // Access Token이 없는 경우, 로그인 페이지로 리다이렉트 또는 에러 처리
-            return "redirect:/login"; // 예시: 로그인 페이지로 리다이렉트
-        }
-
-        return "/apiTest";
+            return tracks;
+        } catch (IOException | SpotifyWebApiException|ParseException e) {
+            System.err.println("Error: " + e.getMessage());
+            return null;
+        } 
+       
     }
 
+	public void getTrack_Sync(String id) {
+	    // 앨범 트랙을 가져오기 위한 요청 작성
+	    GetAlbumsTracksRequest request = spotifyApi.getAlbumsTracks(id).limit(10).offset(0).build();
+
+	    try {
+	        // 요청 실행 및 앨범 트랙 가져오기
+	        Paging<TrackSimplified> trackSimplifiedPaging = request.execute();
+
+	        System.out.println("총 트랙 수: " + trackSimplifiedPaging.getTotal());
+	        
+	        // 플레이리스트 트랙을 반복하고 트랙 ID 출력
+	        for (TrackSimplified playlistTrack : trackSimplifiedPaging.getItems()) {
+	            String trackId = playlistTrack.getId();
+	            String trackName = playlistTrack.getName();  // 트랙의 이름 로깅
+	            System.out.println("트랙 ID: " + trackId + ", 트랙 이름: " + trackName);
+	        }
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	        System.out.println("오류: " + e.getMessage());
+	    }
+	}
 
 	/* @PostMapping("/addPlaylist") */
-    public String addPlaylist(Model model, HttpSession session, @RequestParam String playlistName) {
-        String accessToken = (String) session.getAttribute("accessToken");
+	public String addPlaylist(Model model, HttpSession session, @RequestParam String playlistName) {
+		String accessToken = (String) session.getAttribute("accessToken");
 
-        if (accessToken != null) {
-            try {
-                spotifyApi.setAccessToken(accessToken);
+		if (accessToken != null) {
+			try {
+				spotifyApi.setAccessToken(accessToken);
 
-                final GetCurrentUsersProfileRequest profileRequest = spotifyApi.getCurrentUsersProfile().build();
-                final CompletableFuture<User> privateUserFuture = profileRequest.executeAsync();
-                User privateUser = privateUserFuture.join();
-                String userId = privateUser.getId();
+				final GetCurrentUsersProfileRequest profileRequest = spotifyApi.getCurrentUsersProfile().build();
+				final CompletableFuture<User> privateUserFuture = profileRequest.executeAsync();
+				User privateUser = privateUserFuture.join();
+				String userId = privateUser.getId();
 
-                final CreatePlaylistRequest createPlaylistRequest = spotifyApi.createPlaylist(userId, playlistName)
-                        .public_(false)
-                        .build();
+				final CreatePlaylistRequest createPlaylistRequest = spotifyApi.createPlaylist(userId, playlistName)
+						.public_(false).build();
 
-                final CompletableFuture<Playlist> playlistFuture = createPlaylistRequest.executeAsync();
-                Playlist newPlaylist = playlistFuture.join();
+				final CompletableFuture<Playlist> playlistFuture = createPlaylistRequest.executeAsync();
+				Playlist newPlaylist = playlistFuture.join();
 
-                model.addAttribute("message", "Playlist added successfully: " + newPlaylist.getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-                model.addAttribute("error", "Error adding playlist");
-            }
-        } else {
-            return "redirect:/login";
-        }
+				model.addAttribute("message", "Playlist added successfully: " + newPlaylist.getName());
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("error", "Error adding playlist");
+			}
+		} else {
+			return "redirect:/login";
+		}
 
-        return "redirect:/apiTest"; 
-    }
+		return "redirect:/apiTest";
+	}
+
+	@GetMapping("/playlisttracks")
+	public String getPlaylisttracks(Model model, HttpSession session, @RequestParam("playlistId") String playlistId) {
+		System.out.println(">>>> Playlist ID: " + playlistId);
+		String accessToken = (String) session.getAttribute("accessToken");
+		Track[] tracks=getTrack();
+		if (accessToken != null) {
+			try {
+				spotifyApi.setAccessToken(accessToken);
+
+				final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId()).limit(10).build();
+
+				final CompletableFuture<Paging<TrackSimplified>> tracksFuture = tracksRequest.executeAsync();
+				
+				//이부분도 수정해야됩니다.
+				/* TrackSimplified[] albumtrack = null; */
+				tracksFuture.join().getItems();
+
+				model.addAttribute("tracks", tracks);
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("error", "Error fetching playlist tracks");
+			}
+		} else {
+			return "redirect:/login";
+		}
+
+		return "/playlisttracks";
+	}
+
 }

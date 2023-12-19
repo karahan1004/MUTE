@@ -18,7 +18,7 @@ function loginToSpotify() {
     var client_id = '61731dfa4f5a4f81a934c76fe09958d8';
     var redirect_uri = 'http://localhost:9089/mute/main';
 
-    var scope = 'user-read-private user-read-email user-read-currently-playing playlist-read-private playlist-modify-private user-modify-playback-state';
+    var scope = 'user-read-private user-read-email user-library-read user-read-currently-playing playlist-read-private playlist-modify-private user-modify-playback-state';
 
 
     var spotifyAuthURL = 'https://accounts.spotify.com/authorize?' +

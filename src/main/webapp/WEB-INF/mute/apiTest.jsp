@@ -13,9 +13,14 @@
 
     <ul>
         <c:forEach items="${playlists}" var="playlist">
-            <li>${playlist.name}</li>
+            <li>
+                <a href="<c:url value='/playlisttracks'/>?playlistId=${playlist.id}">
+                    ${playlist.name}
+                </a>
+            </li>
         </c:forEach>
     </ul>
+
 
     <form action="/mute/addPlaylist" method="post">
         <label for="playlistName">New Playlist Name:</label>
