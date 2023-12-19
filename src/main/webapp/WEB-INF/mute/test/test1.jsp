@@ -7,6 +7,7 @@
     <title>MU:TE</title>
 </head>
 <body>
+	
 	<div class="question">
 	    <h1>Q1.<br> 오늘따라 우울한 당신! <br>지금 당신의 플레이리스트는?</h1>
 			<!-- 버튼 클릭시 selectGenre(value) 함수를 통해 각 선택지 별 해당하는 장르 count++ -->
@@ -22,8 +23,7 @@
         let Genres = Array(10).fill(0);
         function selectGenre(value) {
             if (value === 1) {	/* 인덱스 증가 처리 */
-            	// 댄스 
-            	// 값이 중복이라 락이랑 트로트 3번에서 증가시킴
+            	// 댄스 ==> 값이 중복이라 락이랑 트로트 3번에서 증가시킴
             	Genres[9]++;
             }else if (value === 2) {
             	// 발라드, 클래식, 인디, 재즈
@@ -33,7 +33,7 @@
                 Genres[8]++;
             }else if (value === 3) {
             	// 락, 트로트, 디스코
-                Genres[0]++;
+            	Genres[0]++;
                 Genres[2]++;
                 Genres[7]++;
             }else if (value === 4) {
