@@ -76,10 +76,12 @@ public class ResultController {
 		return "result/result_rock";
 	}
 	
+	/*
 	@RequestMapping(value = "/result_trot", method = RequestMethod.GET)
 	public String result_trot(Locale locale) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		return "result/result_trot";
 	}
+	*/
 }
