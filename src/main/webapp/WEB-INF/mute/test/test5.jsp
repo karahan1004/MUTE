@@ -15,7 +15,7 @@
 	        <button class="btn" onclick="selectGenre(3)">Last Christmas - Wham!</button>
 	        <button class="btn" onclick="selectGenre(4)">Santa Tell Me - Ariana Grande</button>
     </div>
-    <!-- test5, test6 jsp에서는 전체 배열의 중복을 방지하기 위해 인덱스 값을 일부러 섞는 작업 수행 -->
+    <!-- test5 에서는 전체 배열의 중복을 방지하기 위해 인덱스 값을 일부러 한 장르만 증가하는 작업 수행 -->
    <script>
    		// 길이가 10인 Genres 배열을 선언하고 모든 인덱스값을 0으로 초기화
    		/* 장르 배열 (0:락, 1:발라드, 2:트로트, 3:알앤비, 4:힙합, 5:클래식, 6:인디, 7:디스코, 8:재즈, 9:댄스) */
@@ -23,22 +23,18 @@
         function selectGenre(value) {
             if (value === 1) {	/* 인덱스 증가 처리 */
             	//장르별 카운트 배열값 다시설정
-            	// 발라드, 힙합, 재즈
-                Genres[1]++;
-                Genres[4]++;
+            	// 재즈
                 Genres[8]++;
             } else if (value === 2) {
-            //  락, 댄스
+           		// 락, 댄스
                 Genres[0]++;
                 Genres[9]++
             } else if (value === 3) {
-            	 // 클래식, 인디, 디스코 
-                Genres[5]++;
+            	 // 인디, 디스코 
                 Genres[6]++;
                 Genres[7]++;
             } else if (value === 4) {
-            	// 트로트, 알앤비
-                Genres[2]++;
+            	// 알앤비
                 Genres[3]++;
             }
             

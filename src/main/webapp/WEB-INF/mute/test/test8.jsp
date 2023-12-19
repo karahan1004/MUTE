@@ -44,7 +44,7 @@
             
 	       	sendGenresToServer(Genres);//Genres 카운트 후 Genres 배열을 서버로 보내는 함수 작성 필요
 	       	console.log(Genres);//콘솔에 배열 찍히는지 확인용
-	       	window.location.href = `result_ballad`;// test8에서 최종 배열의 최댓값 구해서 컨트롤러에서 매핑
+	       	window.location.href = `result_genres`;// test8에서 최종 배열의 최댓값 구해서 컨트롤러에서 매핑
         }//------------------------------------
         
         //서버에 배열 전달 하는 함수
