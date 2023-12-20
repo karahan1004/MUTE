@@ -1,21 +1,30 @@
 package com.music.mute.api;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import se.michaelthelin.spotify.SpotifyApi;
+import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.model_objects.specification.Album;
+import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Recommendations;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 
 @Controller
 public class GenreRecommendationController {
@@ -27,7 +36,7 @@ public class GenreRecommendationController {
     public String getGenreRecommendations(Model model, HttpSession session) {
         // 사용자의 Access Token을 세션에서 가져옴
         String accessToken = (String) session.getAttribute("accessToken");
-
+        List<TrackWithImageUrl> recommendationsList = new ArrayList<>();
         if (accessToken != null) {
             try {
                 spotifyApi.setAccessToken(accessToken);
@@ -49,9 +58,19 @@ public class GenreRecommendationController {
                         .limit(3)
                         .build();
 
-
                 final CompletableFuture<Recommendations> recommendationsFuture = recommendationsRequest.executeAsync();
                 Track[] recommendations = recommendationsFuture.join().getTracks();
+
+                // 추천된 트랙 목록에 앨범 커버 이미지 URL 추가
+                for (Track track : recommendations) {
+                    String trackAlbumId = getAlbumId(track.getId(), accessToken);
+                    String coverImageUrl = getAlbumCoverImageUrl(trackAlbumId, accessToken);
+                 // TrackWithImageUrl 객체를 생성합니다.
+                    TrackWithImageUrl newTrack = new TrackWithImageUrl(track, coverImageUrl);
+
+                    recommendationsList.add(newTrack);
+                
+                }
 
                 model.addAttribute("recommendations", recommendations);
 
@@ -66,5 +85,84 @@ public class GenreRecommendationController {
         }
 
         return "/recommendations";
+    }
+
+    private String getAlbumId(String trackId, String accessToken) throws ParseException {
+        try {
+            // Spotify API를 초기화하고 트랙 정보를 가져옴
+        	
+            SpotifyApi spotifyApi = new SpotifyApi.Builder()
+                    .setAccessToken(accessToken)
+                    .build();
+
+            GetTrackRequest getTrackRequest = spotifyApi
+                    .getTrack(trackId)
+                    .build();
+
+            Track track = getTrackRequest.execute();
+
+            // 트랙이 존재하면 앨범 ID 반환
+            if (track != null) {
+                AlbumSimplified album = track.getAlbum();
+                if (album != null) {
+                    return album.getId();
+                }
+            }
+
+            // 앨범 ID를 찾을 수 없는 경우 예외 처리 또는 기본 값 반환
+            return "default-album-id";
+        } catch (IOException | SpotifyWebApiException e) {
+            // 예외 처리
+            e.printStackTrace();
+            return "error-album-id";
+        }
+    }
+
+    private String getAlbumCoverImageUrl(String albumId, String accessToken) throws ParseException {
+        try {
+            // Spotify API를 초기화하고 앨범 정보를 가져옴
+            SpotifyApi spotifyApi = new SpotifyApi.Builder()
+                    .setAccessToken(accessToken)
+                    .build();
+
+            GetAlbumRequest getAlbumRequest = spotifyApi
+                    .getAlbum(albumId)
+                    .build();
+
+            Album album = getAlbumRequest.execute();
+
+            // 앨범 정보에서 커버 이미지 URL을 가져옴
+            if (album != null && album.getImages() != null && album.getImages().length > 0) {
+                return album.getImages()[0].getUrl();
+            }
+
+            // 커버 이미지 URL을 찾을 수 없는 경우 예외 처리 또는 기본 값 반환
+            return "default-cover-image-url";
+        } catch (IOException | SpotifyWebApiException e) {
+            // 예외 처리
+            e.printStackTrace();
+            return "error-cover-image-url";
+        }
+    }
+    public class TrackWithImageUrl {
+        private Track track;
+        private String coverImageUrl;
+
+        public TrackWithImageUrl(Track track, String coverImageUrl) {
+            this.track = track;
+            this.coverImageUrl = coverImageUrl;
+        }
+
+        // 다른 필요한 메서드들을 추가할 수 있음
+
+        public String getCoverImageUrl() {
+            return coverImageUrl;
+        }
+
+        public void setCoverImageUrl(String coverImageUrl) {
+            this.coverImageUrl = coverImageUrl;
+        }
+
+        // Track 클래스의 다른 메서드들을 필요한 경우 여기에 추가
     }
 }
