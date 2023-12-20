@@ -96,16 +96,19 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <form name="rf" id="rf">
+            	<div id="scroll">
                 <!-- 현재 사용자의 플레이리스트 목록을 표시할 테이블 -->
-                <table id="modaltable">
-                    <c:forEach var="playlist" items="${playlists}">
+                <table class="modaltable" id="modaltable">
+                      <c:forEach var="playlist" items="${playlists}">
                         <tr>
-                            <td class="td"><div class="cover1"></div></td>
+                            <!-- <td class="td"><div class="cover1"></div></td> -->
+                            <td class="td"><img alt="gom_trot" src="resources/images/gom_button.png" height="65" width="65"></td>
                             <td class="td"><a class="pltitle text-body" href=""
                                     onclick="notify()">${playlist.name}</a></td>
                         </tr>
-                    </c:forEach>
+                    </c:forEach>  
                 </table>
+                </div>
                 <br>
                 <button type="button" class="close-btn" onclick="toggleModal('addModal')">닫기</button>
                 <div id="add">
@@ -157,11 +160,11 @@
     음악을 플레이리스트에 저장했습니다!
 </div>
 
-	<script>
+
+<script>
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    const pltitles = document.querySelectorAll('.pltitle'); // 여러 개의 .pltitle을 선택
-
 	    const notification = document.getElementById('notification');
 	    const tareset = document.querySelector('#modalplus .close-btn');
 	    const mct = document.getElementById('modalContent');
@@ -175,17 +178,11 @@
 	        });
 	    });
 
-	    function notify() {
-	        notification.style.display = 'block';
-
-	        setTimeout(function () {
-	            notification.style.display = 'none';
-	        }, 1000);
-	    }
-
+	     
 	    tareset.addEventListener('click', function () {
 	        mct.value = '';
 	    });
+	    
 	});
 		
 	
@@ -229,13 +226,6 @@
     let isPlus2 = false;
     let isPlus3 = false;
     
-    /* toggleButton('buttonImage1', isPaused1);
-    toggleButton('buttonImage2', isPaused2);
-    toggleButton('buttonImage3', isPaused3);
-    
-    ctp('buttonPlus1', isPlus1);
-    ctp('buttonPlus2', isPlus2);
-    ctp('buttonPlus3', isPlus3); */
 
     function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');
@@ -258,51 +248,69 @@
     
 
     function checkAndSubmit() {
-    	event.preventDefault();
+        event.preventDefault();
         const mcv = $('#modalContent').val().trim();
-        alert(mcv);
-        // textarea 값이 비어있을 경우 modalAlert 모달을 열고, 아닐 경우 다른 로직 수행
+
         if (mcv === '') {
             openModalAlert();
         } else {
-        	alert('here')
             // 사용자가 입력한 플레이리스트를 서버로 전송
             $.ajax({
                 type: "POST",
                 url: "/mute/addPlaylist", // 수정된 부분: 컨트롤러 매핑 주소 수정
                 data: { playlistName: mcv },
-                success: function(response) {
-                	alert(response)
-                    // 서버에서의 처리가 성공하면 추가된 플레이리스트 목록을 갱신
+                success: function (res) {
                     $('#modalplus').modal('hide');
-                    updatePlaylist(response.playlists);
+                    // 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
+                    addPlaylistToTable(mcv);
                 },
-                error: function(error) {
-                	alert('error')
-                    console.error('Error submitting playlist:', error);
+                error: function (err) {
+                    alert('error');
+                    console.error('Error submitting playlist:', err);
                 }
             });
         }
     }
 
-    // 플레이리스트 목록 업데이트 함수 추가
-    function updatePlaylist(playlists) {
-        const table2 = $('.table2');
-        table2.empty();
+ // 플레이리스트를 테이블에 동적으로 추가하는 함수
+    function addPlaylistToTable(playlistName) {
+        // 새로운 행을 생성
+        var newRow = $('<tr>');
 
-        $.each(playlists, function(index, playlist) {
-            table2.append('<tr>' +
-                '<td><div class="cover"></div></td>' +
-                '<td>' + playlist.artist + '</td>' +
-                '<td>' + playlist.name + '</td>' +
-                '<td><a id="toggleButton' + index + '" onclick="toggleButton(' + index + ')">' +
-                '<img id="buttonImage' + index + '" src="resources/images/play_pl.png" alt="Start"></a></td>' +
-                '<td><a id="togglePlus' + index + '" onclick="toggleModal(\'addModal\')">' +
-                '<img id="buttonPlus' + index + '" src="resources/images/plus_pl.png" alt="plus"></a></td>' +
-                '</tr>');
+        var coverCell = $('<td>').addClass('td').append($('<img>').attr({
+            'alt': 'gom_trot',
+            'src': 'resources/images/gom_button.png',
+            'height': '65',
+            'width': '65'
+        }));
+        newRow.append(coverCell);
+
+        var titleCell = $('<td>').addClass('td');
+        var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').text(playlistName);
+
+        titleCell.append(playlistLink);
+        newRow.append(titleCell);
+
+        newRow.find('.pltitle').click(function (event) {
+            event.preventDefault();
+            notify();
         });
+
+        $('#modaltable').prepend(newRow);
     }
-    
+
+ 
+ 	//알림
+    function notify() {
+        var notification = $('#notification');
+        notification.css('display', 'block');
+
+        setTimeout(function() {
+            notification.css('display', 'none');
+        }, 1000);
+    }
+
+
     
 </script>
 

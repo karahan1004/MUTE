@@ -31,7 +31,6 @@ public class APIPlaylistControllerTrot {
 		// 사용자의 Access Token을 세션에서 가져옴
 		String accessToken = (String) session.getAttribute("accessToken");
 		
-		System.out.println("--------들어오는지---------------");
 
 		if (accessToken != null) {
 			try {
@@ -63,7 +62,7 @@ public class APIPlaylistControllerTrot {
 	@PostMapping("/addPlaylist")
 	 public String addPlaylist(Model model, HttpSession session, @RequestParam String playlistName) {
         String accessToken = (String) session.getAttribute("accessToken");
-        System.out.println(">>>>????"+playlistName);
+        
         if (accessToken != null) {
             try {
                 spotifyApi.setAccessToken(accessToken);

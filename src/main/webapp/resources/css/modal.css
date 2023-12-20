@@ -6,7 +6,12 @@
 	background-color:#EBEBEB !important;
 	opacity:0.95;
 	margin-top: 50px;
-	
+
+}
+
+#scroll{
+	max-height: 500px; 
+    overflow-y: auto;
 }
 
 .cover1 {
@@ -17,9 +22,10 @@
 }
 
 .td {
-	padding:20px;
-	padding-right:40px;
-	padding-bottom:30px;
+	padding:15px;
+	padding-left:30px;
+	/* padding-right:30px; */
+	padding-bottom:20px;
 }
 
 
@@ -33,7 +39,7 @@
 .pltitle{
 	display: flex;
 	justify-content : flex-start;
-	font-size:27px;
+	font-size:24px;
 }
 
 .close-btn {
@@ -47,7 +53,6 @@
 
 #modaltable{
 	padding:15px;
-	
 }
 #modalContent{
 	font-size:24px;
@@ -90,15 +95,16 @@
 
 .notification {
     position: fixed;
-    font-size:15px;
-    width:250px;
+    font-size:17px;
+    font-weight: 100;
+    width:270px;
     
     right: 10px;
     bottom: 0px;
     
     padding: 15px 20px;
     background-color: #EBEBEB;
-    opacity: 0.9;
+    opacity: 0.7;
     border-radius: 10px;
     animation: fadeOutAndIn 3s ease-in-out;
     display: none;
