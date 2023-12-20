@@ -95,51 +95,37 @@ public class TestController {
 	 public String showResultPage(HttpSession session) {
 		 int max_index=0;
 		 int max_value=0;
-		 
 		 int [] resultGenres=(int [])(session.getAttribute("musicGenres"));
-		 
-	        for (int i = 0; i < resultGenres.length; i++) {
-	            if (max_value < resultGenres[i]) {
-	                max_index = i;
-	            }//if-------------------
-	            
-	        }//for--------------------------------
-
-		 
+			 for(int i=0;i<resultGenres[i];i++) {
+		            if (max_value < resultGenres[i]) {
+		            	max_value=resultGenres[i];
+		                max_index = i;
+		            }//if-------------------
+		           
+		        }//for--------------------------------
+			  //session.invalidate(); 세션 끊어보니까 페이지 이동 안됨
 		   //(0:락, 1:발라드, 2:트로트, 3:알앤비, 4:힙합, 5:클래식, 6:인디, 7:디스코, 8:재즈, 9:댄스)
-
 		   switch (max_index){
-		   
 		   case 0:
 		   		return "result/result_rock";
-		   	
 		   case 1:
 		   		return "result/result_ballad";
-		   	
 		   case 2:
 			   return "result/result_trot";
-			
 		   case 3:
 			   return "result/result_rnb";
-			
 		   case 4:
 			   return "result/result_hiphop";
-			   
 		   case 5:
 			   return "result/result_classic";
-				
 		   case 6:
 			   return "result/result_indie";
-				
 		   case 7:
 			   return "result/result_disco";
-				
 		   case 8:
 			   return "result/result_jazz";
-				
 		   case 9:
 			   return "result/result_dance";
-		   
 		   default:
 		   	   return "/main";
 		   	
