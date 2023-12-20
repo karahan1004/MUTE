@@ -26,6 +26,7 @@ import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumsTracksRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
@@ -198,15 +199,20 @@ public class APIPlaylistController {
 		if (accessToken != null) {
 			try {
 				spotifyApi.setAccessToken(accessToken);
+				//이거 두 개 추가
+				Playlist clickedPlaylist = getClickedPlaylistInfo(playlistId); // 메서드 이름 및 구현은 적절하게 변경되어야 합니다.
+
+	            // 클릭한 플레이리스트 정보를 Model에 추가
+	            model.addAttribute("playlist", clickedPlaylist);
+
 				if(trackName==null) return "error";
 				Track[] tracks= getTrack(trackName); 
 				final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId()).limit(10).build();
-
+				
 				final CompletableFuture<Paging<TrackSimplified>> tracksFuture = tracksRequest.executeAsync();
 				
-				//이부분도 수정해야됩니다.
-				/* TrackSimplified[] albumtrack = null; */
 				tracksFuture.join().getItems();
+				
 
 				//model.addAttribute("tracks", tracks);
 			} catch (Exception e) {
@@ -218,6 +224,24 @@ public class APIPlaylistController {
 		}
 
 		return "/playlisttracks";
+	}
+
+
+	private Playlist getClickedPlaylistInfo(String playlistId) {
+		try {
+	        // GetPlaylistRequest를 사용하여 특정 플레이리스트의 정보를 가져옴
+	        final GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(playlistId).build();
+	        final Playlist clickedPlaylist = getPlaylistRequest.execute();
+	        System.out.println("clickedPlaylist: "+clickedPlaylist);
+	        System.out.println("playlistname:"+clickedPlaylist.getName());
+
+	        // 가져온 플레이리스트 정보를 반환
+	        return clickedPlaylist;
+	    } catch (IOException | SpotifyWebApiException | ParseException e) {
+	        // 예외 처리
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 
 }
