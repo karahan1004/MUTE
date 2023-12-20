@@ -10,19 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.TrackSimplified;
 import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumsTracksRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
@@ -62,14 +66,56 @@ public class APIPlaylistController {
 		return "/apiTest";
 	}
 	
-	public  Track[] getTrack() {
-	       
 
-		  
-
+	public String getPlaylistsItems_Sync(Model m,String playlistId) {
+		try {
+			final GetPlaylistsItemsRequest getPlaylistsItemsRequest = spotifyApi.getPlaylistsItems(playlistId)
+//			    		          .fields("description")
+//			    		          .limit(10)
+//			    		          .offset(0)
+//			    		          .market(CountryCode.SE)
+//			    		          .additionalTypes("track,episode")
+					.build();
+			final Paging<PlaylistTrack> playlistTrackPaging = getPlaylistsItemsRequest.execute();
+			System.out.println("Total: " + playlistTrackPaging.getTotal());
+			
+			System.out.println(
+					"Track's first artist: " + ((Track) playlistTrackPaging.getItems()[0].getTrack()).getArtists()[0]);
+			System.out.println(
+					"Track's first name : " + ((Track) playlistTrackPaging.getItems()[0].getTrack()).getName());
+			m.addAttribute("trackTotal", playlistTrackPaging.getTotal());
+			PlaylistTrack[] arr=playlistTrackPaging.getItems();
+			String trackInfo="";
+			String artistInfo="";
+			for(PlaylistTrack pt:arr) {
+				Track tr=(Track)pt.getTrack();//트랙 정보
+				ArtistSimplified[] artists=((Track)pt.getTrack()).getArtists();
+				trackInfo+=tr.getName()+"#";
+				for(ArtistSimplified as:tr.getArtists()) {
+				   artistInfo+=as.getName()+"-";
+				}
+				//artistInfo+="#";
+			}
+			
+			//playlistTrackPaging.getItems()[0].getTrack().getName()
+			m.addAttribute("trackArtist", ((Track) playlistTrackPaging.getItems()[0].getTrack()).getArtists()[0].getName());
+			m.addAttribute("trackName", ((Track) playlistTrackPaging.getItems()[0].getTrack()).getName());
+			m.addAttribute("trackItems", playlistTrackPaging.getItems());
+			m.addAttribute("trackInfo", trackInfo);
+			m.addAttribute("artistInfo", artistInfo);
+			return ((Track) playlistTrackPaging.getItems()[0].getTrack()).getName();
+		} catch (IOException | SpotifyWebApiException | ParseException e) {
+			System.out.println("Error: " + e.getMessage());
+			return null;
+		}
+		
+	}
+	
+	
+	public Track[] getTrack(String trackname) {
         // Build the request to search for tracks
 		//이 부분 수정해야됩니다
-        SearchTracksRequest request = spotifyApi.searchTracks("OMG").build();
+        SearchTracksRequest request = spotifyApi.searchTracks(trackname).build();
 
         try {
             // Execute the request and get the search results
@@ -90,6 +136,7 @@ public class APIPlaylistController {
         } 
        
     }
+    
 
 	public void getTrack_Sync(String id) {
 	    // 앨범 트랙을 가져오기 위한 요청 작성
@@ -147,11 +194,12 @@ public class APIPlaylistController {
 	public String getPlaylisttracks(Model model, HttpSession session, @RequestParam("playlistId") String playlistId) {
 		System.out.println(">>>> Playlist ID: " + playlistId);
 		String accessToken = (String) session.getAttribute("accessToken");
-		Track[] tracks=getTrack();
+		String trackName=getPlaylistsItems_Sync(model, playlistId);
 		if (accessToken != null) {
 			try {
 				spotifyApi.setAccessToken(accessToken);
-
+				if(trackName==null) return "error";
+				Track[] tracks= getTrack(trackName); 
 				final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId()).limit(10).build();
 
 				final CompletableFuture<Paging<TrackSimplified>> tracksFuture = tracksRequest.executeAsync();
@@ -160,7 +208,7 @@ public class APIPlaylistController {
 				/* TrackSimplified[] albumtrack = null; */
 				tracksFuture.join().getItems();
 
-				model.addAttribute("tracks", tracks);
+				//model.addAttribute("tracks", tracks);
 			} catch (Exception e) {
 				e.printStackTrace();
 				model.addAttribute("error", "Error fetching playlist tracks");
