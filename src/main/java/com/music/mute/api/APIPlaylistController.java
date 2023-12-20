@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import se.michaelthelin.spotify.SpotifyApi;
@@ -24,6 +24,7 @@ import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.TrackSimplified;
 import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumsTracksRequest;
+import se.michaelthelin.spotify.requests.data.playlists.ChangePlaylistsDetailsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
@@ -47,7 +48,7 @@ public class APIPlaylistController {
 				spotifyApi.setAccessToken(accessToken);
 
 				final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
-						.getListOfCurrentUsersPlaylists().limit(10).build();
+						.getListOfCurrentUsersPlaylists().build();
 
 				final CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
 
@@ -242,6 +243,35 @@ public class APIPlaylistController {
 	        e.printStackTrace();
 	        return null;
 	    }
+	}
+	
+	@PostMapping("/updatePlaylist")
+	public String updatePlaylist(Model model, HttpSession session, @RequestParam String playlistId, @RequestParam String editPlaylistName) {
+	    String accessToken = (String) session.getAttribute("accessToken");
+
+	    if (accessToken != null) {
+	        try {
+	            spotifyApi.setAccessToken(accessToken);
+
+	            // Spotify API를 사용하여 플레이리스트의 이름을 변경
+	            final ChangePlaylistsDetailsRequest changePlaylistDetailsRequest = spotifyApi
+	                    .changePlaylistsDetails(playlistId)
+	                    .name(editPlaylistName)
+	                    .build();
+
+	            changePlaylistDetailsRequest.execute();
+
+	            // 수정 후, 사용자에게 적절한 메시지를 전달
+	            model.addAttribute("message", "Playlist updated successfully");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            model.addAttribute("error", "Error updating playlist");
+	        }
+	    } else {
+	        return "redirect:/login";
+	    }
+
+	    return "redirect:/apiTest";
 	}
 
 }

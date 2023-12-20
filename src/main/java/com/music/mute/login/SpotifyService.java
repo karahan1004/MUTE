@@ -20,7 +20,7 @@ public class SpotifyService {
     public URI generateAuthorizationUrl() {
         return spotifyApi.authorizationCodeUri()
                 .state("some-state")
-                .scope("ugc-image-upload,user-read-playback-state,user-modify-playback-state,user-read-currently-playing,streaming,playlist-modify-public,user-library-modify")
+                .scope("ugc-image-upload,user-read-playback-state,user-modify-playback-state,user-read-currently-playing,streaming,playlist-modify-public,playlist-modify-private,playlist-read-private,playlist-read-collaborative,user-library-modify")
                 //.showDialog(true)
                 .build()
                 .execute();

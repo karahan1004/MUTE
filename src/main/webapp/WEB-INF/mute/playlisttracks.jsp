@@ -18,11 +18,11 @@
     <table>
         <tr>
             <td>
-                <c:forTokens items="${trackInfo}" delims="#" var="a">${a}<br></c:forTokens>
+                <c:forTokens items="${trackInfo}" delims="#" var="trackname">${trackname}<br></c:forTokens>
             </td>
         
             <td>
-                <c:forTokens items="${artistInfo}" delims="-" var="b">${b}<br></c:forTokens>
+                <c:forTokens items="${artistInfo}" delims="-" var="artistname">${artistname}<br></c:forTokens>
             </td>
         </tr>
     </table>
