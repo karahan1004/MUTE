@@ -43,19 +43,14 @@
         console.log('볼륨 조절: ' + volume);
 
         $.ajax({
-            url : SPOTIFY_API_BASE + '/volume',
-            type : 'PUT',
-            headers : {
-                'Authorization' : 'Bearer ' + accessToken,
-            },
-            data : {
-                volume_percent : volume,
-            },
-            success : function() {
+            url: 'setVolume/' + volume,  // 수정된 부분: '/setVolume'에서 'setVolume'로 변경
+            type: 'GET',
+            success: function () {
                 console.log('볼륨 조절 성공');
             },
-            error : function(error) {
+            error: function (error) {
                 console.error('볼륨 조절 실패:', error);
+                console.error('API 호출 실패 상세 정보:', error.responseJSON);
             },
         });
 
@@ -122,8 +117,7 @@
         <p>No recommendations available.</p>
     </c:if>
 
-    <input type="range" min="0" max="100" value="50"
-        oninput="setVolume(this.value)">
+    <input type="range" min="0" max="100" value="50" onchange="setVolume(this.value)">
     <span id="volumeLabel">50</span>
 
     <button onclick="previousTrack()">이전 트랙</button>

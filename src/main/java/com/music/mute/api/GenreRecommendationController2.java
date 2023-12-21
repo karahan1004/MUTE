@@ -158,7 +158,15 @@ public class GenreRecommendationController2 {
         }
         return "/devices";
     }
-
+    
+    @GetMapping("/setVolume/{volume}")
+    public String setVolume(@PathVariable int volume, HttpSession session) throws ParseException {
+        String accessToken = (String) session.getAttribute("accessToken");
+        if (accessToken != null) {
+            playbackService.setVolume(accessToken, volume);
+        }
+        return "redirect:/recommendations2";
+    }
 
     private String getAlbumId(String trackId, String accessToken) throws ParseException {
         try {
