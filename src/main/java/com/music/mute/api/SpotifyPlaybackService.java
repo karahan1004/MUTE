@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.miscellaneous.CurrentlyPlayingContext;
+import se.michaelthelin.spotify.model_objects.miscellaneous.Device;
 import se.michaelthelin.spotify.requests.data.player.SkipUsersPlaybackToNextTrackRequest;
 import se.michaelthelin.spotify.requests.data.player.SkipUsersPlaybackToPreviousTrackRequest;
 import se.michaelthelin.spotify.requests.data.player.StartResumeUsersPlaybackRequest;
@@ -129,7 +130,27 @@ public class SpotifyPlaybackService {
         }
     }
     
-    
+    public void setVolume(String accessToken, int volume) throws ParseException {
+        try {
+            spotifyApi.setAccessToken(accessToken);
+
+            // 현재 재생 중인 디바이스 ID 가져오기
+            Device device = spotifyApi.getUsersAvailableDevices().build().execute()[0];
+            String deviceId = device.getId();
+
+            // 볼륨 조절 요청
+            spotifyApi.startResumeUsersPlayback().device_id(deviceId).build().execute();
+
+            // 볼륨을 조절하기 위해 먼저 재생 상태를 유지합니다.
+            Thread.sleep(1000);
+
+            // 메서드 이름 수정: setVolumeOnUsersPlayback -> setVolumeOnUserPlayback
+            spotifyApi.setVolumeForUsersPlayback(volume).device_id(deviceId).build().execute();
+        } catch (IOException | SpotifyWebApiException | InterruptedException e) {
+            e.printStackTrace();
+            // 예외 처리: 에러가 발생하면 적절한 조치를 취함
+        }
+    }
 
 
 	
