@@ -171,6 +171,7 @@ public class GenreRecommendationController2 {
             this.coverImageUrl = coverImageUrl;
             this.name = track.getName();
             this.artistName = track.getArtists()[0].getName();
+            this.uri = track.getUri();
         }
 
         public String getCoverImageUrl() {
