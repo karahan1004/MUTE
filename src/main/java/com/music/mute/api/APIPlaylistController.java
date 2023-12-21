@@ -93,22 +93,47 @@ public class APIPlaylistController {
 			PlaylistTrack[] arr=playlistTrackPaging.getItems();
 			String trackInfo="";
 			String artistInfo="";
+			String albumInfo = "";
 			for(PlaylistTrack pt:arr) {
 				Track tr=(Track)pt.getTrack();//트랙 정보
 				ArtistSimplified[] artists=((Track)pt.getTrack()).getArtists();
 				trackInfo+=tr.getName()+"#";
-				for(ArtistSimplified as:tr.getArtists()) {
-				   artistInfo+=as.getName()+"-";
-				}
+				if (artists.length > 0) {
+			        // 가수가 한 명 이상인 경우 쉼표로 구분
+			        artistInfo += artists[0].getName();
+			    }
+
+			    for (int i = 1; i < artists.length; i++) {
+			        artistInfo += ", " + artists[i].getName();
+			    }
+				/*
+				 * for(ArtistSimplified as:tr.getArtists()) { artistInfo+=as.getName()+"-"; }
+				 */
+			    artistInfo += "-";
 				//artistInfo+="#";
+				albumInfo += tr.getAlbum().getName() + ",";
+		        albumInfo += tr.getAlbum().getImages()[0].getUrl() + "#";
 			}
 			
 			//playlistTrackPaging.getItems()[0].getTrack().getName()
-			m.addAttribute("trackArtist", ((Track) playlistTrackPaging.getItems()[0].getTrack()).getArtists()[0].getName());
-			m.addAttribute("trackName", ((Track) playlistTrackPaging.getItems()[0].getTrack()).getName());
-			m.addAttribute("trackItems", playlistTrackPaging.getItems());
-			m.addAttribute("trackInfo", trackInfo);
-			m.addAttribute("artistInfo", artistInfo);
+			// 컨트롤러의 일부분
+			String[] trackInfoArray = trackInfo.split("#");
+			String[] artistInfoArray = artistInfo.split("-");
+			String[] albumInfoArray = albumInfo.split("#");
+
+			m.addAttribute("trackInfoArray", trackInfoArray);
+			m.addAttribute("artistInfoArray", artistInfoArray);
+			m.addAttribute("albumInfoArray", albumInfoArray);
+
+			/*
+			 * m.addAttribute("trackArtist", ((Track)
+			 * playlistTrackPaging.getItems()[0].getTrack()).getArtists()[0].getName());
+			 * m.addAttribute("trackName", ((Track)
+			 * playlistTrackPaging.getItems()[0].getTrack()).getName());
+			 * m.addAttribute("trackItems", playlistTrackPaging.getItems());
+			 * m.addAttribute("trackInfo", trackInfo); m.addAttribute("artistInfo",
+			 * artistInfo); m.addAttribute("albumInfo", albumInfo);
+			 */
 			return ((Track) playlistTrackPaging.getItems()[0].getTrack()).getName();
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Error: " + e.getMessage());
@@ -198,40 +223,41 @@ public class APIPlaylistController {
 
 	@GetMapping("/playlisttracks")
 	public String getPlaylisttracks(Model model, HttpSession session, @RequestParam("playlistId") String playlistId) {
-		System.out.println(">>>> Playlist ID: " + playlistId);
-		String accessToken = (String) session.getAttribute("accessToken");
-		String trackName=getPlaylistsItems_Sync(model, playlistId);
-		if (accessToken != null) {
-			try {
-				spotifyApi.setAccessToken(accessToken);
-				//이거 두 개 추가
-				Playlist clickedPlaylist = getClickedPlaylistInfo(playlistId); // 메서드 이름 및 구현은 적절하게 변경되어야 합니다.
+	    System.out.println(">>>> Playlist ID: " + playlistId);
+	    String accessToken = (String) session.getAttribute("accessToken");
+	    String trackName = getPlaylistsItems_Sync(model, playlistId);
+	    if (accessToken != null) {
+	        try {
+	            spotifyApi.setAccessToken(accessToken);
+
+	            Playlist clickedPlaylist = getClickedPlaylistInfo(playlistId); // 메서드 이름 및 구현은 적절하게 변경되어야 합니다.
 
 	            // 클릭한 플레이리스트 정보를 Model에 추가
 	            model.addAttribute("playlist", clickedPlaylist);
-	            
-	            
 
-				if(trackName==null) return "redirect:/emptyPage";
-				Track[] tracks= getTrack(trackName); 
-				final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId()).limit(10).build();
-				
-				final CompletableFuture<Paging<TrackSimplified>> tracksFuture = tracksRequest.executeAsync();
-				
-				tracksFuture.join().getItems();
-				
+	            if (trackName == null) return "redirect:/emptyPage";
+	            Track[] tracks = getTrack(trackName);
+	            final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId()).limit(10).build();
 
-				//model.addAttribute("tracks", tracks);
-			} catch (Exception e) {
-				e.printStackTrace();
-				model.addAttribute("error", "Error fetching playlist tracks");
-			}
-		} else {
-			return "redirect:/login";
-		}
+	            final CompletableFuture<Paging<TrackSimplified>> tracksFuture = tracksRequest.executeAsync();
 
-		return "/playlisttracks";
+	            tracksFuture.join().getItems();
+
+	            // model.addAttribute("tracks", tracks);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            model.addAttribute("error", "Error fetching playlist tracks");
+	        }
+	    } else {
+	        return "redirect:/login";
+	    }
+
+	    return "/playlisttracks";
 	}
+
+
+
+
 
 
 	private Playlist getClickedPlaylistInfo(String playlistId) {

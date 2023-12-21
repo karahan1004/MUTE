@@ -6,7 +6,6 @@
     <title>Empty Page</title>
 </head>
 <body>
-    <h2>Playlist is Empty</h2>
-    <p>이 플레이어는 비어있습니다!</p>
+    <p>이 플레이리스트는 비어있습니다!</p>
 </body>
 </html>
