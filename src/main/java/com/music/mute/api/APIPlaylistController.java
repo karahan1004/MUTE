@@ -81,6 +81,10 @@ public class APIPlaylistController {
 			final Paging<PlaylistTrack> playlistTrackPaging = getPlaylistsItemsRequest.execute();
 			System.out.println("Total: " + playlistTrackPaging.getTotal());
 			
+			if (playlistTrackPaging.getTotal() == 0) {
+	            return null;
+	        }
+			
 			System.out.println(
 					"Track's first artist: " + ((Track) playlistTrackPaging.getItems()[0].getTrack()).getArtists()[0]);
 			System.out.println(
@@ -205,8 +209,10 @@ public class APIPlaylistController {
 
 	            // 클릭한 플레이리스트 정보를 Model에 추가
 	            model.addAttribute("playlist", clickedPlaylist);
+	            
+	            
 
-				if(trackName==null) return "error";
+				if(trackName==null) return "redirect:/emptyPage";
 				Track[] tracks= getTrack(trackName); 
 				final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId()).limit(10).build();
 				
