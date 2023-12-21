@@ -57,3 +57,4 @@ function loginToSpotify() {
 	</nav>
 </body>
 </html>
+
