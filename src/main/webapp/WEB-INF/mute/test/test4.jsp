@@ -11,13 +11,21 @@
 	<div class="question">
 	    <h1>Q4.<br> 콘서트를 가기로 한 당신! <br>당신이 가고 싶은 콘서트는?</h1>
 			<!-- 버튼 클릭시 selectGenre(value) 함수를 통해 각 선택지 별 해당하는 장르 count++ -->
-	        <button class="btn" onclick="selectGenre(1)">이것이 진정한 페스티벌! 락페스티벌</button>
-	        <button class="btn" onclick="selectGenre(2)">가슴이 웅장해진다… 영화 오케스트라 콘서트</button>
-	        <button class="btn" onclick="selectGenre(3)">내 최애 영접! 아이돌 콘서트</button>
-	        <button class="btn" onclick="selectGenre(4)">이번년도 효도완 트로트 콘서트</button>
+	        <button class="btn" onclick="selectGenre(1)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">이것이 진정한 페스티벌! 락페스티벌</button>
+	        <button class="btn" onclick="selectGenre(2)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">가슴이 웅장해진다… 영화 오케스트라 콘서트</button>
+	        <button class="btn" onclick="selectGenre(3)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">내 최애 영접! 아이돌 콘서트</button>
+	        <button class="btn" onclick="selectGenre(4)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">이번년도 효도완 트로트 콘서트</button>
     </div>
     
    <script>
+   
+	   /* 보기 버튼에 마우스 올리면 그림자 생김 */
+		function addShadow(element) {
+		    element.classList.add('shadow');}
+		function removeShadow(element) {
+		    element.classList.remove('shadow');}
+		/* ---------------------------------- */
+	
    		// 길이가 10인 Genres 배열을 선언하고 모든 인덱스값을 0으로 초기화
    		/* 장르 배열 (0:락, 1:발라드, 2:트로트, 3:알앤비, 4:힙합, 5:클래식, 6:인디, 7:디스코, 8:재즈, 9:댄스) */
         let Genres = Array(10).fill(0);
