@@ -1,97 +1,159 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page
+	import="se.michaelthelin.spotify.model_objects.specification.Track"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Genre Recommendations</title>
+<meta charset="UTF-8">
+<title>Genre Recommendations</title>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <!-- Spotify Web Playback SDK 스크립트 추가 -->
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
-    <!-- 추가된 부분: jQuery 스크립트 추가 -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        // 추가된 부분: 전역 범위에 playPause 함수 정의
-        function playPause(trackUri) {
-            // 플레이어 상태에 따라 이미지 변경
-            var image = document.getElementById('playPauseImage');
-            console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
+<script>
+	const SPOTIFY_API_BASE = 'https://api.spotify.com/v1/me/player';
+	const accessToken = "${accessToken}"; // Java 코드에서 받아온 accessToken
+	console.log(accessToken);
 
-            // 현재 플레이어 상태 가져오기 (state를 플레이어의 상태로 업데이트)
-            player.getCurrentState().then(state => {
-                if (!state) {
-                    console.error('플레이어 상태를 가져올 수 없습니다.');
-                    return;
-                }
+	function playPause(trackUri) {
+		console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
 
-                var isPlaying = !state.paused; // 플레이어가 일시정지 상태인지 확인
+		$.ajax({
+			url : SPOTIFY_API_BASE + '/play',
+			type : 'PUT',
+			headers : {
+				'Authorization' : 'Bearer ' + accessToken,
+				'Content-Type' : 'application/json',
+			},
+			data : JSON.stringify({
+				uris : [ trackUri ],
+			}),
+			success : function() {
+				console.log('트랙 재생/일시 정지 성공');
+			},
+			error : function(error) {
+				console.error('트랙 재생/일시 정지 실패:', error);
+				console.error('API 호출 실패 상세 정보:', error.responseText);
+			},
+		});
+	}
 
-                console.log("플레이어 상태: " + isPlaying);
+	function setVolume(volume) {
+		console.log('볼륨 조절: ' + volume);
 
-                if (isPlaying) {
-                    // 재생 중이면 일시정지 이미지로 변경
-                    image.src = '<c:url value="/resources/images/pause_pl.png"/>';
-                } else {
-                    // 일시정지 중이면 재생 이미지로 변경
-                    image.src = '<c:url value="/resources/images/play_pl.png"/>';
-                }
-            });
-        }
+		$.ajax({
+			url : SPOTIFY_API_BASE + '/volume',
+			type : 'PUT',
+			headers : {
+				'Authorization' : 'Bearer ' + accessToken,
+			},
+			data : {
+				volume_percent : volume,
+			},
+			success : function() {
+				console.log('볼륨 조절 성공');
+			},
+			error : function(error) {
+				console.error('볼륨 조절 실패:', error);
+			},
+		});
 
-        // Spotify Web Playback SDK 초기화
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            console.log("Spotify Web Playback SDK is ready.");
+		// UI에 현재 볼륨 표시
+		$('#volumeLabel').text(volume);
+	}
 
-            // player 객체 초기화
-            const player = new Spotify.Player({
-                name: 'Your Player Name',
-                getOAuthToken: callback => {
-                    // 여기에 Spotify 액세스 토큰을 얻는 로직 추가
-                    callback('accessToken');
-                },
-                volume: 0.5 // 초기 볼륨 설정
-            });
+	function previousTrack() {
+		console.log('이전 트랙으로 이동');
 
-            // player 연결 및 초기화 로직 추가
-            player.connect().then(success => {
-                if (success) {
-                    console.log('The Web Playback SDK successfully connected to Spotify!');
-                }
-            }).catch(error => {
-                console.error('Error connecting the Web Playback SDK to Spotify:', error);
-            });
+		$.ajax({
+			url : SPOTIFY_API_BASE + '/previous',
+			type : 'POST',
+			headers : {
+				'Authorization' : 'Bearer ' + accessToken,
+			},
+			success : function() {
+				console.log('이전 트랙으로 이동 성공');
+			},
+			error : function(error) {
+				console.error('이전 트랙으로 이동 실패:', error);
+			},
+		});
+	}
 
-            // 추가된 이벤트 리스너
-            player.addListener('player_state_changed', (state) => {
-                console.log('플레이어 상태 변경: ', state);
-                // 플레이어 상태에 따라 추가 작업 수행
-            });
-        };
-    </script>
+	function nextTrack() {
+		console.log('다음 트랙으로 이동');
+
+		$.ajax({
+			url : SPOTIFY_API_BASE + '/next',
+			type : 'POST',
+			headers : {
+				'Authorization' : 'Bearer ' + accessToken,
+			},
+			success : function() {
+				console.log('다음 트랙으로 이동 성공');
+			},
+			error : function(error) {
+				console.error('다음 트랙으로 이동 실패:', error);
+			},
+		});
+	}
+
+	function playPause(trackUri) {
+		console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
+
+		$.ajax({
+			url : SPOTIFY_API_BASE + '/play',
+			type : 'PUT',
+			headers : {
+				'Authorization' : 'Bearer ' + accessToken,
+				'Content-Type' : 'application/json',
+			},
+			data : JSON.stringify({
+				uris : [ trackUri ],
+			}),
+			success : function() {
+				console.log('트랙 재생/일시 정지 성공');
+			},
+			error : function(error) {
+				console.error('트랙 재생/일시 정지 실패:', error);
+				console.error('API 호출 실패 상세 정보:', error.responseText);
+			},
+		});
+	}
+</script>
 </head>
 <body>
 
-<h2>Genre Recommendations</h2>
+	<h2>Genre Recommendations</h2>
 
-<c:if test="${not empty recommendations}">
-    <ul>
-        <c:forEach var="track" items="${recommendations}">
-            <li>
-                ${track.name} by ${track.artists[0].name}
-                <img src="${track.album.images[0].url}" alt="Album Cover" width="100" height="100">
-                
-                <!-- 노래 재생 및 일시정지 이미지 -->
-                <!-- 수정된 부분: onclick 이벤트에서 playPause 함수 호출 -->
-                <img id="playPauseImage" src="<c:url value='/resources/images/play_pl.png'/>" alt="Play/Pause" width="50" height="50" onclick="playPause('${track.uri}')">
-            </li>
-        </c:forEach>
-    </ul>
-</c:if>
+	<c:if test="${not empty recommendations}">
+		<ul>
+			<c:forEach var="track" items="${recommendations}">
+    <li>${track.name} by ${track.artistName} by ${track.uri}<img
+            src="${track.coverImageUrl}" alt="Album Cover" width="100"
+            height="100"> <img id="playPauseImage"
+                            src="<c:url value='/resources/images/play_pl.png'/>"
+                            alt="Play/Pause" width="50" height="50"
+                            onclick="playPause('${track.uri}')">
+    </li>
+</c:forEach>
 
-<c:if test="${empty recommendations}">
-    <p>No recommendations available.</p>
-</c:if>
+
+
+		</ul>
+	</c:if>
+
+	<c:if test="${empty recommendations}">
+		<p>No recommendations available.</p>
+	</c:if>
+
+	<input type="range" min="0" max="100" value="50"
+		oninput="setVolume(this.value)">
+	<span id="volumeLabel">50</span>
+
+	<button onclick="previousTrack()">이전 트랙</button>
+	<button onclick="nextTrack()">다음 트랙</button>
 
 </body>
 </html>
