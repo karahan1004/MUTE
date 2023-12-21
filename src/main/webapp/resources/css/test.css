@@ -26,6 +26,16 @@ body {
     
 }
 
+.logo{
+	display: flex;
+	position: absolute;
+    top: 5px; 
+    right: 90px;
+	width:160px;
+	height:160px;
+}
+
+
 .question{
 	position:absolute;
 	top:50%;

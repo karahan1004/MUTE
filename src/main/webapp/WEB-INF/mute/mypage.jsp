@@ -40,6 +40,7 @@
             <td></td> 
             <br><br>
 				</tr>
+				
 	        	<tr>
 	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
 					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
@@ -51,6 +52,7 @@
 						<img class="del_img" src="resources/images/del_pl.png"></a>
 					</td>
 				</tr>
+				
 				<tr>
 	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
 					<td id="plname"><a href="playlist" id="move">너무 행복해서 노래 플리 담았어~~</a></td>
@@ -61,6 +63,7 @@
 						<img class="del_img" src="resources/images/del_pl.png"></a>
 					</td>
 				</tr>
+				
 				<tr>
 	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
 					<td id="plname"><a href="playlist" id="move">코딩할 때 듣는 노동요</a></td>
@@ -71,6 +74,7 @@
 						<img class="del_img" src="resources/images/del_pl.png"></a>
 					</td>
 				</tr>
+				
 				<tr>
 	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
 					<td id="plname"><a href="playlist" id="move">신나고 싶을 때 듣는 노래</a></td>

@@ -7,6 +7,7 @@
 	<title>MU:TE</title>
 </head>
 <body>
+	<a href="main"><img class="logo" src="resources/images/mutelogo.png"></a>
 	<div class="question">
 	    <h1>Q3.<br>친구가 음악을<br> 추천해 달라 했을 때 당신의 반응은?</h1>
 			<!-- 버튼 클릭시 selectGenre(value) 함수를 통해 각 선택지 별 해당하는 장르 count++ -->
@@ -27,7 +28,7 @@
                 Genres[0]++;
                 Genres[3]++;
                 Genres[4]++;
-                Genres[6]++;
+                //Genres[6]++;
             } else if (value === 2) {
             	// 발라드, 댄스
                 Genres[1]++;
