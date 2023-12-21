@@ -7,6 +7,7 @@
 	<title>MU:TE</title>
 </head>
 <body>
+	<a href="main"><img class="logo" src="resources/images/mutelogo.png"></a>
 	<div class="question">
     	 <h1>Q7.<br> 노래방에 간 당신! <br>무슨 노래로 시작할까?</h1>
 			<!-- 버튼 클릭시 selectGenre(value) 함수를 통해 각 선택지 별 해당하는 장르 count++ -->

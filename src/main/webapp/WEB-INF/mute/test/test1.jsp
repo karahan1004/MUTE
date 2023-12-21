@@ -7,6 +7,7 @@
     <title>MU:TE</title>
 </head>
 <body>
+	<a href="main"><img class="logo" src="resources/images/mutelogo.png"></a>
 	
 	<div class="question">
 	    <h1>Q1.<br> 오늘따라 우울한 당신! <br>지금 당신의 플레이리스트는?</h1>
@@ -28,7 +29,7 @@
             }else if (value === 2) {
             	// 발라드, 클래식, 인디, 재즈
             	Genres[1]++;
-                Genres[5]++;
+                //Genres[5]++; 클래식 재즈 발라드 값 겹쳐서 하나 빼봄
                 Genres[6]++;
                 Genres[8]++;
             }else if (value === 3) {
