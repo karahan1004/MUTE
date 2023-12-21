@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/main")
-	public String loginProcess(@RequestParam(required = false) String code, HttpSession session) {
+	public String loginProcess(@RequestParam(required = false) String code, HttpSession session, Model model) {
 		//@RequestParam("가져올 데이터의 이름") [데이터타입] [가져온데이터를 담을 변수]
 
 		String accessToken=null;
@@ -45,7 +46,17 @@ public class LoginController {
 			 }
 		}
 
-		return "main";
+		
+//		// Get Spotify user ID using the access token
+//        String spotifyUserId = spotifyService.getSpotifyUserId(accessToken);
+//
+//        // Save the Spotify user ID in the session or use it as needed
+//        session.setAttribute("spotifyUserId", spotifyUserId);
+//
+//        // Add the Spotify user ID to the model for JSP
+//        model.addAttribute("spotifyUserId", spotifyUserId);
+
+        return "main";
 	}
 
 }
