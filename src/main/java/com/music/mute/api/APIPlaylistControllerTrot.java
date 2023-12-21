@@ -34,7 +34,7 @@ public class APIPlaylistControllerTrot {
 
 		if (accessToken != null) {
 			try {
-				//spotifyApi.setAccessToken(accessToken);
+				spotifyApi.setAccessToken(accessToken);
 
 				final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
 						.getListOfCurrentUsersPlaylists().limit(10).build();

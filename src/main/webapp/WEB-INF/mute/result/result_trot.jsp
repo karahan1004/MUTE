@@ -26,7 +26,7 @@
 		<nav>
 			<ul class="header-container">
 				<li class="header-item"><a href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></li>
-				<li class="header-item"><a href="" style="color: black;">마이페이지</a></li>
+				<li class="header-item"><a href="http://localhost:9089/mute/mypage" style="color: black;">마이페이지</a></li>
 			</ul>
 		</nav>
 	</header>

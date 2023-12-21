@@ -13,7 +13,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
@@ -27,7 +27,7 @@
 				<li class="header-item"><a
 					href="http://localhost:9089/mute/main" style="color: black;">다시
 						테스트하기</a></li>
-				<li class="header-item"><a href="" style="color: black;">마이페이지</a></li>
+				<li class="header-item"><a href="http://localhost:9089/mute/mypage" style="color: black;">마이페이지</a></li>
 			</ul>
 		</nav>
 	</header>
