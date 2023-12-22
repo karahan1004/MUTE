@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,13 +39,13 @@
 	       		<tr>
             <td class="mypl">내 플레이리스트</td>
             <td></td> 
-            <br><br>
-				</tr>
+            </tr>
 				
+                    
 	        	<tr>
 	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
 					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
-					<!-- 이미지에 부트스트랩 모달 적용-->
+					<!-- 이미지에 부트스트랩 모달 적용 -->
 					<td class="edit">
 						<a id="edit_plName" onclick="toggleModal('modalplus');">
 						<img class="edit_img" src="resources/images/more.png"></a>
