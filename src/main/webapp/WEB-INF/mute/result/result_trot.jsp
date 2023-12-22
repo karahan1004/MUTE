@@ -125,7 +125,7 @@
 	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog" data-target="#alert" onclick="">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="playlistForm" action="addPlaylist" method="get">
+            <!-- <form id="playlistForm" action="addPlaylist" method="get"> -->
                 <div class="modal-header">
                     <h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
                 </div>
@@ -136,7 +136,7 @@
                     <button type="submit" class="close-btn" onclick="checkAndSubmit()">확인</button>
                     <button type="button" class="close-btn" data-dismiss="modal">취소</button>
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
 </div>
