@@ -4,10 +4,14 @@
 <head>
 <link rel="stylesheet" href="resources/css/test.css">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MU:TE</title>
 </head>
 <body>
+<div class="totaldiv">
+	<div class="logodiv">
 	<a href="main"><img class="logo" src="resources/images/mutelogo.png"></a>
+	</div>
 	
 	<div class="question">
 	    <h1>Q1.<br> 오늘따라 우울한 당신! <br>지금 당신의 플레이리스트는?</h1>
@@ -17,7 +21,7 @@
 	        <button class="btn" onclick="selectGenre(3)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">집어치워! 난 나의 길을 간다 락스피릿 예아~</button>
 	        <button class="btn" onclick="selectGenre(4)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">우울할 땐 난 힙합을 춰...</button>
     </div>
-
+</div>
 <script>
 
 		/* 보기 버튼에 마우스 올리면 그림자 생김 */
