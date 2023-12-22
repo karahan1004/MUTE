@@ -10,14 +10,17 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <!-- jQuery 라이브러리 추가 -->
 <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JS와 Popper.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 
@@ -27,14 +30,16 @@
 	<header>
 		<table id="navi-head">
 			<tr>
+				<td class="head-lg" rowspan="2"><a href="main"><img class="logo"
+					src="resources/images/mutelogo.png"></a></td>
+				<td class="head-na" rowspan="2"><a class="pl">플레이리스트 이름이
+						들어갈 자리입니다.</a></td>	
 				<td class="head-ba"><a href="mypage"><img class="back"
 						src="resources/images/gom_button.png"></a></td>
-				<td class="head-na" rowspan="2"><a class="pl">${playlist.name}</a></td>
-				<td class="head-lg" rowspan="2"><img class="logo"
-					src="resources/images/mutelogo.png"></td>
+
 			</tr>
 			<tr>
-				<td class="head-ba"><a class="backft" href="mypage">뒤로가기</a></td>
+				<td class="head-ba" rowspan="3"><a class="backft" href="mypage">뒤로가기</a></td>
 			</tr>
 		</table>
 	</header>
@@ -226,55 +231,57 @@
 							});
 				});
 
-		$(document).ready(function () {
-		    var currentIndex = 0;
+		$(document).ready(
+				function() {
+					var currentIndex = 0;
 
-		    // 초기에 footer 부분 설정
-		    updateFooter();
+					// 초기에 footer 부분 설정
+					updateFooter();
 
-		    // .pi, .si, .ga 클릭 이벤트
-		    $('.pi, .si, .ga').on('click', function () {
-		        currentIndex = $(this).closest('tr').index();
-		        updateFooter();
-		        changePlayPauseImage();
-		    });
+					// .pi, .si, .ga 클릭 이벤트
+					$('.pi, .si, .ga').on('click', function() {
+						currentIndex = $(this).closest('tr').index();
+						updateFooter();
+						changePlayPauseImage();
+					});
 
-		    // .bt_img(이전), .at_img(다음) 클릭 이벤트
-		    $('.bt_img').on('click', function () {
-		        if (currentIndex > 0) {
-		            currentIndex--;
-		            updateFooter();
-		            changePlayPauseImage();
-		        }
-		    });
+					// .bt_img(이전), .at_img(다음) 클릭 이벤트
+					$('.bt_img').on('click', function() {
+						if (currentIndex > 0) {
+							currentIndex--;
+							updateFooter();
+							changePlayPauseImage();
+						}
+					});
 
-		    $('.at_img').on('click', function () {
-		        var totalRows = $('.pi').length;
-		        if (currentIndex < totalRows - 1) {
-		            currentIndex++;
-		            updateFooter();
-		            changePlayPauseImage();
-		        }
-		    });
+					$('.at_img').on('click', function() {
+						var totalRows = $('.pi').length;
+						if (currentIndex < totalRows - 1) {
+							currentIndex++;
+							updateFooter();
+							changePlayPauseImage();
+						}
+					});
 
-		    // footer 부분 업데이트 함수
-		    function updateFooter() {
-		        var albumImageSrc = $('.pi').eq(currentIndex).find('img').attr('src');
-		        var songTitle = $('.si').eq(currentIndex).text();
-		        var artistName = $('.ga').eq(currentIndex).text();
+					// footer 부분 업데이트 함수
+					function updateFooter() {
+						var albumImageSrc = $('.pi').eq(currentIndex).find(
+								'img').attr('src');
+						var songTitle = $('.si').eq(currentIndex).text();
+						var artistName = $('.ga').eq(currentIndex).text();
 
-		        // footer 부분 변경
-		        $('.im_foot').attr('src', albumImageSrc);
-		        $('.si_foot').text(songTitle);
-		        $('.ga_foot').text(artistName);
-		    }
+						// footer 부분 변경
+						$('.im_foot').attr('src', albumImageSrc);
+						$('.si_foot').text(songTitle);
+						$('.ga_foot').text(artistName);
+					}
 
-		    // 플레이/일시정지 이미지 변경 함수
-		    function changePlayPauseImage() {
-		        $('.ft_img').attr('src', 'resources/images/pause_pl.png');
-		    }
-		});
-
+					// 플레이/일시정지 이미지 변경 함수
+					function changePlayPauseImage() {
+						$('.ft_img').attr('src',
+								'resources/images/pause_pl.png');
+					}
+				});
 	</script>
 
 
