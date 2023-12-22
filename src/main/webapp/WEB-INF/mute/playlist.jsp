@@ -44,6 +44,7 @@
 		</table>
 	</header>
 	<hr>
+	<div id="scroll">
 	<table id="sing-mi">
 		<tr>
 			<!-- 임시로 곰버튼 이미지 넣어둠 -->
@@ -122,8 +123,8 @@
 			<td class="del"><a onclick="toggleModal('addModal');"><img
 					class="del_img" src="resources/images/del_pl.png"></a></td>
 		</tr>
-
 	</table>
+	</div>
 	<hr>
 	<footer>
 		<table id="navi-foot">
