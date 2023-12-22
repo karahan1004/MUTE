@@ -173,7 +173,7 @@ public class GenreRecommendationController2 {
         if (accessToken != null) {
             playbackService.setVolume(accessToken, volume);
         }
-        return "redirect:/recommendations2";
+        return "redirect:/r2";
     }
 
     private String getAlbumId(String trackId, String accessToken) throws ParseException {
