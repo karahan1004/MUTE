@@ -7,12 +7,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import se.michaelthelin.spotify.SpotifyApi;
@@ -71,7 +72,7 @@ public class DeleteAPIPlaylistController {
 
 		return "delApiTest";
 	}
-	
+
 
 	public String getPlaylistsItems_Sync(Model m,String playlistId) {
 		try {
@@ -84,11 +85,11 @@ public class DeleteAPIPlaylistController {
 					.build();
 			final Paging<PlaylistTrack> playlistTrackPaging = getPlaylistsItemsRequest.execute();
 			System.out.println("Total: " + playlistTrackPaging.getTotal());
-			
+
 			if (playlistTrackPaging.getTotal() == 0) {
 	            return null;
 	        }
-			
+
 			System.out.println(
 					"Track's first artist: " + ((Track) playlistTrackPaging.getItems()[0].getTrack()).getArtists()[0]);
 			System.out.println(
@@ -118,7 +119,7 @@ public class DeleteAPIPlaylistController {
 				albumInfo += tr.getAlbum().getName() + ",";
 		        albumInfo += tr.getAlbum().getImages()[0].getUrl() + "#";
 			}
-			
+
 			//playlistTrackPaging.getItems()[0].getTrack().getName()
 			// 컨트롤러의 일부분
 			String[] trackInfoArray = trackInfo.split("#");
@@ -129,16 +130,16 @@ public class DeleteAPIPlaylistController {
 			m.addAttribute("artistInfoArray", artistInfoArray);
 			m.addAttribute("albumInfoArray", albumInfoArray);
 
-			
+
 			return ((Track) playlistTrackPaging.getItems()[0].getTrack()).getName();
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Error: " + e.getMessage());
 			return null;
 		}
-		
+
 	}
-	
-	
+
+
 	public Track[] getTrack(String trackname) {
         // Build the request to search for tracks
 		//이 부분 수정해야됩니다
@@ -152,7 +153,7 @@ public class DeleteAPIPlaylistController {
                 // Get the ID of the first track in the search results
                 String trackId = tracks[0].getId();
                 System.out.println("Track ID: " + trackId);
-                
+
             } else {
                 System.out.println("No tracks found.");
             }
@@ -161,9 +162,9 @@ public class DeleteAPIPlaylistController {
             System.err.println("Error: " + e.getMessage());
             return null;
         } 
-       
+
     }
-    
+
 
 	public void getTrack_Sync(String id) {
 	    // 앨범 트랙을 가져오기 위한 요청 작성
@@ -174,7 +175,7 @@ public class DeleteAPIPlaylistController {
 	        Paging<TrackSimplified> trackSimplifiedPaging = request.execute();
 
 	        System.out.println("총 트랙 수: " + trackSimplifiedPaging.getTotal());
-	        
+
 	        // 플레이리스트 트랙을 반복하고 트랙 ID 출력
 	        for (TrackSimplified playlistTrack : trackSimplifiedPaging.getItems()) {
 	            String trackId = playlistTrack.getId();
@@ -272,7 +273,7 @@ public class DeleteAPIPlaylistController {
 	        return null;
 	    }
 	}
-	
+
 	/* @PostMapping("/updatePlaylist") */
 	public String updatePlaylist(Model model, HttpSession session, @RequestParam String playlistId, @RequestParam String editPlaylistName) {
 	    String accessToken = (String) session.getAttribute("accessToken");
@@ -301,11 +302,11 @@ public class DeleteAPIPlaylistController {
 
 	    return "redirect:/apiTest";
 	}
-	
-	
-	
+
+
+
 	/* @DeleteMapping("/deletePlaylist") */
-	@RequestMapping(value = "/deletePlaylist", method = RequestMethod.DELETE)
+	/*@RequestMapping(value = "/deletePlaylist", method = RequestMethod.DELETE)
     public String deletePlaylist(@RequestParam String playlistId, HttpSession session, Model model) {
         String accessToken = (String) session.getAttribute("accessToken");
 
@@ -331,5 +332,34 @@ public class DeleteAPIPlaylistController {
 
         return "/delApiTest"; 
     }
+    */
 	
+	@DeleteMapping("/deletePlaylist")
+	public ResponseEntity<String> deletePlaylist(@RequestParam String playlistId, HttpSession session) {
+	    String accessToken = (String) session.getAttribute("accessToken");
+
+	    if (accessToken != null) {
+	        try {
+	            spotifyApi.setAccessToken(accessToken);
+
+	            // 플레이리스트 언팔로우 API 요청
+	            final UnfollowPlaylistRequest unfollowPlaylistRequest = spotifyApi
+	                    .unfollowPlaylist(playlistId)
+	                    .build();
+	            unfollowPlaylistRequest.execute();
+
+	            // 삭제 후, 적절한 응답 반환
+	            return ResponseEntity.ok("Playlist delete successfully");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            // 에러가 발생하면 500 Internal Server Error 반환
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting playlist");
+	        }
+	    } else {
+	        // 사용자가 인증되지 않은 경우 401 Unauthorized 반환
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+	    }
+	}
+
+
 }
