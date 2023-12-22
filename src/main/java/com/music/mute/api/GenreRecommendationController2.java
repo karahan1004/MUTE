@@ -42,8 +42,14 @@ public class GenreRecommendationController2 {
 
     @Autowired
     private SpotifyPlaybackService playbackService;
+    
+    @GetMapping("/r1")
+    public String test() {
+    	System.out.println("aaaa");
+    	return "recommendations2";
+    }
 
-    @GetMapping("/recommendations2")
+    @GetMapping("/r2")
     public String getGenreRecommendations(Model model, HttpSession session) {
         String accessToken = (String) session.getAttribute("accessToken");
         List<TrackWithImageUrlVO> recommendationsList = new ArrayList<>();
