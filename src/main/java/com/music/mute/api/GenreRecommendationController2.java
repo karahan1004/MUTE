@@ -32,6 +32,8 @@ import se.michaelthelin.spotify.requests.data.player.GetUsersAvailableDevicesReq
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 
+import com.music.mute.api.TrackWithImageUrlVO;
+
 @Controller
 public class GenreRecommendationController2 {
 
@@ -44,7 +46,7 @@ public class GenreRecommendationController2 {
     @GetMapping("/recommendations2")
     public String getGenreRecommendations(Model model, HttpSession session) {
         String accessToken = (String) session.getAttribute("accessToken");
-        List<TrackWithImageUrl> recommendationsList = new ArrayList<>();
+        List<TrackWithImageUrlVO> recommendationsList = new ArrayList<>();
         if (accessToken != null) {
             try {
                 spotifyApi.setAccessToken(accessToken);
@@ -67,7 +69,7 @@ public class GenreRecommendationController2 {
                 for (Track track : recommendations) {
                     String trackAlbumId = getAlbumId(track.getId(), accessToken);
                     String coverImageUrl = getAlbumCoverImageUrl(trackAlbumId, accessToken);
-                    TrackWithImageUrl newTrack = new TrackWithImageUrl(track, coverImageUrl);
+                    TrackWithImageUrlVO newTrack = new TrackWithImageUrlVO(track, coverImageUrl);
                     recommendationsList.add(newTrack);
                 }
                 model.addAttribute("recommendations", recommendationsList);
@@ -206,63 +208,6 @@ public class GenreRecommendationController2 {
         } catch (IOException | SpotifyWebApiException e) {
             e.printStackTrace();
             return "error-cover-image-url";
-        }
-    }
-
-    public class TrackWithImageUrl {
-    	private Track track;
-        private String coverImageUrl;
-        private String name;
-        private String artistName;
-        private String albumImageUrl;
-        private String uri;
-
-        public TrackWithImageUrl(Track track, String coverImageUrl) {
-            this.track = track;
-            this.coverImageUrl = coverImageUrl;
-            this.name = track.getName();
-            this.artistName = track.getArtists()[0].getName();
-            this.uri = track.getUri();
-        }
-
-        public String getCoverImageUrl() {
-            return coverImageUrl;
-        }
-
-        public void setCoverImageUrl(String coverImageUrl) {
-            this.coverImageUrl = coverImageUrl;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getArtistName() {
-            return artistName;
-        }
-
-        public void setArtistName(String artistName) {
-            this.artistName = artistName;
-        }
-
-        public String getAlbumImageUrl() {
-            return albumImageUrl;
-        }
-
-        public void setAlbumImageUrl(String albumImageUrl) {
-            this.albumImageUrl = albumImageUrl;
-        }
-
-        public String getUri() {
-            return uri;
-        }
-
-        public void setUri(String uri) {
-            this.uri = uri;
         }
     }
 }
