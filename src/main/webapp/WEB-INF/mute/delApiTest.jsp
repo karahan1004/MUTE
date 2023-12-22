@@ -54,12 +54,11 @@
 	<script>
 	function deletePlaylist(playlistId) {
 	    // 서버로 삭제 요청 보내기
-	    fetch('/mute/deletePlaylist', {
+	    fetch('/mute/deletePlaylist?playlistId=' + encodeURIComponent(playlistId), {
 	        method: 'DELETE',
 	        headers: {
 	            'Content-Type': 'application/x-www-form-urlencoded',
 	        },
-	        body: 'playlistId=' + encodeURIComponent(playlistId),
 	    })
 	    .then(response => {
 	        if (!response.ok) {
@@ -70,12 +69,10 @@
 	    .then(data => {
 	        // 여기서 응답 처리 (예: 성공 메시지 출력 등)
 	        alert(data);
-
 	        // 삭제된 플레이리스트를 화면에서 제거
 	        var playlistElement = document.querySelector('li[data-playlist-id="' + playlistId + '"]');
 	        if (playlistElement) {
 	            playlistElement.remove();
-
 	            // 서버에서 플레이리스트 목록을 다시 불러오는 요청
 	            reloadPlaylists();
 	        }
@@ -85,6 +82,7 @@
 	    });
 	}
 
+	
 	// 서버에서 플레이리스트 목록을 다시 불러오는 함수
 	function reloadPlaylists() {
 	    fetch('/reloadPlaylists')
@@ -97,12 +95,10 @@
 	            console.error('에러:', error);
 	        });
 	}
-
 	// 플레이리스트 목록을 렌더링하는 함수 (예시)
 	function renderPlaylists(playlists) {
 	    var ulElement = document.querySelector('ul');
 	    ulElement.innerHTML = ''; // 기존 목록 비우기
-
 	    playlists.forEach(playlist => {
 	        var liElement = document.createElement('li');
 	        liElement.textContent = playlist.name;
@@ -112,7 +108,6 @@
 	        deleteButton.onclick = function() {
 	            deletePlaylist(playlist.id);
 	        };
-
 	        liElement.appendChild(deleteButton);
 	        ulElement.appendChild(liElement);
 	    });
@@ -120,31 +115,24 @@
         
         
         //------------------------------------------------------------------
-
         function editPlaylist(playlistId, playlistName) {
             // 수정 폼을 표시
             document.getElementById("editForm").style.display = "block";
-
             // 편집 폼에 현재 플레이리스트 이름 설정
             document.getElementById("editPlaylistName").value = playlistName;
-
             // hidden input 필드의 값을 현재 플레이리스트 ID로 업데이트
             currentPlaylistId = playlistId;
             document.getElementById("playlistId").value = currentPlaylistId;
         }
-
         function updatePlaylist() {
             // 업데이트된 플레이리스트 이름 가져오기
             var updatedName = document.getElementById("editPlaylistName").value;
-
             // hidden input 필드에서 플레이리스트 ID 가져오기
             var playlistId = currentPlaylistId;
-
             // 요청 매개변수 생성
             var params = new URLSearchParams();
             params.append('playlistId', playlistId);
             params.append('editPlaylistName', updatedName);
-
             // fetch API를 사용하여 POST 요청 보내기
             fetch('/mute/updatePlaylist', {
                 method: 'POST',
@@ -163,6 +151,5 @@
             });
         }
     </script>
-
 </body>
 </html>
