@@ -4,10 +4,15 @@
 <head>
 <link rel="stylesheet" href="resources/css/test.css">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MU:TE</title>
 </head>
 <body>
+	<div class="totaldiv">
+	<div class="logodiv">
 	<a href="main"><img class="logo" src="resources/images/mutelogo.png"></a>
+	</div>
+	
 	<div class="question">
     	<h1>Q8.<br> 신곡을 들을 때 <br>중요하게 생각하는건?</h1>
 			<!-- 버튼 클릭시 selectGenre(value) 함수를 통해 각 선택지 별 해당하는 장르 count++ -->
