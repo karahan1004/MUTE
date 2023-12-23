@@ -94,12 +94,12 @@ public class GenreRecommendationController2 {
         return "/recommendations2";
     }
 
-    @GetMapping("/play/{trackId}")
+    //@GetMapping("/play/{trackId}")
     public String playTrack(@PathVariable String trackId, HttpSession session) {
         try {
             String accessToken = (String) session.getAttribute("accessToken");
             if (accessToken != null) {
-                playbackService.startOrResumePlayback(accessToken, "spotify:track:" + trackId);
+                playbackService.startOrResumePlayback(accessToken, "spotify:track:" + trackId, accessToken);
                 System.out.println("Play track: " + trackId);
             }
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class GenreRecommendationController2 {
         return "redirect:/recommendations2";
     }
 
-    @GetMapping("/pause")
+    //@GetMapping("/pause")
     public String pausePlayback(HttpSession session) {
         try {
             String accessToken = (String) session.getAttribute("accessToken");
@@ -123,7 +123,7 @@ public class GenreRecommendationController2 {
     }
 
 
-    @GetMapping("/previous")
+    //@GetMapping("/previous")
     public String playPreviousTrack(HttpSession session) throws ParseException {
         String accessToken = (String) session.getAttribute("accessToken");
         if (accessToken != null) {
@@ -132,7 +132,7 @@ public class GenreRecommendationController2 {
         return "redirect:/recommendations2";
     }
 
-    @GetMapping("/next")
+    //@GetMapping("/next")
     public String playNextTrack(HttpSession session) throws ParseException {
         String accessToken = (String) session.getAttribute("accessToken");
         if (accessToken != null) {
@@ -141,7 +141,7 @@ public class GenreRecommendationController2 {
         return "redirect:/recommendations2";
     }
     
-    @GetMapping("/devices")
+    //@GetMapping("/devices")
     public String getDevices(Model model, HttpSession session) {
         String accessToken = (String) session.getAttribute("accessToken");
         if (accessToken != null) {
@@ -179,7 +179,7 @@ public class GenreRecommendationController2 {
         return "/devices";
     }
     
-    @GetMapping("/setVolume/{volume}")
+    //@GetMapping("/setVolume/{volume}")
     public String setVolume(@PathVariable int volume, HttpSession session) throws ParseException {
         String accessToken = (String) session.getAttribute("accessToken");
         if (accessToken != null) {
