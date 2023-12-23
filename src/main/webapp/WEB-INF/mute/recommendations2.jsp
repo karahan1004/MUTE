@@ -63,28 +63,30 @@
             });
         }
         
-     // 음량 조절 함수
-        function setVolume(volume) {
-            console.log('볼륨 조절: ' + volume);
+     	// 음량 조절 함수
+        // 음량 조절 함수
+function setVolume(volume) {
+    console.log('볼륨 조절: ' + volume);
 
-            $.ajax({
-                url: SPOTIFY_API_BASE + '/volume/' + volume,
-                type: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                },
-                success: function () {
-                    console.log('볼륨 조절 성공');
-                },
-                error: function (error) {
-                    console.error('볼륨 조절 실패:', error);
-                    console.error('API 호출 실패 상세 정보:', error.responseJSON);
-                },
-            });
+    $.ajax({
+        url: SPOTIFY_API_BASE + '/volume?volume_percent=' + volume, // 수정된 부분
+        type: 'PUT',
+        headers: {
+            'Authorization': 'Bearer ' + accessToken,
+        },
+        success: function () {
+            console.log('볼륨 조절 성공');
+        },
+        error: function (error) {
+            console.error('볼륨 조절 실패:', error);
+            console.error('API 호출 실패 상세 정보:', error.responseJSON);
+        },
+    });
 
-            // UI에 현재 볼륨 표시
-            $('#volumeLabel').text(volume);
-        }
+    // UI에 현재 볼륨 표시
+    $('#volumeLabel').text(volume);
+}
+
 
         // 이전 트랙으로 이동 함수
         function previousTrack() {
