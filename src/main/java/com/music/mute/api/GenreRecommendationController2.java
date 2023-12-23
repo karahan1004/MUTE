@@ -45,7 +45,7 @@ public class GenreRecommendationController2 {
     
     @GetMapping("/r1")
     public String test() {
-    	System.out.println("aaaa");
+    	System.out.println("bbb");
     	return "recommendations2";
     }
 
@@ -82,8 +82,9 @@ public class GenreRecommendationController2 {
 
                 // 추가: 메서드가 호출되었음을 로깅
                 System.out.println("getGenreRecommendations 메서드가 호출되었습니다.");
-
+                
             } catch (Exception e) {
+            	System.out.println("hi"+e);
                 model.addAttribute("error", "음악 추천을 가져오는 중에 오류가 발생했습니다.");
                 return "/errorPage";
             }
@@ -94,22 +95,33 @@ public class GenreRecommendationController2 {
     }
 
     @GetMapping("/play/{trackId}")
-    public String playTrack(@PathVariable String trackId, HttpSession session) throws ParseException {
-        String accessToken = (String) session.getAttribute("accessToken");
-        if (accessToken != null) {
-            playbackService.startOrResumePlayback(accessToken, "spotify:track:" + trackId);
+    public String playTrack(@PathVariable String trackId, HttpSession session) {
+        try {
+            String accessToken = (String) session.getAttribute("accessToken");
+            if (accessToken != null) {
+                playbackService.startOrResumePlayback(accessToken, "spotify:track:" + trackId);
+                System.out.println("Play track: " + trackId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return "redirect:/recommendations2";
     }
 
     @GetMapping("/pause")
-    public String pausePlayback(HttpSession session) throws ParseException {
-        String accessToken = (String) session.getAttribute("accessToken");
-        if (accessToken != null) {
-            playbackService.pausePlayback(accessToken);
+    public String pausePlayback(HttpSession session) {
+        try {
+            String accessToken = (String) session.getAttribute("accessToken");
+            if (accessToken != null) {
+                playbackService.pausePlayback(accessToken);
+                System.out.println("Pause playback");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return "redirect:/recommendations2";
     }
+
 
     @GetMapping("/previous")
     public String playPreviousTrack(HttpSession session) throws ParseException {
