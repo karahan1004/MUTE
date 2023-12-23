@@ -24,15 +24,43 @@
 }
 
 .back {
-	width: 120px;
-	height: 120px;
+	width: 100px;
+	height: 100px;
 }
 
 .backft {
 	bottom: 0;
 	color: lightgray;
-	font-size: 32px;
+	font-size: 22px;
 	text-decoration-line: none;
+}
+
+#menu{
+	width:100%;
+}
+
+.meal{
+	width:25%;
+	font-size:22px;
+	text-align:center;
+}
+
+.mesi{
+	width:30%;
+	font-size:22px;
+	text-align:center;
+}
+
+.mega{
+	width:25%;
+	font-size:22px;
+	text-align:center;
+}
+
+.medel{
+	width:20%;
+	font-size:22px;
+	text-align:center;
 }
 
 .head-na {
@@ -40,7 +68,7 @@
 }
 
 .pl {
-	font-size: 40px;
+	font-size: 30px;
 }
 
 .head-lg {
@@ -48,8 +76,8 @@
 }
 
 .logo {
-	width: 160px;
-	height: 160px;
+	width: 130px;
+	height: 130px;
 }
 
 .albumimg {
@@ -58,7 +86,7 @@
 }
 
 .si {
-	font-size: 30px;
+	font-size: 24px;
 	width: 30%;
 	text-align: left;
 }
@@ -71,7 +99,7 @@
 .ga {
 	text-align: center;
 	width: 25%;
-	font-size: 30px;
+	font-size: 24px;
 }
 
 .del {
@@ -79,14 +107,14 @@
 }
 
 .del_img {
-	width: 45px;
-	height: 45px;
+	width: 30px;
+	height: 30px;
 	float: center;
 }
 
 .albumimg {
-	width: 120px;
-	height: 120px;
+	width: 80px;
+	height: 80px;
 	object-fit: cover; /* 이미지가 자동으로 크기에 맞게 잘리지 않도록 설정 */
 }
 
@@ -114,29 +142,35 @@
 
 .bt_img {
 	float: right;
-	width: 50px;
-	height: 50px;
+	width: 30px;
+	height: 30px;
+}
+
+#ft_img{
+	float:center;
+	width:30px;
+	height:30px;
 }
 
 .at_img {
 	float: left;
-	width: 50px;
-	height: 50px;
+	width: 30px;
+	height: 30px;
 }
 
 .im_foot {
-	width: 120px;
-	height: 120px;
+	width: 80px;
+	height: 80px;
 }
 
 .si_foot {
 	width: 30%;
-	font-size: 30px;
+	font-size: 24px;
 }
 
 .ga_foot {
 	width: 20%;
-	font-size: 30px;
+	font-size: 24px;
 	text-align: center;
 }
 
@@ -146,8 +180,8 @@
 
 .so_img {
 	float: left;
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 }
 
 .volume-slider {
@@ -171,7 +205,7 @@
 .singdel {
 	display: flex;
 	justify-content: center;
-	font-size: 36px;
+	font-size: 30px;
 	text-align: center;
 }
 
