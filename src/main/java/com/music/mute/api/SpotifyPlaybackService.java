@@ -12,6 +12,7 @@ import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.miscellaneous.CurrentlyPlayingContext;
 import se.michaelthelin.spotify.model_objects.miscellaneous.Device;
+import se.michaelthelin.spotify.requests.data.player.PauseUsersPlaybackRequest;
 import se.michaelthelin.spotify.requests.data.player.SkipUsersPlaybackToNextTrackRequest;
 import se.michaelthelin.spotify.requests.data.player.SkipUsersPlaybackToPreviousTrackRequest;
 import se.michaelthelin.spotify.requests.data.player.StartResumeUsersPlaybackRequest;
@@ -26,60 +27,86 @@ public class SpotifyPlaybackService {
         this.spotifyApi = spotifyApi;
     }
 
-    public void playSong(String accessToken, String trackUri) throws ParseException {
+ // 사용자의 Spotify 계정에 연결된 디바이스 목록 가져오기
+    public Device[] getUsersDevices(String accessToken) throws ParseException {
         try {
             spotifyApi.setAccessToken(accessToken);
-            
+            return spotifyApi.getUsersAvailableDevices().build().execute();
+        } catch (IOException | SpotifyWebApiException e) {
+            handleException(e);
+            return null;
+        }
+    }
+
+    // 특정 디바이스에서 음악 재생
+    public void playOnDevice(String accessToken, String deviceId, String trackUri) throws ParseException {
+        try {
+            spotifyApi.setAccessToken(accessToken);
 
             // 트랙 URI를 JsonArray로 변환
             JsonArray urisJsonArray = new JsonArray();
             urisJsonArray.add(trackUri);
 
             // 노래 재생 요청
-            spotifyApi.startResumeUsersPlayback().uris(urisJsonArray).build().execute();
+            StartResumeUsersPlaybackRequest request = spotifyApi
+                    .startResumeUsersPlayback()
+                    .uris(urisJsonArray)
+                    .device_id(deviceId)
+                    .build();
+
+            request.execute();
         } catch (IOException | SpotifyWebApiException e) {
-            e.printStackTrace();
+            handleException(e);
         }
     }
 
+    // 일시정지
     public void pausePlayback(String accessToken) throws ParseException {
         try {
             spotifyApi.setAccessToken(accessToken);
-
-            // 재생 중인 노래 멈춤 요청
-            spotifyApi.pauseUsersPlayback().build().execute();
+            PauseUsersPlaybackRequest request = spotifyApi.pauseUsersPlayback().build();
+            request.execute();
         } catch (IOException | SpotifyWebApiException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void startOrResumePlayback(String accessToken, String trackUri) throws ParseException {
-        try {
-            spotifyApi.setAccessToken(accessToken);
-
-            // String[]을 JsonArray로 변환
-            JsonArray urisJsonArray = new JsonArray();
-            urisJsonArray.add(trackUri);
-
-            // 수정: Spotify의 API 변경으로 builder() 대신 create()를 사용합니다.
-            StartResumeUsersPlaybackRequest startResumeRequest = spotifyApi
-                    .startResumeUsersPlayback()
-                    .uris(urisJsonArray)
-                    .build();
-
-            startResumeRequest.execute();
-        } catch (IOException | SpotifyWebApiException e) {
-            e.printStackTrace();
+            handleException(e);
         }
     }
 
+    // 현재 플레이백 정보 가져오기
     public CurrentlyPlayingContext getCurrentPlayback(String accessToken) throws ParseException {
         try {
             spotifyApi.setAccessToken(accessToken);
             return spotifyApi.getInformationAboutUsersCurrentPlayback().build().execute();
         } catch (IOException | SpotifyWebApiException e) {
-            e.printStackTrace();
+            handleException(e);
             return null;
+        }
+    }
+
+    // 예외 처리
+    private void handleException(Exception e) {
+        // 예외 처리: 에러가 발생하면 적절한 조치를 취함
+        e.printStackTrace();
+        // 예외 로깅 또는 사용자에게 메시지 표시 등의 추가 작업이 필요합니다.
+    }
+
+    public void startOrResumePlayback(String accessToken, String trackUri, String deviceId) throws ParseException {
+        try {
+            spotifyApi.setAccessToken(accessToken);
+
+            // 트랙 URI를 JsonArray로 변환
+            JsonArray urisJsonArray = new JsonArray();
+            urisJsonArray.add(trackUri);
+
+            // Spotify의 API 변경으로 builder() 대신 create()를 사용합니다.
+            StartResumeUsersPlaybackRequest startResumeRequest = spotifyApi
+                    .startResumeUsersPlayback()
+                    .uris(urisJsonArray)
+                    .device_id(deviceId)
+                    .build();
+
+            startResumeRequest.execute();
+        } catch (IOException | SpotifyWebApiException e) {
+            handleException(e);
         }
     }
 
@@ -101,11 +128,9 @@ public class SpotifyPlaybackService {
                 request.execute();
             }
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            e.printStackTrace();
-            // 예외 처리: 에러가 발생하면 적절한 조치를 취함
+            handleException(e);
         }
     }
-
 
     public void playNextTrack(String accessToken) {
         try {
@@ -125,12 +150,11 @@ public class SpotifyPlaybackService {
                 request.execute();
             }
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            e.printStackTrace();
-            // 예외 처리: 에러가 발생하면 적절한 조치를 취함
+            handleException(e);
         }
     }
-    
-    public void setVolume(String accessToken, int volume) throws ParseException {
+
+    public void setVolume(String accessToken, int volume) {
         try {
             spotifyApi.setAccessToken(accessToken);
 
@@ -146,12 +170,10 @@ public class SpotifyPlaybackService {
 
             // 메서드 이름 수정: setVolumeOnUsersPlayback -> setVolumeOnUserPlayback
             spotifyApi.setVolumeForUsersPlayback(volume).device_id(deviceId).build().execute();
-        } catch (IOException | SpotifyWebApiException | InterruptedException e) {
-            e.printStackTrace();
-            // 예외 처리: 에러가 발생하면 적절한 조치를 취함
+        } catch (IOException | SpotifyWebApiException | InterruptedException | ParseException e) {
+            handleException(e);
         }
     }
 
 
-	
 }

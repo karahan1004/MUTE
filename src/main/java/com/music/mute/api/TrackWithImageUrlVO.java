@@ -8,13 +8,26 @@ public class TrackWithImageUrlVO {
     private String artistName;
     private String albumImageUrl;
     private String uri;
+    private String id;
+    private Track track;
 
     public TrackWithImageUrlVO(Track track, String coverImageUrl) {
         this.coverImageUrl = coverImageUrl;
         this.name = track.getName();
-        this.artistName = track.getArtists()[0].getName();
+        this.artistName = getFirstArtistName(track);
         this.uri = track.getUri();
+        this.id = track.getId();
     }
+
+    private String getFirstArtistName(Track track) {
+        if (track != null && track.getArtists() != null && track.getArtists().length > 0) {
+            return track.getArtists()[0].getName();
+        }
+        return "Unknown Artist";
+    }
+
+    // Getter와 Setter 메서드들은 여기에 추가
+    // ...
 
     public String getCoverImageUrl() {
         return coverImageUrl;
@@ -54,5 +67,9 @@ public class TrackWithImageUrlVO {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public String getId() {
+        return id;
     }
 }
