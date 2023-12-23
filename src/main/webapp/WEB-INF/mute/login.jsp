@@ -22,7 +22,7 @@ function loginToSpotify() {
     var client_id = 'c82612eab8154313a45a1233cb2e7374';
     var redirect_uri = 'http://localhost:9089/mute/main';
 
-    var scope = 'user-read-private user-read-email user-library-read user-read-currently-playing playlist-read-private playlist-modify-private user-modify-playback-state ugc-image-upload user-read-playback-state user-modify-playback-state streaming playlist-modify-public playlist-read-collaborative user-library-modify';
+    var scope = 'user-read-private user-read-email user-library-read user-read-currently-playing playlist-read-private playlist-modify-private user-modify-playback-state ugc-image-upload user-read-playback-state user-modify-playback-state streaming playlist-modify-public playlist-read-collaborative user-library-modify app-remote-control';
 
 
     var spotifyAuthURL = 'https://accounts.spotify.com/authorize?' +

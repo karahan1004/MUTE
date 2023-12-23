@@ -18,11 +18,13 @@ import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfi
 public class SpotifyService {
 	@Autowired
     private SpotifyApi spotifyApi;
+	
+	private String refreshToken;
 
     public URI generateAuthorizationUrl() {
         return spotifyApi.authorizationCodeUri()
                 .state("some-state")
-                .scope("user-read-private, ugc-image-upload,user-read-playback-state,user-modify-playback-state,user-read-currently-playing,streaming,playlist-modify-public,playlist-modify-private,playlist-read-private,playlist-read-collaborative,user-library-modify")
+                .scope("user-read-private, ugc-image-upload,user-read-playback-state,user-modify-playback-state,user-read-currently-playing,streaming,playlist-modify-public,playlist-modify-private,playlist-read-private,playlist-read-collaborative,user-library-modify,user-modify-playback-state,app-remote-control")
                 //.showDialog(true)
                 .build()
                 .execute();
@@ -38,7 +40,29 @@ public class SpotifyService {
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             throw new RuntimeException("Error requesting access token", e);
         }
-    }//////
+    }
+    
+    public String refreshAccessToken() {
+        try {
+            AuthorizationCodeCredentials credentials = spotifyApi.authorizationCodeRefresh()
+                    .refresh_token(refreshToken)
+                    .build()
+                    .execute();
+
+            // SpotifyApi 인스턴스를 새로운 액세스 토큰으로 업데이트합니다.
+            spotifyApi.setAccessToken(credentials.getAccessToken());
+
+            // 옵션: 응답에서 리프레시 토큰이 반환되면 업데이트합니다.
+            if (credentials.getRefreshToken() != null) {
+                refreshToken = credentials.getRefreshToken();
+            }
+
+            return credentials.getAccessToken();
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            throw new RuntimeException("액세스 토큰을 리프레시하는 중 오류가 발생했습니다", e);
+        }
+    
+    //////
     
 //    public String getSpotifyUserId(String accessToken) {
 //        try {
@@ -62,6 +86,6 @@ public class SpotifyService {
 //        }
 //    }
     
-    
+    }
     
 }//=========================
