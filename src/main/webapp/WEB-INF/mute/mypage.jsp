@@ -34,17 +34,16 @@
 		</table>
 	</header>
 	<!-- ==================플레이리스트 목록=========================== -->
-	    <hr>
-	        <table class="playListTable">
-	       		<tr>
-            <td class="mypl">내 플레이리스트</td>
-            <td></td> 
+	        <hr>
+	       <table class="playListTable">
+	       	<tr>
+	            <td class="mypl">내 플레이리스트</td>
+	            <td></td> 
             </tr>
-				
-                    
-	        	<tr>
+				<c:forEach var="playlist" items="${playlists}">
+                    <tr>    
 	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
-					<td id="plname"><a href="playlist" id="move">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
+					<td id="plname"><a href="playlist" id="move">${playlist.name}</a></td>
 					<!-- 이미지에 부트스트랩 모달 적용 -->
 					<td class="edit">
 						<a id="edit_plName" onclick="toggleModal('modalplus');">
@@ -52,42 +51,9 @@
 						<a id="del_pl" onclick="toggleModal('addModal');">
 						<img class="del_img" src="resources/images/del_pl.png"></a>
 					</td>
-				</tr>
-				
-				<tr>
-	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
-					<td id="plname"><a href="playlist" id="move">너무 행복해서 노래 플리 담았어~~</a></td>
-					<td class="edit">
-						<a id="edit_plName" onclick="toggleModal('modalplus');">
-						<img class="edit_img" src="resources/images/more.png"></a>
-						<a id="del_pl" onclick="toggleModal('addModal');">
-						<img class="del_img" src="resources/images/del_pl.png"></a>
-					</td>
-				</tr>
-				
-				<tr>
-	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
-					<td id="plname"><a href="playlist" id="move">코딩할 때 듣는 노동요</a></td>
-					<td class="edit">
-						<a id="edit_plName" onclick="toggleModal('modalplus');">
-						<img class="edit_img" src="resources/images/more.png"></a>
-						<a id="del_pl" onclick="toggleModal('addModal');">
-						<img class="del_img" src="resources/images/del_pl.png"></a>
-					</td>
-				</tr>
-				
-				<tr>
-	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
-					<td id="plname"><a href="playlist" id="move">신나고 싶을 때 듣는 노래</a></td>
-					<td class="edit">
-						<a id="edit_plName" onclick="toggleModal('modalplus');">
-						<img class="edit_img" src="resources/images/more.png"></a>
-						<a id="del_pl" onclick="toggleModal('addModal');">
-						<img class="del_img" src="resources/images/del_pl.png"></a>
-					</td>
-				</tr>
-	        </table>
-	        
+					</tr> 
+                 </c:forEach>   
+         </table>  
 	<!-- ======================Modal========================== -->
 	
 	<!-- 플레이리스트 이름 수정 모달 -->
