@@ -30,7 +30,7 @@ public class SpotifyOAuthService {
                 .queryParam("scope", "streaming user-read-email user-read-private user-library-read user-library-modify " +
                         "user-read-playback-state user-modify-playback-state playlist-read-collaborative " +
                         "user-read-currently-playing playlist-read-private playlist-modify-public " +
-                        "playlist-modify-private ugc-image-upload")
+                        "playlist-modify-private ugc-image-upload app-remote-control")
 
                 .build().toUriString();
     }
