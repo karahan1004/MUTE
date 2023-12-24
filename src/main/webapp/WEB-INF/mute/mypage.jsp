@@ -43,7 +43,7 @@
 				<c:forEach var="playlist" items="${playlists}">
                     <tr>    
 	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
-					<td id="plname"><a href="playlist" id="move">${playlist.name}</a></td>
+					<td id="plname"><a href="playlist?playlistId=${playlist.id}" id="move">${playlist.name}</a></td>
 					<!-- 이미지에 부트스트랩 모달 적용 -->
 					<td class="edit">
 						<a id="edit_plName" onclick="toggleModal('modalplus');">
@@ -182,6 +182,7 @@
 	function openModalnickAlert() {
         $('#nickAlert').modal('show');
     }
+	
 </script>
 </body>
 </html>

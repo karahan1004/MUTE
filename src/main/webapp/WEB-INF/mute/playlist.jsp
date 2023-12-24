@@ -22,6 +22,9 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 
 
 <title>MU:TE</title>
@@ -32,8 +35,7 @@
 			<tr>
 				<td class="head-lg" rowspan="2"><a href="main"><img
 						class="logo" src="resources/images/mutelogo.png"></a></td>
-				<td class="head-na" rowspan="2"><a class="pl">플레이리스트 이름이
-						들어갈 자리입니다.</a></td>
+				<td class="head-na" rowspan="2"><a class="pl">${playlist.name}</a></td>
 				<td class="head-ba"><a href="mypage"><img class="back"
 						src="resources/images/gom_button.png"></a></td>
 
@@ -45,102 +47,39 @@
 	</header>
 	<hr>
 	<div>
-	<table id="menu">
-		<tr>
+		<table id="menu">
+			<tr>
 				<!-- 임시로 곰버튼 이미지 넣어둠 -->
 				<td class="meal">앨범 표지</td>
 				<td class="mesi">노래 제목</td>
 				<td class="mega">가수 이름</td>
 				<td class="medel">삭제</td>
-		</tr>
-	</table>
-		
+			</tr>
+		</table>
+
 	</div>
 	<hr>
 	<div id="scroll">
 		<table id="sing-mi">
-			<tr>
-				<!-- 임시로 곰버튼 이미지 넣어둠 -->
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_button.png"></td>
-				<td class="si">Baddie</td>
-				<td class="ga">아이브</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
-			
-			<tr>
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_dance.png"></td>
-				<td class="si">사랑하긴 했었나요 스쳐가는 인연이었나요 짧지않은 우리 함께했던 시간들이 자꾸 내 마음을
-					가둬두네</td>
-				<td class="ga">잔나비</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
-			<tr>
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_button.png"></td>
-				<td class="si">이브, 프시케, 그리고 푸른 수염의 아내</td>
-				<td class="ga">르세라핌</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
-			<tr>
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_button.png"></td>
-				<td class="si">하늘엔 별이 떠있고 너만큼은 빛나질 않아</td>
-				<td class="ga">이민혁</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
-			<tr>
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_button.png"></td>
-				<td class="si">늦은 밤 헤어지긴 너무 아쉬워</td>
-				<td class="ga">케이시</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
+			<c:forEach var="track" items="${trackInfoArray}" varStatus="status">
+				<tr>
+					<td class="pi"><c:set var="albumDetailsArray"
+							value="${fn:split(albumInfoArray[status.index], ',')}" /> <img
+						class="albumimg" src="${albumDetailsArray[1]}" alt="Album Cover"
+						width="100" height="100"></td>
+					<td class="si">${track}</td>
+					<td class="ga">${artistInfoArray[status.index]}</td>
+					<td class="del"><a onclick="toggleModal('addModal');"> <img
+							class="del_img" src="resources/images/del_pl.png">
+					</a></td>
+				</tr>
+			</c:forEach>
 
-			<tr>
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_button.png"></td>
-				<td class="si">가만 있으면 되는데 자꾸만 뭘 그렇게 할라 그래</td>
-				<td class="ga">장기하</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
 
-			<tr>
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_button.png"></td>
-				<td class="si">kidding</td>
-				<td class="ga">이세계아이돌</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
 
-			<tr>
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_button.png"></td>
-				<td class="si">노래 이름</td>
-				<td class="ga">그린 토마토 후라이드</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
-
-			<tr>
-				<td class="pi"><img class="albumimg"
-					src="resources/images/gom_button.png"></td>
-				<td class="si">OMG</td>
-				<td class="ga">뉴진스</td>
-				<td class="del"><a onclick="toggleModal('addModal');"><img
-						class="del_img" src="resources/images/del_pl.png"></a></td>
-			</tr>
 		</table>
 	</div>
-	<hr>
+
 	<footer>
 		<table id="navi-foot">
 			<tr>
@@ -152,13 +91,13 @@
 					src="resources/images/after_pl.png"></td>
 				<td class="si_btn"><img class="im_foot"
 					src="resources/images/gom_button.png"></td>
-				<td class="si_foot">Baddie</td>
-				<td class="ga_foot">아이브</td>
+				<td class="si_foot"></td>
+				<td class="ga_foot"></td>
 				<td class="sa_btn" onclick="toggleVolumeSlider()"><img
 					class="so_img" src="resources/images/sound_pl.png"></td>
 				<td class="volume-container"><input type="range"
-					class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01"
-					value="0.5" oninput="setVolume(this.value)"></td>
+					class="volume-slider" id="volumeSlider" min="0" max="100"
+					value="50" oninput="setVolume(this.value)"></td>
 				<td></td>
 			</tr>
 		</table>
