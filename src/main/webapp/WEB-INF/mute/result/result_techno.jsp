@@ -10,15 +10,12 @@
 <link rel="stylesheet" href="resources/css/modal.css">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -38,10 +35,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td><a class="trot" style="color: #FF3232;">트로트를 좋아하는 당신은 베리베리스트로베리!</a></td>
+			<td><a class="trot" style="color: #FF3232;">테크노를 좋아하는 당신은 베리베리스트로베리!</a></td>
 		</tr>
 		<tr>
-			<td><a class="trot" style="color: #FF3232;">너 T로트야?</a></td>
+			<td><a class="trot" style="color: #FF3232;">너 T크노야?</a></td>
 		</tr>
 		
 	</table>
@@ -50,38 +47,34 @@
   <div class="con">  
     <div class="reco">
         <br>
-        <a class="tag">당신을 위한 #트로트 음악</a><br><br>
+        <a class="tag">당신을 위한 #테크노 음악</a><br><br>
 		<table class="table2">
-			<tr>
-				<td><div class="cover"></div></td>
-				<td>힙합왕</td>
-				<td>아티스트명</td>
-				<td><a id="toggleButton1" onclick="toggleButton1()"> 
-					<img id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus1" onclick="toggleModal('addModal');">
-					<img id="buttonPlus1" src="resources/images/plus_pl.png" alt="plus">
-				</a></td>
+			<tr id="trhead">
+				<td></td>
+				<td>제목</td>
+				<td>가수</td>
+				<td>재생</td>
+				<td>플레이리스트 추가</td>
 			</tr>
-			<tr>
-				<td><div class="cover"></div></td>
-				<td>힙합왕</td>
-				<td>아티스트명</td>
-				<td><a id="toggleButton2" onclick="toggleButton2()"> 
-					<img id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus2" onclick="toggleModal('addModal');">
-					<img id="buttonPlus2" src="resources/images/plus_pl.png" alt="plus">
-				</a></td>
-			</tr>
-			<tr>
-				<td><div class="cover"></div></td>
-				<td>힙합왕</td>
-				<td>아티스트명</td>
-				<td><a id="toggleButton3" onclick="toggleButton3()"> 
-					<img id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
-				<td><a id="togglePlus3" onclick="toggleModal('addModal');">
-					<img id="buttonPlus3" src="resources/images/plus_pl.png" alt="plus">
-				</a></td>
-			</tr>
+		<c:if test="${not empty recommendations}">
+		    <c:forEach var="track" items="${recommendations}" varStatus="i">
+		        <tr>
+		            <td><img src="${track.album.images[0].url}" alt="Album Cover" width="100" height="100"></td>
+		            <td>${track.name}</td>
+		            <td>${track.artists[0].name}</td>
+		            <td>
+		                <a id="toggleButton${i.index + 1}" onclick="toggleButton(${i.index + 1})"> 
+		                    <img id="buttonImage${i.index + 1}" src="resources/images/play_pl.png" alt="Start">
+		                </a>
+		            </td>
+		            <td>
+		                <a id="togglePlus${i.index + 1}" data-track-id="${track.id}" onclick="openPlaylistModal('${track.id}'); toggleModal('addModal')">
+		                    <img id="buttonPlus${i.index + 1}" src="resources/images/plus_pl.png" alt="plus">
+		                </a>
+		            </td>
+		        </tr>
+		    </c:forEach>
+		</c:if>
 		</table>
 		<br>
 		
@@ -101,12 +94,11 @@
                 <table class="modaltable" id="modaltable">
                       <c:forEach var="playlist" items="${playlists}">
                         <tr>
-                            <!-- <td class="td"><div class="cover1"></div></td> -->
                             <td class="td"><img alt="gom_trot" src="resources/images/gom_button.png" height="65" width="65"></td>
                             <td class="td"><a class="pltitle text-body" href=""
-                                    onclick="notify()">${playlist.name}</a></td>
+                                    onclick="addTrackToPlaylist('${track.id}', '${playlist.id}')">${playlist.name}</a></td>
                         </tr>
-                    </c:forEach>  
+                    </c:forEach> 
                 </table>
                 </div>
                 <br>
@@ -118,6 +110,9 @@
             </form>
         </div>
     </div>
+    <div class="notification" id="notification">
+    	음악을 플레이리스트에 저장했습니다!
+	</div>
 </div>
 
 
@@ -156,9 +151,7 @@
     </div>
 </div>
 
-<div class="notification" id="notification">
-    음악을 플레이리스트에 저장했습니다!
-</div>
+
 
 
 <script>
@@ -189,6 +182,7 @@
 	function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');
     }
+	
 	
     let isPaused = false;
     
@@ -227,9 +221,7 @@
     let isPlus3 = false;
     
 
-    function toggleModal(modalId) {
-        $('#' + modalId).modal('toggle');
-    }
+    
 
     function toggleButton(buttonId, isPause) {
         const buttonImage = document.getElementById(buttonId);
@@ -311,9 +303,35 @@
     }
 
 
-    
-</script>
+//-------------------------------------------------------------------
 
+    var selectedTrackId; // 선택한 노래의 ID를 저장하는 변수
+    var trackId;
+
+    function openPlaylistModal(trackId) {
+       	console.log("Track ID:"+trackId); 
+        selectedTrackId = trackId; // 선택한 노래의 ID를 저장
+        toggleModal('addModal');
+    }
+
+    function addTrackToPlaylist(playlistId) {
+        	console.log("Track ID:"+trackId); 
+        	console.log("selected Track ID:" + selectedTrackId);
+        // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
+        $.ajax({
+            type: "POST",
+            url: "/mute/addTrackToPlaylist",
+            data: { trackId: selectedTrackId, playlistId: playlistId },
+            success: function (response) {
+                $('#addModal').modal('hide');
+                alert(response); // 성공적으로 추가되었음을 알리는 메시지 표시
+            },
+            error: function (error) {
+                alert("에러: Failed to add track to playlist - " + error.responseText);
+            }
+        });
+    }
+    </script>
 
 
 </body>

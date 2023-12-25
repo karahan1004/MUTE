@@ -19,7 +19,7 @@
 	        <button class="btn" onclick="selectGenre(1)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">벚꽃엔딩 - 버스커버스커</button>
 	        <button class="btn" onclick="selectGenre(2)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">교향곡 제1번 봄 - 슈만</button>
 	        <button class="btn" onclick="selectGenre(3)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">봄 사랑 벚꽃말고 - 아이유</button>
-	        <button class="btn" onclick="selectGenre(4)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">꽃 - 장윤정</button>
+	        <button class="btn" onclick="selectGenre(4)" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">고속도로 로망스 - 김장훈</button>
     </div>
    <script>
 	   /* 보기 버튼에 마우스 올리면 그림자 생김 */
@@ -30,7 +30,7 @@
 		/* ---------------------------------- */
 	
    		// 길이가 10인 Genres 배열을 선언하고 모든 인덱스값을 0으로 초기화
-   		/* 장르 배열 (0:락, 1:발라드, 2:트로트, 3:알앤비, 4:힙합, 5:클래식, 6:인디, 7:디스코, 8:재즈, 9:댄스) */
+   		/* 장르 배열 (0:락, 1:발라드, 2:테크노, 3:알앤비, 4:힙합, 5:클래식, 6:인디, 7:디스코, 8:재즈, 9:댄스) */
         let Genres = Array(10).fill(0);
         function selectGenre(value) {
             if (value === 1) {	/* 인덱스 증가 처리 */
@@ -48,7 +48,7 @@
                 Genres[1]++;
                 Genres[4]++;
             } else if (value === 4) {
-            	// 트로트, 디스코, 댄스
+            	// 테크노, 디스코, 댄스
                 Genres[2]++;
                 Genres[7]++;
                 Genres[9]++;

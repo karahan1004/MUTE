@@ -1,4 +1,4 @@
-package com.music.mute.api;
+package com.music.mute.result;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,76 +21,119 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.music.mute.api.TrackWithImageUrlVO;
+
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Album;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
+import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Recommendations;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
 import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
+import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
 @Controller
-public class ZaGenreRecommendationController {
-/*
+public class TechnoController {
+
 	@Autowired
 	private SpotifyApi spotifyApi;
 
-	@GetMapping("/zarecommendations")
-	public String getGenreRecommendations(Model model, HttpSession session) {
-		// 사용자의 Access Token을 세션에서 가져옴
+	@GetMapping("/result_techno")
+	public String getResultTrot(Model model, HttpSession session) {
 		String accessToken = (String) session.getAttribute("accessToken");
-		List<TrackWithImageUrl> recommendationsList = new ArrayList<>();
-		if (accessToken != null) {
-			try {
-				spotifyApi.setAccessToken(accessToken);
+        List<TrackWithImageUrlVO> recommendationsList = new ArrayList<>();
+        if (accessToken != null) {
+            try {
+                spotifyApi.setAccessToken(accessToken);
+                GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
+                        .getListOfCurrentUsersPlaylists()
+                        .limit(10)
+                        .build();
+                CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
+                PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
 
-				// 사용자의 플레이리스트 목록 가져오기 (예시)
-				final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
-						.getListOfCurrentUsersPlaylists().limit(10).build();
+                model.addAttribute("playlists", playlists);
+                
+                String playlistId = playlists[0].getId();
+                GetRecommendationsRequest recommendationsRequest = spotifyApi
+                        .getRecommendations()
+                        .seed_genres("techno")
+                        .limit(3)
+                        .build();
+                CompletableFuture<Recommendations> recommendationsFuture = recommendationsRequest.executeAsync();
+                Track[] recommendations = recommendationsFuture.join().getTracks();
 
-				final CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
-				PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
-
-				// 특정 플레이리스트의 장르를 기반으로 음악 추천 받기 (예시)
-				String playlistId = playlists[0].getId(); // 첫 번째 플레이리스트 사용 (예시)
-				final GetRecommendationsRequest recommendationsRequest = spotifyApi.getRecommendations()
-						.seed_genres("pop") // 원하는 장르를 나열
-						.limit(3).build();
-
-				final CompletableFuture<Recommendations> recommendationsFuture = recommendationsRequest.executeAsync();
-				Track[] recommendations = recommendationsFuture.join().getTracks();
-
-				// 추천된 트랙 목록에 앨범 커버 이미지 URL 추가
-				for (Track track : recommendations) {
-					String trackAlbumId = getAlbumId(track.getId(), accessToken);
-					String coverImageUrl = getAlbumCoverImageUrl(trackAlbumId, accessToken);
-					// TrackWithImageUrl 객체를 생성합니다.
-					TrackWithImageUrl newTrack = new TrackWithImageUrl(track, coverImageUrl);
-
-					recommendationsList.add(newTrack);
-
-				}
-
-				model.addAttribute("recommendations", recommendations);
+                for (Track track : recommendations) {
+                    String trackAlbumId = getAlbumId(track.getId(), accessToken);
+                    String coverImageUrl = getAlbumCoverImageUrl(trackAlbumId, accessToken);
+                    TrackWithImageUrlVO newTrack = new TrackWithImageUrlVO(track, coverImageUrl);
+                    recommendationsList.add(newTrack);
+                }
+                
+                model.addAttribute("recommendations", recommendations);
 				model.addAttribute("recommendationsList", recommendationsList);
 
-			} catch (Exception e) {
-				// 예외 처리: 사용자에게 친화적인 메시지 표시
-				model.addAttribute("error", "음악 추천을 가져오는 중에 오류가 발생했습니다.");
-				return "/errorPage"; // 예시: 오류 페이지로 리다이렉트
-			}
-		} else {
-			// Access Token이 없는 경우, 로그인 페이지로 리다이렉트 또는 에러 처리
-			return "redirect:/login"; // 예시: 로그인 페이지로 리다이렉트
-		}
-
-		return "/zarecommendations";
+                // 추가: 메서드가 호출되었음을 로깅
+                System.out.println("getGenreRecommendations 메서드가 호출되었습니다.");
+                
+            } catch (Exception e) {
+            	System.out.println("hi"+e);
+                model.addAttribute("error", "음악 추천을 가져오는 중에 오류가 발생했습니다.");
+                return "/errorPage";
+            }
+        } else {
+            return "redirect:/login";
+        }
+	    return "/result/result_techno";
 	}
+
+	
+
+	@PostMapping("/addPlaylist")
+	 public String addPlaylist(Model model, HttpSession session, @RequestParam String playlistName) {
+        String accessToken = (String) session.getAttribute("accessToken");
+        
+        if (accessToken != null) {
+            try {
+                spotifyApi.setAccessToken(accessToken);
+
+                final GetCurrentUsersProfileRequest profileRequest = spotifyApi.getCurrentUsersProfile().build();
+                final CompletableFuture<User> privateUserFuture = profileRequest.executeAsync();
+                User privateUser = privateUserFuture.join();
+                String userId = privateUser.getId();
+
+                final CreatePlaylistRequest createPlaylistRequest = spotifyApi.createPlaylist(userId, playlistName)
+                        .public_(false)
+                        .build();
+
+                final CompletableFuture<Playlist> playlistFuture = createPlaylistRequest.executeAsync();
+                Playlist newPlaylist = playlistFuture.join();
+
+                model.addAttribute("message", "Playlist added successfully: " + newPlaylist.getName());
+            } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("error", "Error adding playlist");
+            }
+        } else {
+            return "redirect:/login";
+        }
+
+	    return "/result/result_techno";
+	}
+
+	
+	//---------------------------------------------------------------------------
+	
+
+
 
 	private String getAlbumId(String trackId, String accessToken) throws ParseException {
 		try {
@@ -190,6 +233,7 @@ public class ZaGenreRecommendationController {
 		}
 	}
 
+	
 	@RequestMapping(value = "/getUserPlaylists", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<List<PlaylistSimplified>> getUserPlaylists(HttpSession session) {
@@ -214,5 +258,6 @@ public class ZaGenreRecommendationController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-*/
+
+
 }
