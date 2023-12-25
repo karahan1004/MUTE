@@ -55,7 +55,7 @@ public class PlaylistController {
 	            // 클릭한 플레이리스트 정보를 Model에 추가
 	            model.addAttribute("playlist", clickedPlaylist);
 
-	            if (trackName == null)
+	            if (trackName == null) 
 	                return "redirect:/emptyPage";
 	            Track[] tracks = getTrack(trackName);
 	            final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId())

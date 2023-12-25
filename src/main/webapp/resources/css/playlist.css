@@ -243,3 +243,7 @@ footer {
 	background-color: #ffffff; /* 필요에 따라 배경색을 조절하세요 */
 	padding: 10px;
 }
+
+p{
+	font-size:24px;
+}
