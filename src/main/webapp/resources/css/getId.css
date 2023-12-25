@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'KOTRAHOPE';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-color: #002EA5;
+	text-align: 'center';
+}
+
+* {
+	font-family: 'KOTRAHOPE';
+}
+
+body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+#imgLogo{
+	display:flex;
+	justify-content:center;
+}
+#logo{
+	width:450px;
+	height:400px;
+	margin:auto;
+	text-align:center;
+	/* justify-content: center; */
+}
+div.#register{
+	 text-align: center;
+	 margin-top:20px;
+	 background-color:#EBEBEB;
+	 border-radius:30%;
+}
+#register{
+	background-color:#EBEBEB;
+	border-radius:20px;
+	 text-align:center;
+	width:50%;
+	height:320px;
+}
+/* #register{
+	display:flex;
+	justify-content:center;
+	background-color:#EBEBEB;
+	border-radius:30%;
+	width:848px;
+	height:390px;
+	margin:auto;
+} */
+h1{
+	text-align:center;
+	font-size:50px;
+	margin-top: 40px;
+  	padding: 0;
+}
+
+#getId{
+	width:60%;
+	height:12%;
+	margin-right:10px;
+	border:none;
+}
+#btn{
+	background-color: #FFE2F8;
+	border: none;
+	border-radius:30px;
+	width:15%;
+	height:15%;
+	font-size:20px;
+}
+input::placeholder {
+  font-size: 16px; /* Set the desired font size */
+  color: #999; /* Set the desired text color */
+}
+
+#alert{
+	color:#B40000;
+	font-size:20px; 
+}
+/* div{
+	background-color:#EBEBEB;
+	border-radius:10%;
+	width:848px;
+	height:390px;
+	margin:auto;
+	자식 요소(.child)를 중앙 정렬하기
+	display: flex;
+	justify-content: center;
+	
+}
+.button{
+	background-color: #FFE2F8;
+	color: #002EA5;
+	border: none;
+	width: 331px;
+	height: 110px;
+	font-size:30px;
+	border-radius:30%;
+	box-shadow:0px 4px 4px 0px #CBCBCB;
+}
+
+
+ */
