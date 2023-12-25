@@ -104,14 +104,14 @@ public class TestController {
 		           
 		        }//for--------------------------------
 			  //session.invalidate(); 세션 끊어보니까 페이지 이동 안됨
-		   //(0:락, 1:발라드, 2:트로트, 3:알앤비, 4:힙합, 5:클래식, 6:인디, 7:디스코, 8:재즈, 9:댄스)
+		   
 		   switch (max_index){
 		   case 0:
 		   		return "redirect:result_rock";
 		   case 1:
 		   		return "redirect:result_ballad";
 		   case 2:
-			   return "redirect:result_trot";
+			    return "redirect:result_techno";
 		   case 3:
 			   return "redirect:result_rnb";
 		   case 4:

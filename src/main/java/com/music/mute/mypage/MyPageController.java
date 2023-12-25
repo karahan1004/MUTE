@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.log4j.Log4j;
@@ -18,6 +19,7 @@ import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
+import se.michaelthelin.spotify.requests.data.playlists.ChangePlaylistsDetailsRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 
 @Controller
@@ -55,4 +57,33 @@ public class MyPageController {
 		return "/mypage";
 	}//getUserPlaylists-----------------------------------------
 	
+	
+	/*@PostMapping("/updatePlaylist")
+	public String updatePlaylist(Model model, HttpSession session, @RequestParam String playlistId, @RequestParam String editPlaylistName) {
+	    String accessToken = (String) session.getAttribute("accessToken");
+
+	    if (accessToken != null) {
+	        try {
+	            spotifyApi.setAccessToken(accessToken);
+
+	            // Spotify API를 사용하여 플레이리스트의 이름을 변경
+	            final ChangePlaylistsDetailsRequest changePlaylistDetailsRequest = spotifyApi
+	                    .changePlaylistsDetails(playlistId)
+	                    .name(editPlaylistName)
+	                    .build();
+
+	            changePlaylistDetailsRequest.execute();
+
+	            // 수정 후, 사용자에게 적절한 메시지를 전달
+	            model.addAttribute("message", "Playlist updated successfully");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            model.addAttribute("error", "Error updating playlist");
+	        }
+	    } else {
+	        return "redirect:/login";
+	    }
+
+	    return "/mypage";
+	}*/
 }
