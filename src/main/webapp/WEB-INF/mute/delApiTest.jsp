@@ -15,7 +15,7 @@
 	<ul>
 		<c:forEach items="${playlists}" var="playlist">
 			<li><a
-				href="<c:url value='/playlisttracks'/>?playlistId=${playlist.id}">
+				href="<c:url value='/delplaylisttracks'/>?playlistId=${playlist.id}">
 					${playlist.name} </a>
 				<button onclick="editPlaylist('${playlist.id}', '${playlist.name}')">Edit</button>
 				<button onclick="deletePlaylist('${playlist.id}')">Delete</button></li>

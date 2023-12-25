@@ -1,4 +1,4 @@
-package com.music.mute.api;
+package com.music.mute.result;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,7 +21,7 @@ import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPla
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
 @Controller
-public class APIPlaylistControllerTrot {
+public class TrotController {
 
 	@Autowired
 	private SpotifyApi spotifyApi;
