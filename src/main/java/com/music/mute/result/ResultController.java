@@ -13,12 +13,13 @@ public class ResultController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ResultController.class);
 	
+	/*
 	@RequestMapping(value = "/result_ballad", method = RequestMethod.GET)
 	public String result_ballad(Locale locale) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		return "result/result_ballad";
-	}
+	}*/
 	
 	@RequestMapping(value = "/result_classic", method = RequestMethod.GET)
 	public String result_classic(Locale locale) {
