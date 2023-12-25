@@ -6,17 +6,28 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.hc.core5.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.expression.ParseException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.model_objects.special.SnapshotResult;
 import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
@@ -26,8 +37,10 @@ import se.michaelthelin.spotify.model_objects.specification.TrackSimplified;
 import se.michaelthelin.spotify.requests.data.albums.GetAlbumsTracksRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
+@CrossOrigin(origins = "http://localhost:9089")
 @Controller
 public class PlaylistController {
 	@Autowired
@@ -36,47 +49,47 @@ public class PlaylistController {
 
 	@GetMapping("/playlist")
 	public String getPlaylisttracks(Model model, HttpSession session, Locale locale,
-	        @RequestParam("playlistId") String playlistId) throws org.apache.hc.core5.http.ParseException {
+			@RequestParam("playlistId") String playlistId) throws org.apache.hc.core5.http.ParseException {
 		if (playlistId == null) {
-	        // playlistId가 없을 경우에 대한 처리
-	        // 예: 에러 메시지를 모델에 추가하고 에러 페이지로 리다이렉트
-	        model.addAttribute("error", "Playlist ID is required");
-	        return "redirect:/errorPage"; // 에러 페이지로 리다이렉트 또는 다른 처리를 수행
-	    }
-	    System.out.println(">>>> Playlist ID: " + playlistId);
-	    String accessToken = (String) session.getAttribute("accessToken");
-	    String trackName = getPlaylistsItems_Sync(model, playlistId);
-	    if (accessToken != null) {
-	        try {
-	            spotifyApi.setAccessToken(accessToken);
+			// playlistId가 없을 경우에 대한 처리
+			// 예: 에러 메시지를 모델에 추가하고 에러 페이지로 리다이렉트
+			model.addAttribute("error", "Playlist ID is required");
+			return "redirect:/errorPage"; // 에러 페이지로 리다이렉트 또는 다른 처리를 수행
+		}
+		System.out.println(">>>> Playlist ID: " + playlistId);
+		String accessToken = (String) session.getAttribute("accessToken");
+		String trackName = getPlaylistsItems_Sync(model, playlistId);
+		if (accessToken != null) {
+			try {
+				spotifyApi.setAccessToken(accessToken);
 
-	            Playlist clickedPlaylist = getClickedPlaylistInfo(playlistId); // 메서드 이름 및 구현은 적절하게 변경되어야 합니다.
+				Playlist clickedPlaylist = getClickedPlaylistInfo(playlistId); // 메서드 이름 및 구현은 적절하게 변경되어야 합니다.
 
-	            // 클릭한 플레이리스트 정보를 Model에 추가
-	            model.addAttribute("playlist", clickedPlaylist);
+				// 클릭한 플레이리스트 정보를 Model에 추가
+				model.addAttribute("playlist", clickedPlaylist);
 
-	            if (trackName == null) 
-	                return "redirect:/emptyPage";
-	            Track[] tracks = getTrack(trackName);
-	            final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId())
-	                    .limit(10).build();
+				if (trackName == null)
+					return "redirect:/emptyPage";
+				Track[] tracks = getTrack(trackName);
+				final GetAlbumsTracksRequest tracksRequest = spotifyApi.getAlbumsTracks(tracks[0].getAlbum().getId())
+						.limit(10).build();
 
-	            final CompletableFuture<Paging<TrackSimplified>> tracksFuture = tracksRequest.executeAsync();
+				final CompletableFuture<Paging<TrackSimplified>> tracksFuture = tracksRequest.executeAsync();
 
-	            tracksFuture.join().getItems();
+				tracksFuture.join().getItems();
 
-	            // model.addAttribute("tracks", tracks);
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            model.addAttribute("error", "Error fetching playlist tracks");
-	        }
-	    } else {
-	        return "redirect:/login";
-	    }
-	    return "playlist";
+				// model.addAttribute("tracks", tracks);
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("error", "Error fetching playlist tracks");
+			}
+		} else {
+			return "redirect:/login";
+		}
+		return "playlist";
 	}
 
-	private Playlist getClickedPlaylistInfo(String playlistId) throws org.apache.hc.core5.http.ParseException{
+	private Playlist getClickedPlaylistInfo(String playlistId) throws org.apache.hc.core5.http.ParseException {
 		try {
 			// GetPlaylistRequest를 사용하여 특정 플레이리스트의 정보를 가져옴
 			final GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(playlistId).build();
@@ -211,4 +224,45 @@ public class PlaylistController {
 		}
 
 	}
+	
+
+	@DeleteMapping("/deleteTrack")
+	public ResponseEntity<String> deleteTrack(@RequestParam String playlistId, @RequestParam String trackId,
+			HttpSession session) throws ParseException {
+
+		String accessToken = (String) session.getAttribute("accessToken");
+
+		// 트랙을 삭제하기 위한 Spotify API 요청 준비
+		JsonArray tracks = JsonParser.parseString("[{\"uri\":\"spotify:track:" + trackId + "\"}]").getAsJsonArray();
+		RemoveItemsFromPlaylistRequest removeItemsRequest = spotifyApi.removeItemsFromPlaylist(playlistId, tracks)
+				.build();
+
+		try {
+			// Spotify API를 통해 트랙 삭제 실행
+			SnapshotResult snapshotResult = removeItemsRequest.execute();
+
+			// 트랙 삭제 후, 적절한 응답 반환
+			return ResponseEntity.ok("Track deleted successfully. Snapshot ID: " + snapshotResult.getSnapshotId());
+		} catch (IOException | SpotifyWebApiException | org.apache.hc.core5.http.ParseException e) {
+			e.printStackTrace();
+
+			// 에러가 발생하면 500 Internal Server Error 반환
+			return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+					.body("Error deleting track: " + e.getMessage());
+		}
+	}
+	
+	@Configuration
+	public class WebConfig implements WebMvcConfigurer {
+
+	    @Override
+	    public void addCorsMappings(CorsRegistry registry) {
+	        registry.addMapping("/deleteTrack")
+	            .allowedOrigins("http://localhost:9089")
+	            .allowedMethods("DELETE")
+	            .allowedHeaders("*")
+	            .allowCredentials(true);
+	    }
+	}
+
 }

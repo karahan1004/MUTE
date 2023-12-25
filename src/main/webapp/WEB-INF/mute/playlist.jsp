@@ -69,9 +69,11 @@
 						width="100" height="100"></td>
 					<td class="si">${track}</td>
 					<td class="ga">${artistInfoArray[status.index]}</td>
-					<td class="del"><a onclick="toggleModal('addModal');"> <img
-							class="del_img" src="resources/images/del_pl.png">
+					<td class="del"><a
+						onclick="handleDeleteAction('${playlist.id}', '${trackIdList.split("#")[status.index]}');">
+							<img class="del_img" src="resources/images/del_pl.png">
 					</a></td>
+
 				</tr>
 			</c:forEach>
 
@@ -153,17 +155,55 @@
 		function toggleModal(modalId) {
 			$('#' + modalId).modal('toggle');
 		}
+		
+		function scheduleDeleteTrack(playlistId, trackId) {
+		    console.log('scheduleDeleteTrack 함수 호출:', playlistId, trackId);
+		    // 예약 논리를 여기에 추가
+		}
+
+		
+		function handleDeleteAction(playlistId, trackId) {
+		    // 삭제 전이나 후에 수행할 공통 작업을 추가하세요
+
+		    $('#addModal').data('playlistId', playlistId);
+		    $('#addModal').data('trackId', trackId);
+
+		    // 삭제 후에 수행할 다른 작업을 추가하세요
+
+		    // 삭제 후 모달을 토글하려면 다음과 같이 할 수 있습니다:
+		    toggleModal('addModal');
+		}
 
 		function confirmDelete() {
-			// 여기에 실제 삭제 동작을 추가할 수 있음
-			// 삭제가 성공하면 모달을 닫도록 처리
-			// 예시: 삭제 성공 후 모달을 닫고 싶다면 toggleModal('addModal')을 호출
-			// toggleModal('addModal');
+		    // 여기에 실제 삭제 동작을 추가할 수 있음
+		    // 삭제가 성공하면 모달을 닫도록 처리
+		    // 예시: 삭제 성공 후 모달을 닫고 싶다면 toggleModal('addModal')을 호출
 
-			// 아래는 간단한 예시 코드입니다. 실제 삭제 동작에 맞게 수정하세요.
-			alert("노래가 삭제되었습니다."); // 삭제 성공 메시지 (임시)
-			toggleModal('addModal'); // 모달 닫기
+		    // 저장된 playlistId와 trackId 검색
+		    var playlistId = $('#addModal').data('playlistId');
+		    var trackId = $('#addModal').data('trackId');
+
+		    // Ajax를 이용하여 서버에 삭제 요청을 보낼 수 있습니다.
+		    $.ajax({
+		        type: 'DELETE',
+		        url: '/deleteTrack',
+		        data: {
+		            playlistId: playlistId,
+		            trackId: trackId
+		        },
+		        success: function(response) {
+		            // 서버에서 성공적으로 응답을 받으면 모달을 닫습니다.
+		            alert(response); // 또는 적절한 메시지를 표시
+		            toggleModal('addModal');
+		        },
+		        error: function(error) {
+		            // 에러 처리
+		            alert('Error deleting track: ' + error.responseText);
+		        }
+		    });
 		}
+
+
 
 		//노래 실행 부분
 
