@@ -18,7 +18,8 @@
 
 </head>
 	<body>
-		<table>
+		
+		<table class="table1">
 	 			<tr class="top">
 	 				<td id="logo" rowspan="2"><img id="logoImg" alt="logo" src="resources/images/mutelogo.png" ></td>
 	 				<td id="mainGom" rowspan="3"><img id="bear" alt="bear" src="resources/images/origin_gom.png" ></td>
@@ -30,13 +31,12 @@
 					<% } %>
 					</td>
 					
-					<td id="login">
-					  <!--  로그인 여부에 따라 버튼 텍스트 변경 -->
-					   <% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
-						<a id="loginText" href="logout">로그아웃</a>
-					   <% } else { %>	
-						<a id="loginText" href="login">간편 로그인</a>
-					   <% } %>
+					<td id="btnGom">
+					<% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
+					<img id="mypage" alt="mypage" onclick="location.href='logout'" src="resources/images/gom_button.png">
+					<% } else { %>
+					<img id="mypage" alt="mypage" onclick="location.href='login'" src="resources/images/gom_button.png">
+					<% } %>
 					</td>
 					
  				</tr>
@@ -46,11 +46,32 @@
 					<!-- <td></td> -->
 					<!-- <td></td> -->
 					 <% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
-					 <td id="mypage"><a href="mypage" id="mypageFont">마이페이지</a></td>
+					 <td class="mypage"><a href="mypage" id="mypageFont">마이페이지</a></td>
 					 <% } else { %>	
-					 <td id="mypage"><a href="javascript:checkLoginAndRedirect()" id="mypageFont">마이페이지</a></td>
+					 <td class="mypage"><a href="javascript:checkLoginAndRedirect()" id="mypageFont">마이페이지</a></td>
 				     <% } %>
-					<td></td>
+					
+			<%-- 		<td id="login">
+					  <!--  로그인 여부에 따라 버튼 텍스트 변경 -->
+					   <% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
+						<a id="loginText" href="logout">로그아웃</a>
+					   <% } else { %>	
+						<a id="loginText" href="login">간편 로그인</a>
+					   <% } %> id="mypage"
+					</td> --%>
+					
+					
+					<% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
+				        <td id="loggedIn">
+				            <!-- 로그인 상태에 대한 스타일 -->
+				            <a id="loginText" href="logout">로그아웃</a>
+				        </td>
+				    <% } else { %>
+				        <td id="loggedOut">
+				            <!-- 로그아웃 상태에 대한 스타일 -->
+				            <a id="loginText" href="login">간편 로그인</a>
+				        </td>
+				    <% } %>
 					
 				</tr>
 
@@ -83,18 +104,23 @@
 		
 		
 		</table>
+		<br>
 			<!-- 댓글 부분 !!!! -->
-		<table>
+		<table class="table2">
 			<tr>
-				<td>댓글</td>
+				<td id="cnt">댓글 $(cnt)</td>
+			</tr>
+			<tr class="cmt">
+				<td class="input"><input type="text" id="cmtBox"></td>
+				<td><button id="submit">댓글달기</button></td>
 			</tr>
 			<tr>
-				<td> <!-- seding 버튼  --></td>
+				<td id="userId">USER ID: $(S_NAME)</td>
 			</tr>
 			<tr>
-				<td>Spotify User ID: $(userId)</td>
+				<td id="comment">댓글 입니당~</td>
 			</tr>
-		</table>
+		</table> 
 	
 	</body>
 
