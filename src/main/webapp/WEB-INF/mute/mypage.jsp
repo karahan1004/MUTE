@@ -46,8 +46,11 @@
 					<td id="plname"><a href="playlist?playlistId=${playlist.id}" id="move">${playlist.name}</a></td>
 					<!-- 이미지에 부트스트랩 모달 적용 -->
 					<td class="edit">
-						<a id="edit_plName" onclick="toggleModal('modalplus');">
+						 <a id="edit_plName" onclick="toggleModal('modalplus');">
 						<img class="edit_img" src="resources/images/more.png"></a>
+						<!--<button onclick="editPlaylist('${playlist.id}', '${playlist.name}')">Edit</button>
+						 -->
+						
 						<a id="del_pl" onclick="toggleModal('addModal');">
 						<img class="del_img" src="resources/images/del_pl.png"></a>
 					</td>
@@ -117,7 +120,7 @@
         수정할 닉네임을 입력하세요</h2>
       </div>
       <div class="modal-body">
-         <textarea required id="modifyContent" rows="1" cols="40" placeholder="수정할 닉네임을 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea> <!-- 수정된 부분 -->
+         <textarea required id="modifyContent" rows="1" cols="40" placeholder="닉네임은 최대 10자까지 가능합니다" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea> <!-- 수정된 부분 -->
       </div>
       <div class="modal-footer">
         <button type="button" class="close-btn" onclick="checkAndSubmitModify()">확인</button>
