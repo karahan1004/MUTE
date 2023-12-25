@@ -126,11 +126,12 @@ table{
 	/* border:1px solid; */
 }
 .table2 td {
+	/* border:1px solid; */
 	/* padding-bottom: 10px;
 	padding-right: 50px; 
 	padding-left: 20px;*/
-	padding: 25px;
 	/* border:1px solid; */
+	padding: 20px;
 }
 .rereco {
 	font-size: 28px;
@@ -190,3 +191,7 @@ table{
 
 }
  
+ 
+#trhead{
+	font-size:20px;
+}
