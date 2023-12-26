@@ -18,6 +18,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 </head>
 <body>
@@ -55,46 +56,42 @@
 		<div class="reco">
 			<br> <a class="tag">당신을 위한 #클래식 음악</a><br> <br>
 			<table class="table2">
-				<tr>
-					<td><div class="cover"></div></td>
-					<td>힙합왕</td>
-					<td>아티스트명</td>
-					<td><a id="toggleButton1" onclick="toggleButton1()"> <img
-							id="buttonImage1" src="resources/images/play_pl.png" alt="Start"></a></td>
-					<td><a id="togglePlus1"
-						onclick="toggleModal('addModal');  togglePlus1()"> <img
-							id="buttonPlus1" src="resources/images/plus_pl.png" alt="plus">
-					</a></td>
-				</tr>
-				<tr>
-					<td><div class="cover"></div></td>
-					<td>힙합왕</td>
-					<td>아티스트명</td>
-					<td><a id="toggleButton2" onclick="toggleButton2()"> <img
-							id="buttonImage2" src="resources/images/play_pl.png" alt="Start"></a></td>
-					<td><a id="togglePlus2"
-						onclick="toggleModal('addModal'); togglePlus2();"> <img
-							id="buttonPlus2" src="resources/images/plus_pl.png" alt="plus">
-					</a></td>
-				</tr>
-				<tr>
-					<td><div class="cover"></div></td>
-					<td>힙합왕</td>
-					<td>아티스트명</td>
-					<td><a id="toggleButton3" onclick="toggleButton3()"> <img
-							id="buttonImage3" src="resources/images/play_pl.png" alt="Start"></a></td>
-					<td><a id="togglePlus3"
-						onclick="toggleModal('addModal'); togglePlus3();"> <img
-							id="buttonPlus3" src="resources/images/plus_pl.png" alt="plus">
-					</a></td>
-				</tr>
-			</table>
-			<br> <br> <a class="rereco" href="" style="color: black;">유사한
-				3곡 다시 추천받기</a><br> <br>
+            <c:if test="${not empty recommendations}">
+                <c:forEach var="track" items="${recommendations}">
+                    <tr>
+                        <td>
+                            <!-- 앨범 커버 이미지 -->
+                            <div class="cover">
+                                <img src="${track.coverImageUrl}" alt="Album Cover" width="100" height="100">
+                            </div>
+                        </td>
+                        <td>
+                            ${track.name}
+                        </td>
+                        <td>
+                        	 ${track.artistName}
+                        </td>
+                       <%--  <td>
+                            <!-- Spotify URI를 사용하여 트랙을 재생하는 링크 -->
+                            <a href="spotify:track:${track.id}" target="_blank">Spotify에서 듣기</a>
+                        </td> --%>
+                        <td>
+                            <!-- 플레이/일시정지 이미지 -->
+                            <img class="playPauseImage" 
+                                src="<c:url value='/resources/images/play_pl.png'/>" 
+                                alt="재생/일시정지" width="50" height="50" 
+                                data-track-uri="${track.uri}" 
+                                onclick="playPause('${track.uri}');">
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+        </table>
 
-		</div>
-		<br>
-	</div>
+        <br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br> <br>
+    </div>
+    <br>
+</div>
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -281,6 +278,61 @@
     
     
 </script>
+<script>
+        const SPOTIFY_API_BASE = 'https://api.spotify.com/v1/me/player';
+        const accessToken = "${accessToken}"; // Java 코드에서 받아온 accessToken
+        console.log(accessToken);
+
+        // 이미지 토글 상태를 나타내는 객체
+        var isPlayingMap = {};
+
+        // 이미지 토글 함수
+        function togglePlayPauseImage(trackUri) {
+            // 이미지 요소 가져오기
+            var playPauseImage = document.querySelector('.playPauseImage[data-track-uri="' + trackUri + '"]');
+
+            // 현재 토글 상태 확인
+            var isPlaying = isPlayingMap[trackUri];
+
+            // 이미지 토글
+            if (isPlaying) {
+                playPauseImage.src = '<c:url value="/resources/images/play_pl.png"/>';
+                console.log("음악 일시정지");
+            } else {
+                playPauseImage.src = '<c:url value="/resources/images/pause_pl.png"/>';
+                console.log("음악 재생");
+            }
+
+            // 토글 상태 업데이트
+            isPlayingMap[trackUri] = !isPlaying;
+        }
+
+        // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
+        function playPause(trackUri) {
+            console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
+
+            $.ajax({
+                url: SPOTIFY_API_BASE + '/play',
+                type: 'PUT',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': 'application/json',
+                },
+                data: JSON.stringify({
+                    uris: [trackUri],
+                }),
+                success: function () {
+                    // 이미지 토글 호출
+                    togglePlayPauseImage(trackUri);
+                },
+                error: function (error) {
+                    console.error('트랙 재생/일시정지 실패:', error);
+                    console.error('API 호출 실패 상세 정보:', error.responseText);
+                },
+            });
+        }
+
+    </script>
 
 </body>
 </html>
