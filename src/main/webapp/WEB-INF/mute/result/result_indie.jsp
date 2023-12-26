@@ -18,20 +18,22 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 </head>
 <body>
 	<header>
-		<nav>
-			<ul class="header-container">
-				<li class="header-item"><a
-					href="http://localhost:9089/mute/main" style="color: black;">다시
-						테스트하기</a></li>
-				<li class="header-item"><a
-					href="http://localhost:9089/mute/mypage" style="color: black;">마이페이지</a></li>
-			</ul>
-		</nav>
-	</header>
+  <div id="navi-container">
+    <table id="navi-head">
+      <tr>
+        <td class="head-ba"><img class="back" src="resources/images/gom_button.png"></td>
+      </tr>
+      <tr>
+        <td class="head-ba" rowspan="3"><a class="backft" style="color: lightgray;" href="http://localhost:9089/mute/mypage">마이페이지</a></td>
+      </tr>
+    </table>
+  </div>
+</header>
 	<table class="table1">
 		<tr>
 			<td><img alt="gom_indie" src="resources/images/gom_indie.png"
@@ -51,6 +53,13 @@
 		<div class="reco">
 			<br> <a class="tag">당신을 위한 #인디 음악</a><br> <br>
 			<table class="table2">
+			<tr id="trhead">
+				<td>앨범 표지</td>
+				<td>제목</td>
+				<td>가수</td>
+				<td>재생</td>
+				<td>플레이리스트 추가</td>
+			</tr>
             <c:if test="${not empty recommendations}">
                 <c:forEach var="track" items="${recommendations}">
                     <tr>
@@ -81,9 +90,16 @@
                     </tr>
                 </c:forEach>
             </c:if>
+            <tr id="">
+				<td colspan="3" align ="center"><a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a></td>
+				<td colspan="2" align ="center"><a class="rereco" href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></td>
+			</tr>
         </table>
 
-        <br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br> <br>
+        <!-- <br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a>
+        <a class="rereco" href="" style="color: black;">다시 테스트하기</a><br><br> -->
+        
+        
     </div>
     <br>
 </div>

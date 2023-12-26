@@ -44,7 +44,9 @@ public class MyPageController {
 				final CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
 
 				PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
-				log.info("playlists="+playlists);
+				/*
+				 * log.info("playlists="+playlists);
+				 */				
 				model.addAttribute("playlists", playlists);
 				
 			} catch (Exception e) {

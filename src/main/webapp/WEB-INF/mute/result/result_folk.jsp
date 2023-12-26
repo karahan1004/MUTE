@@ -37,25 +37,30 @@
 
 	<table class="table1">
 		<tr>
-			<td><img alt="gom_classic"
-				src="resources/images/gom_classic.png" height="500" width="500">
+			<td><img alt="gom_ballad"
+				src="resources/images/gom_ballad.png" height="500" width="500">
 			</td>
 		</tr>
 		<tr>
-			<td><a class="classic" style="color: #002EA5;">클래식을 좋아하는 당신은
-					피스타치오!</a></td>
+			<td><a class="classic" style="color: #512626;">발라드를 좋아하는 당신은 초코, 우리 이제 헤이즐넛!</a></td>
 		</tr>
 		<tr>
-			<td><a class="classic" style="color: #002EA5;">피아노 선율에 너를
-					맡겨봐♬</a></td>
+			<td><a class="classic" style="color: #512626;">ㄴr는 ㅈi금 눈물을 흘린ㄷr..</a></td>
 		</tr>
 	</table>
 	<br>
 
 	<div class="con">
     <div class="reco">
-        <br> <a class="tag">당신을 위한 #클래식 음악</a><br> <br>
+        <br> <a class="tag">당신을 위한 #발라드 음악</a><br> <br>
         <table class="table2">
+        <tr id="trhead">
+				<td></td>
+				<td>제목</td>
+				<td>가수</td>
+				<td>재생</td>
+				<td>플레이리스트 추가</td>
+			</tr>
             <c:if test="${not empty recommendations}">
                 <c:forEach var="track" items="${recommendations}">
                     <tr>
@@ -83,6 +88,7 @@
                                 data-track-uri="${track.uri}" 
                                 onclick="playPause('${track.uri}');">
                         </td>
+                        
                     </tr>
                 </c:forEach>
             </c:if>
@@ -275,9 +281,8 @@
         }
     }
 
-    
-    
 </script>
+
 <script>
         const SPOTIFY_API_BASE = 'https://api.spotify.com/v1/me/player';
         const accessToken = "${accessToken}"; // Java 코드에서 받아온 accessToken
