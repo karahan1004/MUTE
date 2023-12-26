@@ -15,8 +15,8 @@
 
 
 function loginToSpotify() {
-	//뮤테 client_id
-     var client_id = '61731dfa4f5a4f81a934c76fe09958d8';
+	//뮤테 client_id 12/26 변경
+     var client_id = 'b8f5c70e3a244517add3cbd34de84531';
     
     //최희정 client_id
     /* var client_id = 'c82612eab8154313a45a1233cb2e7374'; */

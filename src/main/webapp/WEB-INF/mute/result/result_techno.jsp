@@ -20,13 +20,17 @@
 </head>
 <body>
 	<header>
-		<nav>
-			<ul class="header-container">
-				<li class="header-item"><a href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></li>
-				<li class="header-item"><a href="http://localhost:9089/mute/mypage" style="color: black;">마이페이지</a></li>
-			</ul>
-		</nav>
-	</header>
+  <div id="navi-container">
+    <table id="navi-head">
+      <tr>
+        <td class="head-ba"><img class="back" src="resources/images/gom_button.png"></td>
+      </tr>
+      <tr>
+        <td class="head-ba" rowspan="3"><a class="backft" style="color: lightgray;" href="http://localhost:9089/mute/mypage">마이페이지</a></td>
+      </tr>
+    </table>
+  </div>
+</header>
 	
 	<table class="table1">
 		<tr>
@@ -77,8 +81,12 @@
 		</c:if>
 		</table>
 		<br>
-		
-		<br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br><br>
+		<table class="table3">
+			<tr>
+				<td id="tdfoot"><a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a></td>
+				<td id="tdfoot"><a class="rereco" href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></td>
+			</tr>
+		</table>
 		</div>
 		<br>
 	</div>
@@ -95,8 +103,8 @@
                       <c:forEach var="playlist" items="${playlists}">
                         <tr>
                             <td class="td"><img alt="gom_trot" src="resources/images/gom_button.png" height="65" width="65"></td>
-                            <td class="td"><a class="pltitle text-body" href=""
-                                    onclick="addTrackToPlaylist('${track.id}', '${playlist.id}')">${playlist.name}</a></td>
+                            <td class="td"><a class="pltitle text-body" href="" data-playlist-id="${playlist.id}"
+                                    onclick="addTrackToPlaylist('${playlist.id}')">${playlist.name}</a></td>
                         </tr>
                     </c:forEach> 
                 </table>
@@ -254,7 +262,13 @@
                 success: function (res) {
                     $('#modalplus').modal('hide');
                     // 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
-                    addPlaylistToTable(mcv);
+                    addPlaylistToTable(mcv, res.playlistId); // playlistId 전달
+                    
+                 	// 모달 리로드
+                    $('#addModal').find('.modal-body').load(location.href + ' #modaltable', function () {
+                        $('#addModal').modal('show');
+                    });
+                    
                 },
                 error: function (err) {
                     alert('error');
@@ -265,7 +279,7 @@
     }
 
  // 플레이리스트를 테이블에 동적으로 추가하는 함수
-    function addPlaylistToTable(playlistName) {
+    function addPlaylistToTable(playlistName, playlistId) {
         // 새로운 행을 생성
         var newRow = $('<tr>');
 
@@ -282,13 +296,15 @@
 
         titleCell.append(playlistLink);
         newRow.append(titleCell);
-
-        newRow.find('.pltitle').click(function (event) {
+        
+        $('#modaltable').prepend(newRow);
+        
+        playlistLink.on('click', function() {
             event.preventDefault();
+            openPlaylistModal(trackId, playlistId);
+            addTrackToPlaylist(playlistId);
             notify();
         });
-
-        $('#modaltable').prepend(newRow);
     }
 
  
@@ -305,14 +321,14 @@
 
 //-------------------------------------------------------------------
 
-    //var selectedTrackId; // 선택한 노래의 ID를 저장하는 변수
     var trackId;
     var playlistId;
 
-    function openPlaylistModal(trackId) {
-        console.log("Track ID:" + trackId);
-        window.trackId = trackId; // 전역 변수에 선택한 노래의 ID를 저장
-        toggleModal('addModal', trackId);
+    function openPlaylistModal(trackId, playlistId) {
+        console.log("Track ID: " + trackId);
+        window.trackId = trackId;
+        window.playlistId = playlistId; // 플레이리스트 ID를 전역 변수에 저장
+        toggleModal('addModal');
     }
     
     function toggleModal(modalId, trackId) {
@@ -320,15 +336,18 @@
         $('#' + modalId).data('track-id', trackId).modal('toggle');
     }
 
-    function addTrackToPlaylist(trackId, playlistId) {
-        	console.log("a Track ID:"+trackId); 
-        	console.log("a playlist ID:"+playlistId); 
-        	//console.log("a selected Track ID:" + selectedTrackId);
+    function addTrackToPlaylist(playlistId) {
+        console.log("a Track ID:" + window.trackId); // window.trackId로 수정
+        console.log("a playlist ID: " + window.playlistId);
+        //console.log("a playlist ID:" +playlistId);
+
+        /* window.playlistId = playlistId; */
+
         // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
         $.ajax({
             type: "POST",
             url: "/mute/addTrackToPlaylist",
-            data: { trackId: trackId, playlistId: playlistId },
+            data: { trackId: window.trackId, playlistId: playlistId },
             success: function (response) {
                 $('#addModal').modal('hide');
                 alert(response); // 성공적으로 추가되었음을 알리는 메시지 표시

@@ -117,6 +117,8 @@ public class AllResultController {
                         .build();
                 CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
                 PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
+                
+                model.addAttribute("playlists", playlists);
 
                 String playlistId = playlists[0].getId();
                 GetRecommendationsRequest recommendationsRequest = spotifyApi
@@ -134,9 +136,13 @@ public class AllResultController {
                     recommendationsList.add(newTrack);
                 }
                 
-                model.addAttribute("recommendations", recommendationsList);
+				model.addAttribute("recommendations", recommendationsList);
                 System.out.println("getGenreRecommendations 메서드가 호출되었습니다.");
                 System.out.println("Recommendations List: " + recommendationsList);
+                
+             /* model.addAttribute("recommendations", recommendations);
+				model.addAttribute("recommendationsList", recommendationsList); JH:현재 수정 중*/
+                
             } catch (Exception e) {
                 System.out.println("hi" + e);
                 model.addAttribute("error", "음악 추천을 가져오는 중에 오류가 발생했습니다.");
