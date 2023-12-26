@@ -147,19 +147,29 @@ public class SdkGenreRecommendationController {
 		}
 		return "redirect:/sdkrecommendations";
 	}
+	
 	@GetMapping("/pause")
 	public String pausePlayback(HttpSession session) {
-		try {
-			String accessToken = (String) session.getAttribute("accessToken");
-			if (accessToken != null) {
-				playbackService.pausePlayback(accessToken);
-				System.out.println("Pause playback");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "redirect:/sdkrecommendations";
+	    try {
+	        String accessToken = (String) session.getAttribute("accessToken");
+	        if (accessToken != null) {
+	            // 현재 사용자의 활성 디바이스 ID 가져오기
+	            GetInformationAboutUsersCurrentPlaybackRequest playbackRequest = spotifyApi
+	                    .getInformationAboutUsersCurrentPlayback().build();
+	            CompletableFuture<CurrentlyPlayingContext> playbackFuture = playbackRequest.executeAsync();
+	            CurrentlyPlayingContext playbackContext = playbackFuture.join();
+	            Device currentDevice = playbackContext.getDevice();
+	            String deviceId = (currentDevice != null) ? currentDevice.getId() : null;
+	            // 세션에 저장된 액세스 토큰 및 디바이스 ID를 사용하여 pausePlayback 호출
+	            playbackService.pausePlayback(accessToken, deviceId);
+	            System.out.println("Pause playback");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return "redirect:/sdkrecommendations";
 	}
+	
 	@GetMapping("/previous")
 	public String playPreviousTrack(HttpSession session) throws ParseException {
 		String accessToken = (String) session.getAttribute("accessToken");
