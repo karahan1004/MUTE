@@ -90,19 +90,18 @@
                     </tr>
                 </c:forEach>
             </c:if>
-            <tr id="">
-				<td colspan="3" align ="center"><a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a></td>
-				<td colspan="2" align ="center"><a class="rereco" href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></td>
-			</tr>
         </table>
-
-        <!-- <br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a>
-        <a class="rereco" href="" style="color: black;">다시 테스트하기</a><br><br> -->
-        
-        
-    </div>
-    <br>
-</div>
+		<br>
+		<table class="table3">
+			<tr>
+				<td id="tdfoot"><a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a></td>
+				<td id="tdfoot"><a class="rereco" href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></td>
+			</tr>
+		</table>
+		<br>
+		</div>
+		<br>
+	</div>
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
