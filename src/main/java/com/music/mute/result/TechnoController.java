@@ -42,7 +42,7 @@ import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfi
 
 @Controller
 public class TechnoController {
-
+/*
 	@Autowired
 	private SpotifyApi spotifyApi;
 
@@ -78,9 +78,13 @@ public class TechnoController {
                     recommendationsList.add(newTrack);
                 }
                 
-                model.addAttribute("recommendations", recommendations);
-				model.addAttribute("recommendationsList", recommendationsList);
-
+                model.addAttribute("recommendations", recommendationsList);
+                
+				/*
+				  model.addAttribute("recommendations", recommendations);
+				  model.addAttribute("recommendationsList", recommendationsList);
+				 */
+/*
                 // 추가: 메서드가 호출되었음을 로깅
                 System.out.println("getGenreRecommendations 메서드가 호출되었습니다.");
                 
@@ -262,5 +266,5 @@ public class TechnoController {
 		}
 	}
 
-
+*/
 }
