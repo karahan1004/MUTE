@@ -1,6 +1,8 @@
 package com.music.mute.playlist;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
@@ -177,6 +179,8 @@ public class PlaylistController {
 			String trackInfo = "";
 			String artistInfo = "";
 			String albumInfo = "";
+			
+			List<String> trackIdList = new ArrayList<>();//트랙삭제 구현 중 추가
 			for (PlaylistTrack pt : arr) {
 				Track tr = (Track) pt.getTrack();// 트랙 정보
 				ArtistSimplified[] artists = ((Track) pt.getTrack()).getArtists();
@@ -207,6 +211,7 @@ public class PlaylistController {
 			m.addAttribute("trackInfoArray", trackInfoArray);
 			m.addAttribute("artistInfoArray", artistInfoArray);
 			m.addAttribute("albumInfoArray", albumInfoArray);
+			m.addAttribute("trackIdList", trackIdList);
 
 			/*
 			 * m.addAttribute("trackArtist", ((Track)
@@ -227,29 +232,29 @@ public class PlaylistController {
 	
 
 	@DeleteMapping("/deleteTrack")
-	public ResponseEntity<String> deleteTrack(@RequestParam String playlistId, @RequestParam String trackId,
-			HttpSession session) throws ParseException {
+	public ResponseEntity<String> deleteTrack(
+	        @RequestParam String playlistId,
+	        @RequestParam String trackId,
+	        HttpSession session) throws ParseException {
 
-		String accessToken = (String) session.getAttribute("accessToken");
+	    String accessToken = (String) session.getAttribute("accessToken");
 
-		// 트랙을 삭제하기 위한 Spotify API 요청 준비
-		JsonArray tracks = JsonParser.parseString("[{\"uri\":\"spotify:track:" + trackId + "\"}]").getAsJsonArray();
-		RemoveItemsFromPlaylistRequest removeItemsRequest = spotifyApi.removeItemsFromPlaylist(playlistId, tracks)
-				.build();
+	    // 트랙을 삭제하기 위한 Spotify API 요청 준비
+	    JsonArray tracks = JsonParser.parseString("[{\"uri\":\"spotify:track:" + trackId + "\"}]").getAsJsonArray();
+	    RemoveItemsFromPlaylistRequest removeItemsRequest = spotifyApi.removeItemsFromPlaylist(playlistId, tracks)
+	            .build();
 
-		try {
-			// Spotify API를 통해 트랙 삭제 실행
-			SnapshotResult snapshotResult = removeItemsRequest.execute();
+	    try {
+	        // Spotify API를 통해 트랙 삭제 실행
+	        SnapshotResult snapshotResult = removeItemsRequest.execute();
 
-			// 트랙 삭제 후, 적절한 응답 반환
-			return ResponseEntity.ok("Track deleted successfully. Snapshot ID: " + snapshotResult.getSnapshotId());
-		} catch (IOException | SpotifyWebApiException | org.apache.hc.core5.http.ParseException e) {
-			e.printStackTrace();
-
-			// 에러가 발생하면 500 Internal Server Error 반환
-			return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-					.body("Error deleting track: " + e.getMessage());
-		}
+	        // 트랙 삭제 후, 적절한 응답 반환
+	        return ResponseEntity.ok("Track deleted successfully. Snapshot ID: " + snapshotResult.getSnapshotId());
+	    } catch (IOException | SpotifyWebApiException | org.apache.hc.core5.http.ParseException e) {
+	        // 에러가 발생하면 500 Internal Server Error 반환
+	        return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+	                .body("Error deleting track: " + e.getMessage());
+	    }
 	}
 	
 	@Configuration
@@ -257,12 +262,11 @@ public class PlaylistController {
 
 	    @Override
 	    public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/deleteTrack")
-	            .allowedOrigins("http://localhost:9089")
-	            .allowedMethods("DELETE")
-	            .allowedHeaders("*")
-	            .allowCredentials(true);
+	        registry.addMapping("/**")
+	                .allowedOrigins("http://localhost:9089/mute")
+	                .allowedMethods("GET", "POST", "PUT", "DELETE");
 	    }
 	}
+
 
 }

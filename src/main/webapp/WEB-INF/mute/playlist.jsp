@@ -70,9 +70,10 @@
 					<td class="si">${track}</td>
 					<td class="ga">${artistInfoArray[status.index]}</td>
 					<td class="del"><a
-						onclick="handleDeleteAction('${playlist.id}', '${trackIdList.split("#")[status.index]}');">
+						onclick="handleDeleteAction('${playlist.id}', '${fn:split(trackIdList[status.index], '#')}');">
 							<img class="del_img" src="resources/images/del_pl.png">
 					</a></td>
+
 
 				</tr>
 			</c:forEach>
@@ -157,10 +158,14 @@
 		}
 		
 		function scheduleDeleteTrack(playlistId, trackId) {
-		    console.log('scheduleDeleteTrack 함수 호출:', playlistId, trackId);
-		    // 예약 논리를 여기에 추가
-		}
+	        console.log('trackId : ' + trackId);
+	        console.log('playlistId : ' + playlistId);
 
+	        if (confirm('정말로 이 트랙을 삭제하시겠습니까?')) {
+	            // 확인을 선택한 경우에만 트랙 삭제 함수 호출
+	            deleteTrack(playlistId, trackId);
+	        }
+	    }
 		
 		function handleDeleteAction(playlistId, trackId) {
 		    // 삭제 전이나 후에 수행할 공통 작업을 추가하세요
