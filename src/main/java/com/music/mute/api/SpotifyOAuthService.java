@@ -9,8 +9,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Service
 public class SpotifyOAuthService {
 
-    private static final String CLIENT_ID = "61731dfa4f5a4f81a934c76fe09958d8";
-    private static final String CLIENT_SECRET = "7b9fbc7d7cb14319b7af63f5c5f18176";
+	//12/26 변경
+    private static final String CLIENT_ID = "b8f5c70e3a244517add3cbd34de84531";
+    private static final String CLIENT_SECRET = "5ff12386bb104d6587c874388496c424";
     private static final String REDIRECT_URI = "http://localhost:9089/mute/main";
     private static final String SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize";
     private static final String SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";

@@ -11,11 +11,11 @@ import se.michaelthelin.spotify.SpotifyApi;
 @Configuration
 public class SpotifyConfig {
 
-	//뮤테 계정 관련
+	//뮤테 계정 관련 12/26 변경
 	
-	 private String clientId = "61731dfa4f5a4f81a934c76fe09958d8";
+	 private String clientId = "b8f5c70e3a244517add3cbd34de84531";
 	  
-	 private String clientSecret = "7b9fbc7d7cb14319b7af63f5c5f18176";
+	 private String clientSecret = "5ff12386bb104d6587c874388496c424";
 	 
 	 private String redirectUri = "http://localhost:9089/mute/main";
 	 

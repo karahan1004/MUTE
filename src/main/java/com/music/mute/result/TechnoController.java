@@ -98,36 +98,39 @@ public class TechnoController {
 	
 
 	@PostMapping("/addPlaylist")
-	 public String addPlaylist(Model model, HttpSession session, @RequestParam String playlistName) {
-        String accessToken = (String) session.getAttribute("accessToken");
-        
-        if (accessToken != null) {
-            try {
-                spotifyApi.setAccessToken(accessToken);
+	public String addPlaylist(Model model, HttpSession session, @RequestParam String playlistName) {
+	    String accessToken = (String) session.getAttribute("accessToken");
+	    
+	    if (accessToken != null) {
+	        try {
+	            spotifyApi.setAccessToken(accessToken);
 
-                final GetCurrentUsersProfileRequest profileRequest = spotifyApi.getCurrentUsersProfile().build();
-                final CompletableFuture<User> privateUserFuture = profileRequest.executeAsync();
-                User privateUser = privateUserFuture.join();
-                String userId = privateUser.getId();
+	            final GetCurrentUsersProfileRequest profileRequest = spotifyApi.getCurrentUsersProfile().build();
+	            final CompletableFuture<User> privateUserFuture = profileRequest.executeAsync();
+	            User privateUser = privateUserFuture.join();
+	            String userId = privateUser.getId();
 
-                final CreatePlaylistRequest createPlaylistRequest = spotifyApi.createPlaylist(userId, playlistName)
-                        .public_(false)
-                        .build();
+	            // 새로운 플레이리스트 생성
+	            final CreatePlaylistRequest createPlaylistRequest = spotifyApi.createPlaylist(userId, playlistName)
+	                    .public_(false)
+	                    .build();
+	            final CompletableFuture<Playlist> playlistFuture = createPlaylistRequest.executeAsync();
+	            Playlist newPlaylist = playlistFuture.join();
 
-                final CompletableFuture<Playlist> playlistFuture = createPlaylistRequest.executeAsync();
-                Playlist newPlaylist = playlistFuture.join();
-
-                model.addAttribute("message", "Playlist added successfully: " + newPlaylist.getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-                model.addAttribute("error", "Error adding playlist");
-            }
-        } else {
-            return "redirect:/login";
-        }
+	            // 생성된 플레이리스트 정보를 모델에 추가
+	            model.addAttribute("newPlaylist", newPlaylist);
+	            model.addAttribute("message", "Playlist added successfully: " + newPlaylist.getName());
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            model.addAttribute("error", "Error adding playlist");
+	        }
+	    } else {
+	        return "redirect:/login";
+	    }
 
 	    return "/result/result_techno";
 	}
+
 
 	
 	//---------------------------------------------------------------------------

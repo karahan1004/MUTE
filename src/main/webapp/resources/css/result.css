@@ -152,14 +152,14 @@ table{
 .table2 {
 	/* padding: 90px; */
 	font-size: 28px;
-	/* border:1px solid; */
+	 /* border:1px solid; */
 }
 .table2 td {
 	/* border:1px solid; */
 	/* padding-bottom: 10px;
 	padding-right: 50px; 
 	padding-left: 20px;*/
-	/* border:1px solid; */
+	/* border:1px solid; */ 
 	padding: 20px;
 }
 .rereco {
@@ -223,4 +223,14 @@ table{
  
 #trhead{
 	font-size:22px;
+	border-bottom:1px solid lightgray;
 }
+.table3{
+	text-align:center;
+	/* border:1px solid; */
+}
+#tdfoot{
+	/* border:1px solid; */
+	padding-left: 20px;
+	padding-right: 80px;
+} 
