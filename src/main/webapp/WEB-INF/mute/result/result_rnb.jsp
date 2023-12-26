@@ -54,6 +54,13 @@
 			<br> <a class="tag">당신을 위한 #알앤비 음악</a><br>
 			<br>
 			<table class="table2">
+			<tr id="trhead">
+				<td></td>
+				<td>제목</td>
+				<td>가수</td>
+				<td>재생</td>
+				<td>플레이리스트 추가</td>
+			</tr>
             <c:if test="${not empty recommendations}">
                 <c:forEach var="track" items="${recommendations}">
                     <tr>

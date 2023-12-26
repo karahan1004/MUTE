@@ -12,14 +12,43 @@
 	text-align:center;
 	
 }
-header {
+/* header {
     margin: 40px;
-  /*   padding:40px; */
+    padding:40px;
     text-align: right;
-   /*  margin-bottom:40px; */
-    /* position:fixed; */
+    margin-bottom:40px;
+    position:fixed;
     right:65px;
+} */
+#navi-container {
+  text-align: right;
+  
 }
+
+#navi-head {
+  display: inline-block;
+  margin-left: auto; /* 왼쪽 마진을 자동으로 설정하여 우측으로 이동 */
+  margin-right: 130px; /* 오른쪽 마진을 추가하여 조금 띄움 */
+}
+
+.head-ba {
+  width: 100%;
+}
+
+.back {
+  width: 120px;
+  height: 120px;
+}
+
+.backft {
+  bottom: 0;
+  color: lightgray;
+  font-size: 32px;
+  text-decoration-line: none;
+}
+
+
+
 
 ul{
 	list-style:none;
@@ -193,5 +222,5 @@ table{
  
  
 #trhead{
-	font-size:20px;
+	font-size:22px;
 }
