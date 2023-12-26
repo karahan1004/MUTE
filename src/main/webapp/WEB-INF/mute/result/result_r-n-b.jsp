@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>MU:TE</title>
@@ -23,38 +23,38 @@
 </head>
 <body>
 	<header>
-		<nav>
-			<ul class="header-container">
-				<li class="header-item"><a
-					href="http://localhost:9089/mute/main" style="color: black;">다시
-						테스트하기</a></li>
-				<li class="header-item"><a
-					href="http://localhost:9089/mute/mypage" style="color: black;">마이페이지</a></li>
-			</ul>
-		</nav>
-
-	</header>
+  <div id="navi-container">
+    <table id="navi-head">
+      <tr>
+        <td class="head-ba"><img class="back" src="resources/images/gom_button.png"></td>
+      </tr>
+      <tr>
+        <td class="head-ba" rowspan="3"><a class="backft" style="color: lightgray;" href="http://localhost:9089/mute/mypage">마이페이지</a></td>
+      </tr>
+    </table>
+  </div>
+</header>
 
 	<table class="table1">
 		<tr>
-			<td><img alt="gom_classic"
-				src="resources/images/gom_classic.png" height="500" width="500">
-			</td>
+			<td><img alt="gom_rnb" src="resources/images/gom_rnb.png"
+				height="500" width="500"></td>
 		</tr>
 		<tr>
-			<td><a class="classic" style="color: #002EA5;">클래식을 좋아하는 당신은
-					피스타치오!</a></td>
+			<td><a class="rnb" style="color: #624224;">R&B를 좋아하는 당신은 오레오
+					쿠키 앤 크림!</a></td>
 		</tr>
 		<tr>
-			<td><a class="classic" style="color: #002EA5;">피아노 선율에 너를
-					맡겨봐♬</a></td>
+			<td><a class="rnb" style="color: #624224;">쿠키에 크림을 맡겨봐~RG?</a></td>
 		</tr>
+
 	</table>
 	<br>
 
 	<div class="con">
 		<div class="reco">
-			<br> <a class="tag">당신을 위한 #클래식 음악</a><br> <br>
+			<br> <a class="tag">당신을 위한 #알앤비 음악</a><br>
+			<br>
 			<table class="table2">
 			<tr id="trhead">
 				<td></td>
@@ -94,11 +94,17 @@
                 </c:forEach>
             </c:if>
         </table>
-
-        <br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br> <br>
-    </div>
-    <br>
-</div>
+		<br>
+		<table class="table3">
+			<tr>
+				<td id="tdfoot"><a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a></td>
+				<td id="tdfoot"><a class="rereco" href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></td>
+			</tr>
+		</table>
+		<br>
+		</div>
+		<br>
+	</div>
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -202,7 +208,6 @@
 	        mct.value = '';
 	    });
 	});
-
 		
 	
 	function toggleModal(modalId) {
@@ -245,13 +250,13 @@
     let isPlus2 = false;
     let isPlus3 = false;
     
-   /*  toggleButton('buttonImage1', isPaused1);
+    toggleButton('buttonImage1', isPaused1);
     toggleButton('buttonImage2', isPaused2);
     toggleButton('buttonImage3', isPaused3);
     
     ctp('buttonPlus1', isPlus1);
     ctp('buttonPlus2', isPlus2);
-    ctp('buttonPlus3', isPlus3); */
+    ctp('buttonPlus3', isPlus3);
 
     function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');

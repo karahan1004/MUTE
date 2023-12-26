@@ -23,16 +23,17 @@
 </head>
 <body>
 	<header>
-		<nav>
-			<ul class="header-container">
-				<li class="header-item"><a
-					href="http://localhost:9089/mute/main" style="color: black;">다시
-						테스트하기</a></li>
-				<li class="header-item"><a
-					href="http://localhost:9089/mute/mypage" style="color: black;">마이페이지</a></li>
-			</ul>
-		</nav>
-	</header>
+  <div id="navi-container">
+    <table id="navi-head">
+      <tr>
+        <td class="head-ba"><img class="back" src="resources/images/gom_button.png"></td>
+      </tr>
+      <tr>
+        <td class="head-ba" rowspan="3"><a class="backft" style="color: lightgray;" href="http://localhost:9089/mute/mypage">마이페이지</a></td>
+      </tr>
+    </table>
+  </div>
+</header>
 	<table class="table1">
 		<tr>
 			<td><img alt="gom_jazz" src="resources/images/gom_jazz.png"
@@ -90,11 +91,17 @@
                 </c:forEach>
             </c:if>
         </table>
-
-        <br> <a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a><br> <br>
-    </div>
-    <br>
-</div>
+		<br>
+		<table class="table3">
+			<tr>
+				<td id="tdfoot"><a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a></td>
+				<td id="tdfoot"><a class="rereco" href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></td>
+			</tr>
+		</table>
+		<br>
+		</div>
+		<br>
+	</div>
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

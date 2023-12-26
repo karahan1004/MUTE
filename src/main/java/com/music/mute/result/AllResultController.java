@@ -67,7 +67,7 @@ public class AllResultController {
 
     @GetMapping("/result_classic")
     public String resultClassic(Model model, HttpSession session) {
-        return getResultPage(model, session, "classic");
+        return getResultPage(model, session, "classical");
     }
 
     @GetMapping("/result_dance")
@@ -89,7 +89,7 @@ public class AllResultController {
 
     @GetMapping("/result_hiphop")
     public String resultHipHop(Model model, HttpSession session) {
-        return getResultPage(model, session, "hip hop");
+        return getResultPage(model, session, "hip-hop");
     }
 
     @GetMapping("/result_indie")
@@ -104,7 +104,7 @@ public class AllResultController {
 
     @GetMapping("/result_rnb")
     public String resultRnb(Model model, HttpSession session) {
-        return getResultPage(model, session, "rnb");
+        return getResultPage(model, session, "r-n-b");
     }
 
     @GetMapping("/result_rock")
