@@ -61,15 +61,17 @@ public class SpotifyPlaybackService {
     }
 
     // 일시정지
-    public void pausePlayback(String accessToken) throws ParseException {
+    public void pausePlayback(String accessToken, String deviceId) {
         try {
             spotifyApi.setAccessToken(accessToken);
-            PauseUsersPlaybackRequest request = spotifyApi.pauseUsersPlayback().build();
+            PauseUsersPlaybackRequest request = spotifyApi.pauseUsersPlayback().device_id(deviceId).build();
             request.execute();
-        } catch (IOException | SpotifyWebApiException e) {
+            System.out.println("Pause playback on device: " + deviceId);
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
             handleException(e);
         }
     }
+
 
     // 현재 플레이백 정보 가져오기
     public CurrentlyPlayingContext getCurrentPlayback(String accessToken) throws ParseException {
