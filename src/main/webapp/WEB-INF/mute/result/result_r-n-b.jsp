@@ -14,11 +14,12 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
 
 </head>
 <body>
@@ -34,7 +35,6 @@
     </table>
   </div>
 </header>
-
 	<table class="table1">
 		<tr>
 			<td><img alt="gom_rnb" src="resources/images/gom_rnb.png"
@@ -67,7 +67,6 @@
                 <c:forEach var="track" items="${recommendations}">
                     <tr>
                         <td>
-                            <!-- 앨범 커버 이미지 -->
                             <div class="cover">
                                 <img src="${track.coverImageUrl}" alt="Album Cover" width="100" height="100">
                             </div>
@@ -78,17 +77,10 @@
                         <td>
                         	 ${track.artistName}
                         </td>
-                       <%--  <td>
-                            <!-- Spotify URI를 사용하여 트랙을 재생하는 링크 -->
-                            <a href="spotify:track:${track.id}" target="_blank">Spotify에서 듣기</a>
-                        </td> --%>
                         <td>
-                            <!-- 플레이/일시정지 이미지 -->
-                            <img class="playPauseImage" 
-                                src="<c:url value='/resources/images/play_pl.png'/>" 
-                                alt="재생/일시정지" width="50" height="50" 
-                                data-track-uri="${track.uri}" 
-                                onclick="playPause('${track.uri}');">
+							<img class="playPauseImage" src="<c:url value='/resources/images/play_pl.png'/>"
+						    alt="Play/Pause" width="50" height="50" data-track-uri="${track.uri}"
+						    onclick="togglePlayPause('${track.uri}', this);">
                         </td>
                     </tr>
                 </c:forEach>
@@ -178,7 +170,7 @@
     음악을 플레이리스트에 저장했습니다!
 </div>
 
-	<script>
+<script>
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    const pltitles = document.querySelectorAll('.pltitle'); // 여러 개의 .pltitle을 선택
@@ -208,69 +200,18 @@
 	        mct.value = '';
 	    });
 	});
-		
+
 	
 	function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');
     }
-	
-    let isPaused = false;
-    
-    function toggleButton1() {
-		const buttonImage = document.getElementById('buttonImage1');
-		isPaused = !isPaused;
-		if (isPaused) {
-			buttonImage.src = 'resources/images/pause_pl.png';
-		} else {
-			buttonImage.src = 'resources/images/play_pl.png';
-		}
-	}
-
-	function toggleButton2() {
-		const buttonImage = document.getElementById('buttonImage2');
-		isPaused = !isPaused;
-		if (isPaused) {
-			buttonImage.src = 'resources/images/pause_pl.png';
-		} else {
-			buttonImage.src = 'resources/images/play_pl.png';
-		}
-	}
-
-	function toggleButton3() {
-		const buttonImage = document.getElementById('buttonImage3');
-		isPaused = !isPaused;
-		if (isPaused) {
-			buttonImage.src = 'resources/images/pause_pl.png';
-		} else {
-			buttonImage.src = 'resources/images/play_pl.png';
-		}
-	}
 
 	let isPlus1 = false;
     let isPlus2 = false;
     let isPlus3 = false;
-    
-    toggleButton('buttonImage1', isPaused1);
-    toggleButton('buttonImage2', isPaused2);
-    toggleButton('buttonImage3', isPaused3);
-    
-    ctp('buttonPlus1', isPlus1);
-    ctp('buttonPlus2', isPlus2);
-    ctp('buttonPlus3', isPlus3);
 
     function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');
-    }
-
-    function toggleButton(buttonId, isPause) {
-        const buttonImage = document.getElementById(buttonId);
-        isPause = !isPause;
-
-        if (isPause) {
-            buttonImage.src = 'resources/images/pause_pl.png';
-        } else {
-            buttonImage.src = 'resources/images/play_pl.png';
-        }
     }
     
     function openModalAlert() {
@@ -287,64 +228,137 @@
         }
     }
 
-    
-    
+let player;
+let device_id;
+	window.onSpotifyWebPlaybackSDKReady = () => {
+	  const token = '${accessToken}'; // 사용자의 액세스 토큰을 여기에 설정
+	  player = new Spotify.Player({
+	    name: 'Web Playback SDK',
+	    getOAuthToken: (cb) => { cb(token); }
+	  });
+	  console.dir(player)
+	  // 로그인 및 초기화
+	   
+	  // Ready
+player.on('ready', data => {
+    console.log('Ready with Device ID', data.device_id);
+    device_id=data.device_id;
+    // Play a track using our new device ID
+    //play(data.device_id);
+});
+	  
+	  
+	  player.connect();
+	  console.log("===연결됨======================================")
+	};
+	
+    const SPOTIFY_API_BASE = 'https://api.spotify.com/v1/me/player';
+    const accessToken = "${accessToken}"; // Java 코드에서 받아온 accessToken
+    // 이미지 토글 상태를 나타내는 객체
+    var isPlayingMap = {};
+ // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
+ 
+    function togglePlayPause(trackUri, imageElement) {
+        console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
+        const isPlaying = imageElement.classList.contains('playing');
+        
+        $.ajax({
+            url: SPOTIFY_API_BASE + (isPlaying ? '/pause' : '/play') + '?device_id=' + device_id,
+            type: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({
+                uris: [trackUri],
+                device_ids: [device_id]
+            }),
+            success: function () {
+                // 이미지 토글 호출
+                togglePlayPauseImage(trackUri, imageElement);
+            },
+            error: function (error) {
+                console.error('트랙 재생/일시정지 실패:', error);
+                console.error('API 호출 실패 상세 정보:', error.responseText);
+            },
+        });
+    }
+ // 이미지 토글 함수
+    function togglePlayPauseImage(trackUri, imageElement) {
+        // 이미지 토글
+        if (imageElement.classList.contains('playing')) {
+            imageElement.src = '<c:url value="/resources/images/play_pl.png"/>';
+            console.log("음악 일시정지");
+        } else {
+            imageElement.src = '<c:url value="/resources/images/pause_pl.png"/>';
+            console.log("음악 재생");
+        }
+        // 토글 클래스 추가/제거
+        imageElement.classList.toggle('playing');
+    }
+
+    // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
+    function playPause(trackUri, playPauseImage) {
+        console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
+        $.ajax({
+            url: SPOTIFY_API_BASE + '/play?device_id=' + device_id,
+            type: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({
+                uris: [trackUri],
+                device_ids: [device_id]
+            }),
+            success: function () {
+                // 이미지 토글 호출
+                togglePlayPauseImage(trackUri, playPauseImage);
+            },
+            error: function (error) {
+                console.error('트랙 재생/일시정지 실패:', error);
+                console.error('API 호출 실패 상세 정보:', error.responseText);
+            },
+        });
+    }
+
+    // 일시정지 함수
+    function pausePlay(trackUri) {
+        console.log('음악 일시정지 시도 중...');
+        $.ajax({
+            url: SPOTIFY_API_BASE + '/pause?device_id=' + device_id,
+            type: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({
+                uris: [trackUri],
+                device_ids: [device_id]
+            }),
+            success: function () {
+                console.log('음악 일시정지 성공');
+                // 일시정지 성공 후 추가 작업 수행
+                // 이미지 토글 호출
+                togglePlayPauseImage(trackUri);
+            },
+            error: function (error) {
+                console.error('음악 일시정지 실패:', error);
+                // 일시정지 실패 후 추가 작업 수행
+            },
+        });
+    }
+
+ 	function playTest(uri){
+ 		const playlistUri = uri;
+ 		player.resume();
+ 		
+ 		/* player.play({
+ 		  uris: [playlistUri]
+ 		}); */
+ 	}
+
 </script>
-<script>
-        const SPOTIFY_API_BASE = 'https://api.spotify.com/v1/me/player';
-        const accessToken = "${accessToken}"; // Java 코드에서 받아온 accessToken
-        console.log(accessToken);
-
-        // 이미지 토글 상태를 나타내는 객체
-        var isPlayingMap = {};
-
-        // 이미지 토글 함수
-        function togglePlayPauseImage(trackUri) {
-            // 이미지 요소 가져오기
-            var playPauseImage = document.querySelector('.playPauseImage[data-track-uri="' + trackUri + '"]');
-
-            // 현재 토글 상태 확인
-            var isPlaying = isPlayingMap[trackUri];
-
-            // 이미지 토글
-            if (isPlaying) {
-                playPauseImage.src = '<c:url value="/resources/images/play_pl.png"/>';
-                console.log("음악 일시정지");
-            } else {
-                playPauseImage.src = '<c:url value="/resources/images/pause_pl.png"/>';
-                console.log("음악 재생");
-            }
-
-            // 토글 상태 업데이트
-            isPlayingMap[trackUri] = !isPlaying;
-        }
-
-        // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
-        function playPause(trackUri) {
-            console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
-
-            $.ajax({
-                url: SPOTIFY_API_BASE + '/play',
-                type: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Content-Type': 'application/json',
-                },
-                data: JSON.stringify({
-                    uris: [trackUri],
-                }),
-                success: function () {
-                    // 이미지 토글 호출
-                    togglePlayPauseImage(trackUri);
-                },
-                error: function (error) {
-                    console.error('트랙 재생/일시정지 실패:', error);
-                    console.error('API 호출 실패 상세 정보:', error.responseText);
-                },
-            });
-        }
-
-    </script>
 
 </body>
 </html>

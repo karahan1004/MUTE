@@ -35,7 +35,6 @@
     </table>
   </div>
 </header>
-
 	<table class="table1">
 		<tr>
 			<td><img alt="gom_classic"
@@ -68,7 +67,6 @@
                 <c:forEach var="track" items="${recommendations}">
                     <tr>
                         <td>
-                            <!-- 앨범 커버 이미지 -->
                             <div class="cover">
                                 <img src="${track.coverImageUrl}" alt="Album Cover" width="100" height="100">
                             </div>
@@ -79,12 +77,7 @@
                         <td>
                         	 ${track.artistName}
                         </td>
-                       <%--  <td>
-                            <!-- Spotify URI를 사용하여 트랙을 재생하는 링크 -->
-                            <a href="spotify:track:${track.id}" target="_blank">Spotify에서 듣기</a>
-                        </td> --%>
                         <td>
-                            <!-- 플레이/일시정지 이미지 -->
 							<img class="playPauseImage" src="<c:url value='/resources/images/play_pl.png'/>"
 						    alt="Play/Pause" width="50" height="50" data-track-uri="${track.uri}"
 						    onclick="togglePlayPause('${track.uri}', this);">
@@ -177,7 +170,7 @@
     음악을 플레이리스트에 저장했습니다!
 </div>
 
-	<script>
+<script>
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    const pltitles = document.querySelectorAll('.pltitle'); // 여러 개의 .pltitle을 선택
@@ -208,70 +201,18 @@
 	    });
 	});
 
-		
 	
 	function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');
     }
-	
-    /* let isPaused = false;
-    
-    function toggleButton1() {
-		const buttonImage = document.getElementById('buttonImage1');
-		isPaused = !isPaused;
-		if (isPaused) {
-			buttonImage.src = 'resources/images/pause_pl.png';
-		} else {
-			buttonImage.src = 'resources/images/play_pl.png';
-		}
-	}
-
-	function toggleButton2() {
-		const buttonImage = document.getElementById('buttonImage2');
-		isPaused = !isPaused;
-		if (isPaused) {
-			buttonImage.src = 'resources/images/pause_pl.png';
-		} else {
-			buttonImage.src = 'resources/images/play_pl.png';
-		}
-	}
-
-	function toggleButton3() {
-		const buttonImage = document.getElementById('buttonImage3');
-		isPaused = !isPaused;
-		if (isPaused) {
-			buttonImage.src = 'resources/images/pause_pl.png';
-		} else {
-			buttonImage.src = 'resources/images/play_pl.png';
-		}
-	} */
 
 	let isPlus1 = false;
     let isPlus2 = false;
     let isPlus3 = false;
-    
-   /*  toggleButton('buttonImage1', isPaused1);
-    toggleButton('buttonImage2', isPaused2);
-    toggleButton('buttonImage3', isPaused3);
-    
-    ctp('buttonPlus1', isPlus1);
-    ctp('buttonPlus2', isPlus2);
-    ctp('buttonPlus3', isPlus3); */
 
     function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');
     }
-
-   /*  function toggleButton(buttonId, isPause) {
-        const buttonImage = document.getElementById(buttonId);
-        isPause = !isPause;
-
-        if (isPause) {
-            buttonImage.src = 'resources/images/pause_pl.png';
-        } else {
-            buttonImage.src = 'resources/images/play_pl.png';
-        }
-    } */
     
     function openModalAlert() {
         $('#modalAlert').modal('show');
@@ -287,8 +228,6 @@
         }
     }
 
-</script>
-<script>
 let player;
 let device_id;
 	window.onSpotifyWebPlaybackSDKReady = () => {
