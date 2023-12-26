@@ -16,7 +16,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 </head>
 <body>
@@ -64,7 +63,7 @@
 		            <td>${track.name}</td>
 		            <td>${track.artists[0].name}</td>
 		            <td>
-		                <a id="toggleButton${i.index + 1}" onclick="toggleButton(${i.index + 1})"> 
+		                <a id="toggleButton${i.index + 1}" onclick="toggleButton${i.index + 1}"> 
 		                    <img id="buttonImage${i.index + 1}" src="resources/images/play_pl.png" alt="Start">
 		                </a>
 		            </td>
@@ -306,23 +305,30 @@
 
 //-------------------------------------------------------------------
 
-    var selectedTrackId; // 선택한 노래의 ID를 저장하는 변수
+    //var selectedTrackId; // 선택한 노래의 ID를 저장하는 변수
     var trackId;
+    var playlistId;
 
     function openPlaylistModal(trackId) {
-       	console.log("Track ID:"+trackId); 
-        selectedTrackId = trackId; // 선택한 노래의 ID를 저장
-        toggleModal('addModal');
+        console.log("Track ID:" + trackId);
+        window.trackId = trackId; // 전역 변수에 선택한 노래의 ID를 저장
+        toggleModal('addModal', trackId);
+    }
+    
+    function toggleModal(modalId, trackId) {
+        // 모달을 열 때 선택한 노래의 ID를 전달
+        $('#' + modalId).data('track-id', trackId).modal('toggle');
     }
 
-    function addTrackToPlaylist(playlistId) {
-        	console.log("Track ID:"+trackId); 
-        	console.log("selected Track ID:" + selectedTrackId);
+    function addTrackToPlaylist(trackId, playlistId) {
+        	console.log("a Track ID:"+trackId); 
+        	console.log("a playlist ID:"+playlistId); 
+        	//console.log("a selected Track ID:" + selectedTrackId);
         // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
         $.ajax({
             type: "POST",
             url: "/mute/addTrackToPlaylist",
-            data: { trackId: selectedTrackId, playlistId: playlistId },
+            data: { trackId: trackId, playlistId: playlistId },
             success: function (response) {
                 $('#addModal').modal('hide');
                 alert(response); // 성공적으로 추가되었음을 알리는 메시지 표시
