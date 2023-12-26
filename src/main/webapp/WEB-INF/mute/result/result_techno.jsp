@@ -63,9 +63,9 @@
 		<c:if test="${not empty recommendations}">
 		    <c:forEach var="track" items="${recommendations}" varStatus="i">
 		        <tr>
-		            <td><img src="${track.album.images[0].url}" alt="Album Cover" width="100" height="100"></td>
+		            <td><img src="${track.coverImageUrl}" alt="Album Cover" width="100" height="100"></td>
 		            <td>${track.name}</td>
-		            <td>${track.artists[0].name}</td>
+		            <td>${track.artistName}</td>
 		            <td>
 		                <a id="toggleButton${i.index + 1}" onclick="toggleButton${i.index + 1}"> 
 		                    <img id="buttonImage${i.index + 1}" src="resources/images/play_pl.png" alt="Start">
@@ -87,6 +87,7 @@
 				<td id="tdfoot"><a class="rereco" href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></td>
 			</tr>
 		</table>
+		<br>
 		</div>
 		<br>
 	</div>
@@ -246,10 +247,11 @@
         $('#modalAlert').modal('show');
     }
     
-
+    
     function checkAndSubmit() {
         event.preventDefault();
         const mcv = $('#modalContent').val().trim();
+        const trackId = $('#trackIdInput').val(); // trackId를 읽어옴
 
         if (mcv === '') {
             openModalAlert();
@@ -257,12 +259,13 @@
             // 사용자가 입력한 플레이리스트를 서버로 전송
             $.ajax({
                 type: "POST",
-                url: "/mute/addPlaylist", // 수정된 부분: 컨트롤러 매핑 주소 수정
+                url: "/mute/addPlaylist", 
                 data: { playlistName: mcv },
                 success: function (res) {
+                	const playlistId = res.playlistId; 
                     $('#modalplus').modal('hide');
                     // 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
-                    addPlaylistToTable(mcv, res.playlistId); // playlistId 전달
+                    addPlaylistToTable(mcv, playlistId);
                     
                  	// 모달 리로드
                     $('#addModal').find('.modal-body').load(location.href + ' #modaltable', function () {
@@ -271,7 +274,7 @@
                     
                 },
                 error: function (err) {
-                    alert('error');
+                    alert('error'+err);
                     console.error('Error submitting playlist:', err);
                 }
             });
@@ -280,7 +283,6 @@
 
  // 플레이리스트를 테이블에 동적으로 추가하는 함수
     function addPlaylistToTable(playlistName, playlistId) {
-        // 새로운 행을 생성
         var newRow = $('<tr>');
 
         var coverCell = $('<td>').addClass('td').append($('<img>').attr({
@@ -292,19 +294,21 @@
         newRow.append(coverCell);
 
         var titleCell = $('<td>').addClass('td');
-        var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').text(playlistName);
+        /* var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').text(playlistName); */
+
+		var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').data('playlist-id', playlistId).on('click', function(event) {
+		    event.preventDefault();
+		    var clickedPlaylistId = $(this).data('playlist-id');
+		    addTrackToPlaylist(playlistId);
+		    notify();
+		}).text(playlistName);
+
 
         titleCell.append(playlistLink);
         newRow.append(titleCell);
         
         $('#modaltable').prepend(newRow);
         
-        playlistLink.on('click', function() {
-            event.preventDefault();
-            openPlaylistModal(trackId, playlistId);
-            addTrackToPlaylist(playlistId);
-            notify();
-        });
     }
 
  
@@ -323,6 +327,13 @@
 
     var trackId;
     var playlistId;
+    
+ 	// 모달이 열릴 때 trackIdInput에 trackId를 저장
+    $('#modalplus').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var trackId = button.data('track-id');
+        $('#trackIdInput').val(trackId);
+    });
 
     function openPlaylistModal(trackId, playlistId) {
         console.log("Track ID: " + trackId);
@@ -338,11 +349,8 @@
 
     function addTrackToPlaylist(playlistId) {
         console.log("a Track ID:" + window.trackId); // window.trackId로 수정
-        console.log("a playlist ID: " + window.playlistId);
-        //console.log("a playlist ID:" +playlistId);
-
-        /* window.playlistId = playlistId; */
-
+        console.log("a playlist ID: " + playlistId);
+        
         // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
         $.ajax({
             type: "POST",
