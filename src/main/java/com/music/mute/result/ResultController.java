@@ -1,17 +1,12 @@
 package com.music.mute.result;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.hc.core5.http.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,204 +21,79 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.music.mute.api.SpotifyPlaybackService;
-import com.music.mute.api.TrackWithImageUrlVO;
 
 import se.michaelthelin.spotify.SpotifyApi;
-import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.miscellaneous.CurrentlyPlayingContext;
 import se.michaelthelin.spotify.model_objects.miscellaneous.Device;
-import se.michaelthelin.spotify.model_objects.specification.Album;
-import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
-import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
-import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
-import se.michaelthelin.spotify.model_objects.specification.Recommendations;
-import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
-import se.michaelthelin.spotify.requests.data.albums.GetAlbumRequest;
-import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.player.GetInformationAboutUsersCurrentPlaybackRequest;
 import se.michaelthelin.spotify.requests.data.player.GetUsersAvailableDevicesRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
-import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
-import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
 @Controller
-public class AllResultController {/* 주석 풀 때 54, 307, 487 지우기 
-
-    @Autowired
+public class ResultController {
+	
+	@Autowired
     private SpotifyApi spotifyApi;
 
     @Autowired
     private SpotifyPlaybackService playbackService;
-
+    
+    @Autowired
+    private ResultService service;
+    
     private static final Logger logger = LoggerFactory.getLogger(AllResultController.class);
 
     @GetMapping("/result_folk")
     public String resultBallad(Model model, HttpSession session) {
-        return getResultPage(model, session, "folk");
+        return service.getResultPage(model, session, "folk");
     }
 
     @GetMapping("/result_classical")
     public String resultClassic(Model model, HttpSession session) {
-        return getResultPage(model, session, "classical");
+        return service.getResultPage(model, session, "classical");
     }
 
     @GetMapping("/result_dance")
     public String resultDance(Model model, HttpSession session) {
-        return getResultPage(model, session, "dance");
+        return service.getResultPage(model, session, "dance");
     }
-
 	
 	@GetMapping("/result_techno") 
 	public String resultTechno(Model model, HttpSession session) { 
-		return getResultPage(model, session, "techno"); 
+		return service.getResultPage(model, session, "techno"); 
 	}
-	 
 
     @GetMapping("/result_disco")
     public String resultDisco(Model model, HttpSession session) {
-        return getResultPage(model, session, "disco");
+        return service.getResultPage(model, session, "disco");
     }
 
     @GetMapping("/result_hip-hop")
     public String resultHipHop(Model model, HttpSession session) {
-        return getResultPage(model, session, "hip-hop");
+        return service.getResultPage(model, session, "hip-hop");
     }
 
     @GetMapping("/result_indie")
     public String resultIndie(Model model, HttpSession session) {
-        return getResultPage(model, session, "indie");
+        return service.getResultPage(model, session, "indie");
     }
 
     @GetMapping("/result_jazz")
     public String resultJazz(Model model, HttpSession session) {
-        return getResultPage(model, session, "jazz");
+        return service.getResultPage(model, session, "jazz");
     }
 
     @GetMapping("/result_r-n-b")
     public String resultRnb(Model model, HttpSession session) {
-        return getResultPage(model, session, "r-n-b");
+        return service.getResultPage(model, session, "r-n-b");
     }
 
     @GetMapping("/result_rock")
     public String resultRock(Model model, HttpSession session) {
-        return getResultPage(model, session, "rock");
-    }
-
-    // 공통 메서드
-    private String getResultPage(Model model, HttpSession session, String genre) {
-        String accessToken = (String) session.getAttribute("accessToken");
-        List<TrackWithImageUrlVO> recommendationsList = new ArrayList<>();
-        
-        if (accessToken != null) {
-            try {
-                spotifyApi.setAccessToken(accessToken);
-             // 현재 재생 중인 디바이스의 정보 가져오기
-				Device currentDevice = getCurrentDevice(accessToken);
-				model.addAttribute("currentDevice", currentDevice);
-				
-                GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
-                        .getListOfCurrentUsersPlaylists()
-                        .limit(10)
-                        .build();
-                CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
-                PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
-                
-                model.addAttribute("playlists", playlists);
-
-                String playlistId = playlists[0].getId();
-                GetRecommendationsRequest recommendationsRequest = spotifyApi
-                        .getRecommendations()
-                        .seed_genres(genre)
-                        .limit(3)
-                        .build();
-                CompletableFuture<Recommendations> recommendationsFuture = recommendationsRequest.executeAsync();
-                Track[] recommendations = recommendationsFuture.join().getTracks();
-
-                for (Track track : recommendations) {
-                    String trackAlbumId = getAlbumId(track.getId(), accessToken);
-                    String coverImageUrl = getAlbumCoverImageUrl(trackAlbumId, accessToken);
-                    TrackWithImageUrlVO newTrack = new TrackWithImageUrlVO(track, coverImageUrl);
-                    recommendationsList.add(newTrack);
-                    
-                }
-                
-				model.addAttribute("recommendations", recommendationsList);
-                System.out.println("getGenreRecommendations 메서드가 호출되었습니다.");
-                System.out.println("Recommendations List: " + recommendationsList);
-                
-             
-               
-            } catch (Exception e) {
-                System.out.println("hi" + e);
-                model.addAttribute("error", "음악 추천을 가져오는 중에 오류가 발생했습니다.");
-                return "/errorPage";
-            }
-        } else {
-            return "redirect:/login";
-        }
-        
-        // 여기서 페이지 정보에 따라 다른 결과 페이지를 반환
-        return "result/result_" + genre;
-    }
-
-
-    private Device getCurrentDevice(String accessToken) throws IOException, SpotifyWebApiException, ParseException {
-		try {
-			GetInformationAboutUsersCurrentPlaybackRequest playbackRequest = spotifyApi
-					.getInformationAboutUsersCurrentPlayback().build();
-			CompletableFuture<CurrentlyPlayingContext> playbackFuture = playbackRequest.executeAsync();
-			CurrentlyPlayingContext playbackContext = null;
-			try {
-				playbackContext = playbackFuture.join();
-			} catch (CompletionException e) { // 비동기 작업 중 예외 발생
-				Throwable cause = e.getCause();
-				if (cause instanceof IOException) {
-					throw (IOException) cause;
-				} else if (cause instanceof SpotifyWebApiException) {
-					throw (SpotifyWebApiException) cause;
-				} else if (cause instanceof ParseException) {
-					throw (ParseException) cause;
-				} else { // 다른 예외 처리 throw e;
-				}
-			}
-			if (playbackContext != null)
-				return playbackContext.getDevice();
-			else
-				return null;
-		} catch (IOException | SpotifyWebApiException | ParseException e) {
-			e.printStackTrace();
-			// 예외를 다시 던져서 상위에서 처리하도록 함
-			throw e;
-		}
-	}
-    
-    @ExceptionHandler(Exception.class)
-	public String handleException(Exception e, Model model) {
-		e.printStackTrace();
-		model.addAttribute("error", "알 수 없는 오류가 발생했습니다: " + e.getMessage());
-		return "/errorPage";
-	}
-
-    private List<TrackWithImageUrlVO> getGenreRecommendationTracks(String accessToken, String genre) throws IOException, SpotifyWebApiException, ParseException {
-        GetRecommendationsRequest recommendationsRequest = spotifyApi
-                .getRecommendations()
-                .seed_genres(genre)
-                .limit(3)
-                .build();
-        Recommendations recommendations = recommendationsRequest.execute();
-
-        List<TrackWithImageUrlVO> recommendationList = new ArrayList<>();
-        for (Track track : recommendations.getTracks()) {
-            String trackAlbumId = getAlbumId(track.getId(), accessToken);
-            String coverImageUrl = getAlbumCoverImageUrl(trackAlbumId, accessToken);
-            TrackWithImageUrlVO newTrack = new TrackWithImageUrlVO(track, coverImageUrl);
-            recommendationList.add(newTrack);
-        }
-
-        return recommendationList;
+        return service.getResultPage(model, session, "rock");
     }
     
     @GetMapping("/play/{trackId}")
@@ -277,34 +146,7 @@ public class AllResultController {/* 주석 풀 때 54, 307, 487 지우기
 	    }
 	    return "redirect:/sdkrecommendations";
 	}
-
-	/*
-	 * @GetMapping("/play/{trackId}") public String playTrack(@PathVariable String
-	 * trackId, HttpSession session) { try { String accessToken = (String)
-	 * session.getAttribute("accessToken"); if (accessToken != null) { // 현재 사용자의 활성
-	 * 디바이스 ID 가져오기 GetInformationAboutUsersCurrentPlaybackRequest playbackRequest =
-	 * spotifyApi .getInformationAboutUsersCurrentPlayback() .build();
-	 * CompletableFuture<CurrentlyPlayingContext> playbackFuture =
-	 * playbackRequest.executeAsync(); CurrentlyPlayingContext playbackContext =
-	 * playbackFuture.join();
-	 * 
-	 * Device currentDevice = playbackContext.getDevice(); String deviceId =
-	 * (currentDevice != null) ? currentDevice.getId() : null;
-	 * 
-	 * // 노래 재생 시 디바이스 ID 사용 if (deviceId != null) {
-	 * playbackService.startOrResumePlayback(accessToken, "spotify:track:" +
-	 * trackId, deviceId); System.out.println("Play track: " + trackId); } else {
-	 * System.out.println("No active device found."); } } } catch (Exception e) {
-	 * e.printStackTrace(); } return "redirect:/result_"+genre; }
-	 * 
-	 * 
-	 * @GetMapping("/pause") public String pausePlayback(HttpSession session) { try
-	 * { String accessToken = (String) session.getAttribute("accessToken"); if
-	 * (accessToken != null) { playbackService.pausePlayback(accessToken);
-	 * System.out.println("Pause playback"); } } catch (Exception e) {
-	 * e.printStackTrace(); } return "redirect:/result_"+genre; }
-	 */
-    /*
+	
 	@GetMapping("/devices")
 	public String getDevices(Model model, HttpSession session) {
 		String accessToken = (String) session.getAttribute("accessToken");
@@ -335,49 +177,8 @@ public class AllResultController {/* 주석 풀 때 54, 307, 487 지우기
 		}
 		return "/devices";
 	}
- 
-    private String getAlbumId(String trackId, String accessToken) throws ParseException {
-        try {
-            SpotifyApi spotifyApi = new SpotifyApi.Builder()
-                    .setAccessToken(accessToken)
-                    .build();
-            GetTrackRequest getTrackRequest = spotifyApi
-                    .getTrack(trackId)
-                    .build();
-            Track track = getTrackRequest.execute();
-            if (track != null) {
-                AlbumSimplified album = track.getAlbum();
-                if (album != null) {
-                    return album.getId();
-                }
-            }
-            return "default-album-id";
-        } catch (IOException | SpotifyWebApiException e) {
-            e.printStackTrace();
-            return "error-album-id";
-        }
-    }
-
-    private String getAlbumCoverImageUrl(String albumId, String accessToken) throws ParseException {
-        try {
-            SpotifyApi spotifyApi = new SpotifyApi.Builder()
-                    .setAccessToken(accessToken)
-                    .build();
-            GetAlbumRequest getAlbumRequest = spotifyApi
-                    .getAlbum(albumId)
-                    .build();
-            Album album = getAlbumRequest.execute();
-            if (album != null && album.getImages() != null && album.getImages().length > 0) {
-                return album.getImages()[0].getUrl();
-            }
-            return "default-cover-image-url";
-        } catch (IOException | SpotifyWebApiException e) {
-            e.printStackTrace();
-            return "error-cover-image-url";
-        }
-    }
-    
-    @GetMapping("/getCurrentPlayback")
+	
+	@GetMapping("/getCurrentPlayback")
     public String getCurrentPlayback(Model model, HttpSession session) {
         String accessToken = (String) session.getAttribute("accessToken");
         if (accessToken != null) {
@@ -415,7 +216,6 @@ public class AllResultController {/* 주석 풀 때 54, 307, 487 지우기
         return "/getCurrentPlayback";
     }
     
-    //--------------------------------------------------
     @PostMapping(value="/addPlaylist", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<Map<String, String>> addPlaylist(Model model, HttpSession session,
@@ -443,7 +243,7 @@ public class AllResultController {/* 주석 풀 때 54, 307, 487 지우기
                 // 생성된 플레이리스트 정보를 응답에 추가
                 response.put("playlistId", newPlaylist.getId());
                 response.put("playlistName", newPlaylist.getName());
-                System.out.println(newPlaylist.getId()+"<pid");
+                System.out.println(newPlaylist.getId()+" <- playlistId");
                 // addPlaylist 메서드에서 플레이리스트 생성 후
                 String playlistId = newPlaylist.getId();
                // model.addAttribute("playlistId", playlistId);
@@ -483,6 +283,6 @@ public class AllResultController {/* 주석 풀 때 54, 307, 487 지우기
 			return new ResponseEntity<>("User not authenticated", HttpStatus.UNAUTHORIZED);
 		}
 	}
-   
-*/
+    
+
 }
