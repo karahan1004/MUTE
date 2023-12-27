@@ -35,6 +35,21 @@
 	</header>
 	<!-- ==================플레이리스트 목록=========================== -->
 	        <hr>
+	        <!-- input에 넣어서 변경 후 화면 출력 -->
+	            <!-- Edit Playlist Form -->
+	<div id="editForm" style="display: none;">
+		<form id="editPlaylistForm" method="post"
+			action="/mute/updatePlaylist">
+			<label for="editPlaylistName">Edit Playlist Name:</label> <input
+				type="text" id="editPlaylistName" name="editPlaylistName" required>
+
+			<!-- 추가된 부분: playlistId를 담을 hidden input -->
+			<input type="text" id="playlistId" name="playlistId">
+			<button type="button" onclick="updatePlaylist()">Update
+				Playlist</button>
+		</form>
+	</div>
+	        <!-- 원래 마이페이지 플리 목록 불러오는 함수 -->
 	       <table class="playListTable">
 	       	<tr>
 	            <td class="mypl">내 플레이리스트</td>
@@ -42,21 +57,20 @@
             </tr>
 				<c:forEach var="playlist" items="${playlists}">
                     <tr>    
-	        		<td><img class="cover" src="resources/images/gom_button.png"></td>
+	        		<td><a href="playlist?playlistId=${playlist.id}" id="move"><img class="cover" src="resources/images/gom_button.png"></a>
+	        		<br>
+	        		</td>
 					<td id="plname"><a href="playlist?playlistId=${playlist.id}" id="move">${playlist.name}</a></td>
 					<!-- 이미지에 부트스트랩 모달 적용 -->
 					<td class="edit">
-						 <a id="edit_plName" onclick="toggleModal('modalplus');">
+						 <a id="edit_plName" onclick="toggleModal('modalplus','${playlist.id}');">
 						<img class="edit_img" src="resources/images/more.png"></a>
-						<!--<button onclick="editPlaylist('${playlist.id}', '${playlist.name}')">Edit</button>
-						 -->
-						
-						<a id="del_pl" onclick="toggleModal('addModal');">
+						<a id="del_pl" onclick="toggleModal('addModal','${playlist.id}');">
 						<img class="del_img" src="resources/images/del_pl.png"></a>
 					</td>
 					</tr> 
                  </c:forEach>   
-         </table>  
+         </table> 
 	<!-- ======================Modal========================== -->
 	
 	<!-- 플레이리스트 이름 수정 모달 -->
@@ -68,7 +82,7 @@
 	        &nbsp;&nbsp;&nbsp;수정할 플레이리스트 이름을 입력하세요</h2>
 	      </div>
 	      <div class="modal-body">
-	         <textarea required id="modalContent" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
+	         <textarea required id="modalContent" name="editpl" rows="1" cols="40" placeholder="제목은 20글자 이내로 입력하세요" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="close-btn" onclick="checkAndSubmit()">확인</button>
@@ -120,7 +134,7 @@
         수정할 닉네임을 입력하세요</h2>
       </div>
       <div class="modal-body">
-         <textarea required id="modifyContent" rows="1" cols="40" placeholder="닉네임은 최대 10자까지 가능합니다" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea> <!-- 수정된 부분 -->
+         <textarea required id="modifyContent" rows="1" cols="40" placeholder="닉네임은 최대 10자까지 가능합니다" maxlength="20" onkeydown="return event.keyCode !== 13;"></textarea> 
       </div>
       <div class="modal-footer">
         <button type="button" class="close-btn" onclick="checkAndSubmitModify()">확인</button>
@@ -143,9 +157,55 @@
     </div>
 </div>
 <script>
+	/* 플리 이름 변경하는 api 폼 표시 */
+	function editPlaylist(playlistId, playlistName) {
+            // 수정 폼을 표시
+            document.getElementById("editForm").style.display = "block";
+            // 편집 폼에 현재 플레이리스트 이름 설정
+            document.getElementById("editPlaylistName").value = playlistName;
+            // hidden input 필드의 값을 현재 플레이리스트 ID로 업데이트
+            currentPlaylistId = playlistId;
+            document.getElementById("playlistId").value = currentPlaylistId;
+        }
+        function updatePlaylist() {
+            // 업데이트된 플레이리스트 이름 가져오기
+            var updatedName = document.getElementById("editPlaylistName").value;
+            // hidden input 필드에서 플레이리스트 ID 가져오기
+            //currentPlaylistId=document.getElementById("playlistId").value; 
+            var playlistId =document.getElementById("playlistId").value;
+            
+            // 요청 매개변수 생성
+            var params = new URLSearchParams();
+            params.append('playlistId', playlistId);
+            params.append('editPlaylistName', updatedName);
+            // fetch API를 사용하여 POST 요청 보내기
+            fetch('/mute/updatePlaylistmy', {
+                method: 'POST',
+                body: params,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            })
+            .then(response => response.text())
+            .then(data => {
+                // 여기서 응답 처리
+                console.log(data);
+                document.body.innerHTML='';
+                document.body.innerHTML=data;
+                //reloadPlaylists();
+            })
+            .catch(error => {
+                console.error('에러:', error);
+            });
+        }
+        
+	
+
 	<!-- 모달 오픈 함수 -->
 	
-	function toggleModal(modalId) {
+	function toggleModal(modalId, playlistId) {
+		//alert(playlistId)
+		$('#playlistId').val(playlistId);
 	    $('#' + modalId).modal('toggle');
 	}
 	
@@ -155,7 +215,11 @@
         if (mcv === '') {
             openModalAlert();
         } else {
+        	//alert(mcv);
+        	$('#editPlaylistName').val(mcv);
+        	updatePlaylist();
         	$('#modalplus').modal('hide');
+        	//location.reload();
         }
     }
 	
@@ -163,12 +227,40 @@
         $('#modalAlert').modal('show');
     }
     
-	function deletePlaylist() {
+	/*function deletePlaylist(playlistId) {
         $('#addModal').modal('hide');
         window.alert('플레이리스트가 삭제 되었습니다');
-        // 삭제 동작을 수행하는 코드를 추가하세요.
-	}
+        fetch('/mute/deletePlaylistmy?playlistId=' + encodeURIComponent(playlistId), {
+	        method: 'DELETE',
+	        headers: {
+	            'Content-Type': 'application/x-www-form-urlencoded',
+	        },
+	    })
+	    .then(response => {
+	        if (!response.ok) {
+	            throw new Error('Network response was not ok');
+	        }
+	        return response.text();
+	    })
+	    .then(data => {
+	        // 여기서 응답 처리 (예: 성공 메시지 출력 등)
+	        alert(data);
+	        // 삭제된 플레이리스트를 화면에서 제거
+	        var playlistElement = document.querySelector('li[data-playlist-id="' + playlistId + '"]');
+	        if (playlistElement) {
+	            playlistElement.remove();
+	            // 서버에서 플레이리스트 목록을 다시 불러오는 요청
+	            document.body.innerHTML='';
+                document.body.innerHTML=data;
+                //reloadPlaylists();
+	        }
+	    })
+	    .catch(error => {
+	        console.error('에러:', error);
+	    });
+	}*/
 	
+	/* 닉네임 수정 처리 */
 	function openNicknameModal() {
 	    $('#modifyNameModal').modal('show');
 	}
