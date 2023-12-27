@@ -38,7 +38,8 @@ public class SpotifyService {
             AuthorizationCodeCredentials authorizationCodeCredentials = areq.execute();
             return authorizationCodeCredentials.getAccessToken();
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            throw new RuntimeException("Error requesting access token", e);
+        	e.printStackTrace();
+        	throw new RuntimeException("Error requesting access token", e);
         }
     }
     
@@ -61,31 +62,34 @@ public class SpotifyService {
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             throw new RuntimeException("액세스 토큰을 리프레시하는 중 오류가 발생했습니다", e);
         }
+    }
     
+   
     //////
     
-//    public String getSpotifyUserId(String accessToken) {
-//        try {
-//            // Set the access token in the SpotifyApi instance
-//            spotifyApi.setAccessToken(accessToken);
-//
-//            // Request the current user's profile from Spotify
-//            GetCurrentUsersProfileRequest request = spotifyApi.getCurrentUsersProfile().build();
-//            User user = null;
-//			try {
-//				user = request.execute();
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+    public String getSpotifyUserId(String accessToken) {
+        try {
+            // Set the access token in the SpotifyApi instance
+            spotifyApi.setAccessToken(accessToken);
+
+            // Request the current user's profile from Spotify
+            GetCurrentUsersProfileRequest request = spotifyApi.getCurrentUsersProfile().build();
+            User user = null;
+			try {
+				user = request.execute();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //
 //            // Retrieve and return the user ID
-//            return user.getId();
-//        } catch (IOException | SpotifyWebApiException e) {
-//            throw new RuntimeException("Error retrieving user information", e);
-//        }
-//    }
-    
+            return user.getId();
+        } catch (IOException | SpotifyWebApiException e) {
+        	 e.printStackTrace();
+        	throw new RuntimeException("Error retrieving user information", e);
+        }
+//    
+//    
     }
     
 }//=========================
