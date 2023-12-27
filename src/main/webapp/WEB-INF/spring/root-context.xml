@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	<!-- DataSource 설정-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://db-k81rv.pub-cdb.ntruss.com:3306/mute"/>
+        <property name="username" value="mute"/>
+        <property name="password" value="mute12!@"/>
+    </bean>
+    
+    <!-- [4] SqlSessionFactoryBean등록 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:/config/mybatis/mybatis-config.xml"/>
+	</bean>
+	
+	<!-- [5] SqlSessionTemplate 등록 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg  index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- [6] mybatis-spring:scan 설정 [나중에 설정할 예정] -->
+	<mybatis-spring:scan base-package="com.music.mute.mapper"/>
+	
 </beans>

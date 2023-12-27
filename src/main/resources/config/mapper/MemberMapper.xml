@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.multi.mapper.MemberMapper">
+
+	<!-- 사용자의 spotify user id 와 임의의 닉네임 인서트 -->
+	<insert id="saveSpotifyUserId" parameterType="Member">
+		INSERT INTO MEMBER (S_ID,S_NAME) VALUES (#{S_ID},'UNNAMED')
+	</insert>
+	
+	<!-- 사용자의 닉네임을 업데이트 -->
+    <update id="updateNickname" parameterType="com.music.mute.login.MemberVO">
+       UPDATE MEMBER SET S_NAME = #{nickname} WHERE S_ID = #{userId}
+    </update>
+    
+     <select id="getMemberBySpotifyUserId" parameterType="java.lang.String" resultType="com.music.mute.login.MemberVO">
+        SELECT * FROM MEMBER WHERE S_ID = #{userId}
+    </select>
+
+     <select id="getMemberByNickname" parameterType="java.lang.String" resultType="com.music.mute.login.MemberVO">
+        SELECT * FROM MEMBER WHERE S_NAME = #{nickname}
+    </select>
+
+	 <!-- 닉네임이 존재하는지 확인하는 쿼리 -->
+    <select id="countNickname" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM MEMBER WHERE S_NAME = #{nickname}
+    </select>
+</mapper>
+
+
