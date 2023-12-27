@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>MU:TE</title>
@@ -10,16 +10,12 @@
 <link rel="stylesheet" href="resources/css/modal.css">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -82,6 +78,11 @@
 						    alt="Play/Pause" width="50" height="50" data-track-uri="${track.uri}"
 						    onclick="togglePlayPause('${track.uri}', this);">
                         </td>
+                        <td>
+		                <a data-track-id="${track.id}" onclick="openPlaylistModal('${track.id}'); toggleModal('addModal')">
+		                    <img src="resources/images/plus_pl.png" alt="plus">
+		                </a>
+		            </td>
                     </tr>
                 </c:forEach>
             </c:if>
@@ -99,42 +100,37 @@
 	</div>
 	<!-- ================================================ -->
 	<!-- The Modal -->
-	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- 첫 번째 모달 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <form name="rf" id="rf">
-                <table id="modaltable">
-						<tr>
-							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href=""
-								onclick="notify()">너무 우울해서 노래 플리 담았어ㅜㅜ
-							</a></td>
-						</tr>
-						<tr>
-							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href=""
-								onclick="notify()">너무 우울해서 노래 플리 담았어ㅜㅜ</a></td>
-						</tr>
-						<tr>
-							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href=""
-								onclick="notify()">코딩할 때 듣는 노동요</a></td>
-						</tr>
-						<tr>
-							<td class="td"><div class="cover1"></div></td>
-							<td class="td"><a class="pltitle text-body" href=""
-								onclick="notify()">신나고 싶을 때 듣는 노래</a></td>
-						</tr>
-					</table>
+            	<div id="scroll">
+                <!-- 현재 사용자의 플레이리스트 목록을 표시할 테이블 -->
+                <table class="modaltable" id="modaltable">
+                      <c:forEach var="playlist" items="${playlists}">
+                        <tr>
+                            <td class="td"><img alt="gom_trot" src="resources/images/gom_button.png" height="65" width="65"></td>
+                            <td class="td"><a class="pltitle text-body" href="" data-playlist-id="${playlist.id}"
+                                    onclick="addTrackToPlaylist('${playlist.id}')">${playlist.name}</a></td>
+                        </tr>
+                    </c:forEach> 
+                </table>
+                </div>
                 <br>
                 <button type="button" class="close-btn" onclick="toggleModal('addModal')">닫기</button>
                 <div id="add">
-                    <button type="button" class="btn text-body large-button" data-toggle="modal" data-target="#modalplus" style="font-size: 24px;">+ 새로운 플레이리스트 </button>
+                    <button type="button" class="btn text-body large-button" data-toggle="modal" data-target="#modalplus"
+                        style="font-size: 24px;">+ 새로운 플레이리스트 </button>
                 </div>
             </form>
         </div>
     </div>
+    <div class="notification" id="notification">
+    	음악을 플레이리스트에 저장했습니다!
+	</div>
 </div>
+
 	
 	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog" data-target="#alert">
     <div class="modal-dialog" role="document">
@@ -166,9 +162,7 @@
     </div>
 </div>
 
-<div class="notification" id="notification">
-    음악을 플레이리스트에 저장했습니다!
-</div>
+
 
 <script>
 	
@@ -188,27 +182,11 @@
 	        });
 	    });
 
-	    function notify() {
-	        notification.style.display = 'block';
-
-	        setTimeout(function () {
-	            notification.style.display = 'none';
-	        }, 1000);
-	    }
-
 	    tareset.addEventListener('click', function () {
 	        mct.value = '';
 	    });
 	});
 
-	
-	function toggleModal(modalId) {
-        $('#' + modalId).modal('toggle');
-    }
-
-	let isPlus1 = false;
-    let isPlus2 = false;
-    let isPlus3 = false;
 
     function toggleModal(modalId) {
         $('#' + modalId).modal('toggle');
@@ -218,15 +196,125 @@
         $('#modalAlert').modal('show');
     }
     
+    
     function checkAndSubmit() {
+        event.preventDefault();
         const mcv = $('#modalContent').val().trim();
-        // textarea 값이 비어있을 경우 modalAlert 모달을 열고, 아닐 경우 다른 로직 수행
+        const trackId = $('#trackIdInput').val(); // trackId를 읽어옴
+
         if (mcv === '') {
             openModalAlert();
         } else {
-        	$('#modalplus').modal('hide');
+            // 사용자가 입력한 플레이리스트를 서버로 전송
+            $.ajax({
+                type: "POST",
+                url: "/mute/addPlaylist", 
+                data: { playlistName: mcv },
+                success: function (res) {
+                	const playlistId = res.playlistId; 
+                    $('#modalplus').modal('hide');
+                    // 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
+                    addPlaylistToTable(mcv, playlistId);
+                    
+                 	// 모달 리로드
+                    $('#addModal').find('.modal-body').load(location.href + ' #modaltable', function () {
+                        $('#addModal').modal('show');
+                    });
+                    
+                },
+                error: function (err) {
+                    alert('error'+err);
+                    console.error('Error submitting playlist:', err);
+                }
+            });
         }
     }
+
+ // 플레이리스트를 테이블에 동적으로 추가하는 함수
+    function addPlaylistToTable(playlistName, playlistId) {
+        var newRow = $('<tr>');
+
+        var coverCell = $('<td>').addClass('td').append($('<img>').attr({
+            'alt': 'gom_trot',
+            'src': 'resources/images/gom_button.png',
+            'height': '65',
+            'width': '65'
+        }));
+        newRow.append(coverCell);
+
+        var titleCell = $('<td>').addClass('td');
+        /* var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').text(playlistName); */
+
+		var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').data('playlist-id', playlistId).on('click', function(event) {
+		    event.preventDefault();
+		    var clickedPlaylistId = $(this).data('playlist-id');
+		    addTrackToPlaylist(playlistId);
+		    notify();
+		}).text(playlistName);
+
+
+        titleCell.append(playlistLink);
+        newRow.append(titleCell);
+        
+        $('#modaltable').prepend(newRow);
+        
+    }
+
+ 
+ 	//알림
+    function notify() {
+        var notification = $('#notification');
+        notification.css('display', 'block');
+
+        setTimeout(function() {
+            notification.css('display', 'none');
+        }, 1000);
+    }
+
+
+  //--------------------------------------------------------------
+
+    var trackId;
+    var playlistId;
+    
+ 	// 모달이 열릴 때 trackIdInput에 trackId를 저장
+    $('#modalplus').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var trackId = button.data('track-id');
+        $('#trackIdInput').val(trackId);
+    });
+
+    function openPlaylistModal(trackId, playlistId) {
+        console.log("Track ID: " + trackId);
+        window.trackId = trackId;
+        window.playlistId = playlistId; // 플레이리스트 ID를 전역 변수에 저장
+        toggleModal('addModal');
+    }
+    
+    function toggleModal(modalId, trackId) {
+        // 모달을 열 때 선택한 노래의 ID를 전달
+        $('#' + modalId).data('track-id', trackId).modal('toggle');
+    }
+
+    function addTrackToPlaylist(playlistId) {
+        console.log("a Track ID:" + window.trackId); // window.trackId로 수정
+        console.log("a playlist ID: " + playlistId);
+        
+        // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
+        $.ajax({
+            type: "POST",
+            url: "/mute/addTrackToPlaylist",
+            data: { trackId: window.trackId, playlistId: playlistId },
+            success: function (response) {
+                $('#addModal').modal('hide');
+                alert(response); // 성공적으로 추가되었음을 알리는 메시지 표시
+            },
+            error: function (error) {
+                alert("에러: Failed to add track to playlist - " + error.responseText);
+            }
+        });
+    }
+//--------------------------------------------------------------
 
 let player;
 let device_id;
