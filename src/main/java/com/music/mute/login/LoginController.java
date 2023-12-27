@@ -127,25 +127,7 @@ public class LoginController {
         result.put("available", isAvailable);
         return result;
     }
-    //닉네임 중복 체크
-//    @RequestMapping("/nicknameCheck")
-//    @ResponseBody
-//    public int nickNameCheck(String nickname) {
-//    	int result=memberMapper.countNickname(nickname);
-//    	return result;
-//    }
     
-//	@RequestMapping(value = "/checkNickname", method = RequestMethod.GET)
-//  @ResponseBody
-//  public Map<String, Object> checkNickname(@RequestParam String S_NAME) {
-//      Map<String, Object> result = new HashMap<>();
-//      
-//      // 닉네임 중복 확인 로직 (예시: 닉네임이 사용 가능하면 true, 중복이면 false를 반환)
-//      boolean isAvailable = !isNicknameExists(S_NAME);
-//      
-//      result.put("available", isAvailable);
-//      return result;
-//  }
 
     // 닉네임이 이미 존재하는지 확인하는 메소드 (예시)
     private boolean isNicknameExists(String nickname) {
@@ -155,5 +137,20 @@ public class LoginController {
         // count가 0이면 닉네임이 존재하지 않음, 1 이상이면 닉네임이 이미 존재함
         return count > 0;
     }
+    
+    // checkAndSubmit 함수에 해당하는 부분
+//    @RequestMapping("/checkAndSubmit")
+//    public String checkAndSubmit(@RequestParam String S_NAME, HttpSession session, Model model) {
+//        // 사용자가 입력한 값을 가져와서 업데이트
+//        String S_NAME = "사용자가 입력한 값"; // 여기에 실제로 사용자가 입력한 값을 가져오는 로직을 추가
+//
+//        // 업데이트할 값을 모델에 추가 (여기서는 예시로 직접 값을 설정)
+//        model.addAttribute("S_NAME", S_NAME);
+//
+//        // 업데이트 실행
+//        updateNickname(S_NAME, session, model);
+//
+//        return "redirect:/main";
+//    }
 
 }
