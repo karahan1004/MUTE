@@ -44,7 +44,9 @@ public class MyPageController {
 				final CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
 
 				PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
-				log.info("playlists="+playlists);
+				/*
+				 * log.info("playlists="+playlists);
+				 */				
 				model.addAttribute("playlists", playlists);
 				
 			} catch (Exception e) {
@@ -57,8 +59,8 @@ public class MyPageController {
 		return "/mypage";
 	}//getUserPlaylists-----------------------------------------
 	
-	//mypage 플리 이름 수정 ==> Ambiguous mapping에러 발생, apiplaylist 랑 이름 겹쳐서 변경함
-	@PostMapping("/updatePlaylistmy")
+	
+	/*@PostMapping("/updatePlaylist")
 	public String updatePlaylist(Model model, HttpSession session, @RequestParam String playlistId, @RequestParam String editPlaylistName) {
 	    String accessToken = (String) session.getAttribute("accessToken");
 
@@ -84,7 +86,6 @@ public class MyPageController {
 	        return "redirect:/login";
 	    }
 
-	    return "redirect:/mypage";
-	}
-	
+	    return "/mypage";
+	}*/
 }
