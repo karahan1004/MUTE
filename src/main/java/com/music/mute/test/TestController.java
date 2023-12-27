@@ -109,15 +109,15 @@ public class TestController {
 		   case 0:
 		   		return "redirect:result_rock";
 		   case 1:
-		   		return "redirect:result_ballad";
+		   		return "redirect:result_folk";
 		   case 2:
 			    return "redirect:result_techno";
 		   case 3:
-			   return "redirect:result_rnb";
+			   return "redirect:result_r-n-b";
 		   case 4:
-			   return "redirect:result_hiphop";
+			   return "redirect:result_hip-hop";
 		   case 5:
-			   return "redirect:result_classic";
+			   return "redirect:result_classical";
 		   case 6:
 			   return "redirect:result_indie";
 		   case 7:
