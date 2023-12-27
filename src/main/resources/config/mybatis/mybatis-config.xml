@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 타입 별칭 설정============================  -->
+	<typeAliases>
+		
+		<typeAlias type="com.music.mute.login.MemberVO" alias="Member"/>
+	</typeAliases>
+	<!-- 데이터베이스 트랜잭션 관리자 설정=========== -->
+	
+	<!-- 매퍼 정의================================ -->
+	<mappers>
+		<!-- <mapper resource="config/mapper/SampleMapper.xml"/> -->
+		<mapper resource="config/mapper/MemberMapper.xml"/>
+	</mappers>
+</configuration>

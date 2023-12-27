@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/jdbc
+           http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <!-- DataSource 설정 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://db-k81rv.pub-cdb.ntruss.com:3306/mute"/>
+        <property name="username" value="mute"/>
+        <property name="password" value="mute12!@"/>
+    </bean>
+
+    <!-- MemberDAO 설정 -->
+    <bean id="memberDAO" class="com.music.mute.login.MemberDAO">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+	
+	 <!-- Component scanning -->
+    <context:component-scan base-package="com.music.mute.login" />
+    <!-- 이렇게 하면 Spring은 com.music.mute.login 패키지 내에서
+     @Component, @Service, @Repository, @Controller 등의 어노테이션을
+     가진 클래스들을 찾아서 자동으로 빈으로 등록 -->
+
+</beans>
