@@ -83,6 +83,11 @@
 						    alt="Play/Pause" width="50" height="50" data-track-uri="${track.uri}"
 						    onclick="togglePlayPause('${track.uri}', this);">
                         </td>
+                        <td>
+		                <a data-track-id="${track.id}" onclick="openPlaylistModal('${track.id}'); toggleModal('addModal')">
+		                    <img src="resources/images/plus_pl.png" alt="plus">
+		                </a>
+		            </td>
                     </tr>
                 </c:forEach>
             </c:if>
@@ -199,9 +204,6 @@
         $('#' + modalId).modal('toggle');
     }
 
-	let isPlus1 = false;
-    let isPlus2 = false;
-    let isPlus3 = false;
 
     function openModalAlert() {
         $('#modalAlert').modal('show');
@@ -224,13 +226,17 @@
                 success: function (res) {
                 	const playlistId = res.playlistId; 
                     $('#modalplus').modal('hide');
-                    // 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
-                    addPlaylistToTable(mcv, playlistId);
                     
+                 	// 새로운 행을 모달에 추가
+                    addPlaylistToTable(mcv, playlistId);
+                 
                  	// 모달 리로드
                     $('#addModal').find('.modal-body').load(location.href + ' #modaltable', function () {
                         $('#addModal').modal('show');
                     });
+                 
+                 	// 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
+                    addTrackToPlaylist(playlistId);
                     
                 },
                 error: function (err) {
@@ -241,6 +247,96 @@
         }
     }
 
+    
+
+ // 플레이리스트를 테이블에 동적으로 추가하는 함수
+    function addPlaylistToTable(playlistName, playlistId) {
+        var newRow = $('<tr>');
+
+        var coverCell = $('<td>').addClass('td').append($('<img>').attr({
+            'alt': 'gom_trot',
+            'src': 'resources/images/gom_button.png',
+            'height': '65',
+            'width': '65'
+        }));
+        newRow.append(coverCell);
+
+        var titleCell = $('<td>').addClass('td');
+        /* var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').text(playlistName); */
+
+		var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').data('playlist-id', playlistId).on('click', function(event) {
+		    event.preventDefault();
+		    var clickedPlaylistId = $(this).data('playlist-id');
+		    addTrackToPlaylist(playlistId);
+		    notify();
+		}).text(playlistName);
+
+
+        titleCell.append(playlistLink);
+        newRow.append(titleCell);
+        
+        $('#modaltable').prepend(newRow);
+        
+    }
+
+ 
+ 	//알림
+    function notify() {
+        var notification = $('#notification');
+        notification.css('display', 'block');
+
+        setTimeout(function() {
+            notification.css('display', 'none');
+        }, 1000);
+    }
+
+
+//-------------------------------------------------------------------
+
+    var trackId;
+    var playlistId;
+    
+ 	// 모달이 열릴 때 trackIdInput에 trackId를 저장
+    $('#modalplus').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var trackId = button.data('track-id');
+        $('#trackIdInput').val(trackId);
+    });
+
+    function openPlaylistModal(trackId, playlistId) {
+        console.log("Track ID: " + trackId);
+        window.trackId = trackId;
+        window.playlistId = playlistId; // 플레이리스트 ID를 전역 변수에 저장
+        toggleModal('addModal');
+    }
+    
+    function toggleModal(modalId, trackId) {
+        // 모달을 열 때 선택한 노래의 ID를 전달
+        $('#' + modalId).data('track-id', trackId).modal('toggle');
+    }
+
+    function addTrackToPlaylist(playlistId) {
+        console.log("a Track ID:" + window.trackId); // window.trackId로 수정
+        console.log("a playlist ID: " + playlistId);
+        
+        // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
+        $.ajax({
+            type: "POST",
+            url: "/mute/addTrackToPlaylist",
+            data: { trackId: window.trackId, playlistId: playlistId },
+            success: function (response) {
+                $('#addModal').modal('hide');
+                alert(response); // 성공적으로 추가되었음을 알리는 메시지 표시
+            },
+            error: function (error) {
+                alert("에러: Failed to add track to playlist - " + error.responseText);
+            }
+        });
+    }
+    
+    
+  //--------------------------------------------------------------
+  
     let player;
     let device_id;
     	window.onSpotifyWebPlaybackSDKReady = () => {
@@ -370,91 +466,6 @@
      		  uris: [playlistUri]
      		}); */
      	}
-
- // 플레이리스트를 테이블에 동적으로 추가하는 함수
-    function addPlaylistToTable(playlistName, playlistId) {
-        var newRow = $('<tr>');
-
-        var coverCell = $('<td>').addClass('td').append($('<img>').attr({
-            'alt': 'gom_trot',
-            'src': 'resources/images/gom_button.png',
-            'height': '65',
-            'width': '65'
-        }));
-        newRow.append(coverCell);
-
-        var titleCell = $('<td>').addClass('td');
-        /* var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').text(playlistName); */
-
-		var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').data('playlist-id', playlistId).on('click', function(event) {
-		    event.preventDefault();
-		    var clickedPlaylistId = $(this).data('playlist-id');
-		    addTrackToPlaylist(playlistId);
-		    notify();
-		}).text(playlistName);
-
-
-        titleCell.append(playlistLink);
-        newRow.append(titleCell);
-        
-        $('#modaltable').prepend(newRow);
-        
-    }
-
- 
- 	//알림
-    function notify() {
-        var notification = $('#notification');
-        notification.css('display', 'block');
-
-        setTimeout(function() {
-            notification.css('display', 'none');
-        }, 1000);
-    }
-
-
-//-------------------------------------------------------------------
-
-    var trackId;
-    var playlistId;
-    
- 	// 모달이 열릴 때 trackIdInput에 trackId를 저장
-    $('#modalplus').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var trackId = button.data('track-id');
-        $('#trackIdInput').val(trackId);
-    });
-
-    function openPlaylistModal(trackId, playlistId) {
-        console.log("Track ID: " + trackId);
-        window.trackId = trackId;
-        window.playlistId = playlistId; // 플레이리스트 ID를 전역 변수에 저장
-        toggleModal('addModal');
-    }
-    
-    function toggleModal(modalId, trackId) {
-        // 모달을 열 때 선택한 노래의 ID를 전달
-        $('#' + modalId).data('track-id', trackId).modal('toggle');
-    }
-
-    function addTrackToPlaylist(playlistId) {
-        console.log("a Track ID:" + window.trackId); // window.trackId로 수정
-        console.log("a playlist ID: " + playlistId);
-        
-        // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
-        $.ajax({
-            type: "POST",
-            url: "/mute/addTrackToPlaylist",
-            data: { trackId: window.trackId, playlistId: playlistId },
-            success: function (response) {
-                $('#addModal').modal('hide');
-                alert(response); // 성공적으로 추가되었음을 알리는 메시지 표시
-            },
-            error: function (error) {
-                alert("에러: Failed to add track to playlist - " + error.responseText);
-            }
-        });
-    }
     </script>
 
 

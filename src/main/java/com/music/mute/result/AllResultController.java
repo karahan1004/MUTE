@@ -61,12 +61,12 @@ public class AllResultController {
 
     private static final Logger logger = LoggerFactory.getLogger(AllResultController.class);
 
-    @GetMapping("/result_ballad")
+    @GetMapping("/result_folk")
     public String resultBallad(Model model, HttpSession session) {
         return getResultPage(model, session, "folk");
     }
 
-    @GetMapping("/result_classic")
+    @GetMapping("/result_classical")
     public String resultClassic(Model model, HttpSession session) {
         return getResultPage(model, session, "classical");
     }
@@ -88,7 +88,7 @@ public class AllResultController {
         return getResultPage(model, session, "disco");
     }
 
-    @GetMapping("/result_hiphop")
+    @GetMapping("/result_hip-hop")
     public String resultHipHop(Model model, HttpSession session) {
         return getResultPage(model, session, "hip-hop");
     }
@@ -103,7 +103,7 @@ public class AllResultController {
         return getResultPage(model, session, "jazz");
     }
 
-    @GetMapping("/result_rnb")
+    @GetMapping("/result_r-n-b")
     public String resultRnb(Model model, HttpSession session) {
         return getResultPage(model, session, "r-n-b");
     }
