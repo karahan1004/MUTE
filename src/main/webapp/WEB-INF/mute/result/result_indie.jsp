@@ -16,6 +16,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
 
 </head>
 <body>
@@ -127,6 +128,10 @@
     <div class="notification" id="notification">
     	음악을 플레이리스트에 저장했습니다!
 	</div>
+	
+    <div class="notification2" id="notification2">
+    	새로운 플레이리스트를 생성했습니다!
+	</div>
 </div>
 
 	
@@ -141,7 +146,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="close-btn"  onclick="checkAndSubmit()">확인</button>
-                <button type="button" class="close-btn" data-dismiss="modal" >취소</button>
+                <button type="button" class="close-btn" data-dismiss="modal">취소</button>
             </div>
         </div>
     </div>
@@ -154,7 +159,7 @@
                 <h3>플레이리스트 제목은 공백일 수 없습니다</h3>
             </div>
             <div class="modal-footer">
-                <button type="button" class="close-btn" data-dismiss="modal" onclick="submitAlert()">확인</button>
+                <button type="button" class="close-btn" data-dismiss="modal">확인</button>
             </div>
         </div>
     </div>
@@ -209,6 +214,7 @@
                 data: { playlistName: mcv },
                 success: function (res) {
                 	const playlistId = res.playlistId; 
+                	console.log('새로운 플레이리스트를 생성했습니다!');
                     $('#modalplus').modal('hide');
                     // 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
                     addPlaylistToTable(mcv, playlistId);
@@ -217,7 +223,7 @@
                     $('#addModal').find('.modal-body').load(location.href + ' #modaltable', function () {
                         $('#addModal').modal('show');
                     });
-                    
+                    notify2();
                 },
                 error: function (err) {
                     alert('error'+err);
@@ -258,14 +264,24 @@
     }
 
  
- 	//알림
+  //알림
     function notify() {
         var notification = $('#notification');
         notification.css('display', 'block');
 
         setTimeout(function() {
             notification.css('display', 'none');
-        }, 1000);
+        	$('#addModal').modal('hide');
+        }, 1500);
+    }
+
+    function notify2() {
+        var notification = $('#notification2');
+        notification.css('display', 'block');
+
+        setTimeout(function() {
+            notification.css('display', 'none');
+        }, 1500);
     }
 
 
@@ -303,8 +319,7 @@
             url: "/mute/addTrackToPlaylist",
             data: { trackId: window.trackId, playlistId: playlistId },
             success: function (response) {
-                $('#addModal').modal('hide');
-                alert(response); // 성공적으로 추가되었음을 알리는 메시지 표시
+                console.log('음악을 플레이리스트에 추가했습니다!');
             },
             error: function (error) {
                 alert("에러: Failed to add track to playlist - " + error.responseText);
