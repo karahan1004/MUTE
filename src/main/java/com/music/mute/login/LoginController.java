@@ -180,6 +180,7 @@ public class LoginController {
     	Map<String, String> result = new HashMap<>();
         // 업데이트할 값을 모델에 추가 (여기서는 예시로 직접 값을 설정)
         model.addAttribute("S_NAME", S_NAME);
+        session.setAttribute("nickname", S_NAME);
         System.out.println("nicknameeeeee:>>"+S_NAME);
         // 업데이트 실행
         updateNickname(S_NAME, session, model);
