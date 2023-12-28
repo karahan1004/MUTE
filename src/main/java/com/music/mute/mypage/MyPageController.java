@@ -87,4 +87,28 @@ public class MyPageController {
 	    return "redirect:/mypage";
 	}
 	
+	@DeleteMapping("/deletePlaylistmy")
+	public ResponseEntity<String> deletePlaylist(@RequestParam String playlistId, HttpSession session) {
+		String accessToken = (String) session.getAttribute("accessToken");
+
+		if (accessToken != null) {
+			try {
+				spotifyApi.setAccessToken(accessToken);
+
+				// 플레이리스트 언팔로우 API 요청
+				final UnfollowPlaylistRequest unfollowPlaylistRequest = spotifyApi.unfollowPlaylist(playlistId).build();
+				unfollowPlaylistRequest.execute();
+
+				// 삭제 후, 적절한 응답 반환
+				return ResponseEntity.ok("Playlist delete successfully");
+			} catch (Exception e) {
+				e.printStackTrace();
+				// 에러가 발생하면 500 Internal Server Error 반환
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting playlist");
+			}
+		} else {
+			// 사용자가 인증되지 않은 경우 401 Unauthorized 반환
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+		}
+	}
 }

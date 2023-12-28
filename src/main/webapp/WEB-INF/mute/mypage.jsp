@@ -49,6 +49,12 @@
 				Playlist</button>
 		</form>
 	</div>
+	<div id="delFormDiv" style="display: none;">
+		<form id="delForm" method="delete"
+			action="/mute/deletePlaylistmy">
+			<input type="text" id="playlistId2" name="playlistId">			
+		</form>
+	</div>
 	        <!-- 원래 마이페이지 플리 목록 불러오는 함수 -->
 	       <table class="playListTable">
 	       	<tr>
@@ -56,7 +62,7 @@
 	            <td></td> 
             </tr>
 				<c:forEach var="playlist" items="${playlists}">
-                    <tr>    
+                    <tr data-playlist-id="${playlist.id }">    
 	        		<td><a href="playlist?playlistId=${playlist.id}" id="move"><img class="cover" src="resources/images/gom_button.png"></a>
 	        		<br>
 	        		</td>
@@ -65,7 +71,7 @@
 					<td class="edit">
 						 <a id="edit_plName" onclick="toggleModal('modalplus','${playlist.id}');">
 						<img class="edit_img" src="resources/images/more.png"></a>
-						<a id="del_pl" onclick="toggleModal('addModal','${playlist.id}');">
+						<a id="del_pl" onclick="toggleModal2('addModal','${playlist.id}');">
 						<img class="del_img" src="resources/images/del_pl.png"></a>
 					</td>
 					</tr> 
@@ -123,7 +129,6 @@
 		</div>
 		</div>
 	</div>
-	
 <!-- 수정할 이름을 입력하세요 모달 -->
 <div class="modal fade" id="modifyNameModal" tabindex="-1" role="dialog" data-target="#alert">
   <div class="modal-dialog" role="document">
@@ -157,57 +162,60 @@
     </div>
 </div>
 <script>
-	/* 플리 이름 변경하는 api 폼 표시 */
-	function editPlaylist(playlistId, playlistName) {
-            // 수정 폼을 표시
-            document.getElementById("editForm").style.display = "block";
-            // 편집 폼에 현재 플레이리스트 이름 설정
-            document.getElementById("editPlaylistName").value = playlistName;
-            // hidden input 필드의 값을 현재 플레이리스트 ID로 업데이트
-            currentPlaylistId = playlistId;
-            document.getElementById("playlistId").value = currentPlaylistId;
-        }
-        function updatePlaylist() {
-            // 업데이트된 플레이리스트 이름 가져오기
-            var updatedName = document.getElementById("editPlaylistName").value;
-            // hidden input 필드에서 플레이리스트 ID 가져오기
-            //currentPlaylistId=document.getElementById("playlistId").value; 
-            var playlistId =document.getElementById("playlistId").value;
-            
-            // 요청 매개변수 생성
-            var params = new URLSearchParams();
-            params.append('playlistId', playlistId);
-            params.append('editPlaylistName', updatedName);
-            // fetch API를 사용하여 POST 요청 보내기
-            fetch('/mute/updatePlaylistmy', {
-                method: 'POST',
-                body: params,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            })
-            .then(response => response.text())
-            .then(data => {
-                // 여기서 응답 처리
-                console.log(data);
-                document.body.innerHTML='';
-                document.body.innerHTML=data;
-                //reloadPlaylists();
-            })
-            .catch(error => {
-                console.error('에러:', error);
-            });
-        }
+/* 플리 이름 변경하는 api 폼 표시 */
+function editPlaylist(playlistId, playlistName) {
+        // 수정 폼을 표시
+        document.getElementById("editForm").style.display = "block";
+        // 편집 폼에 현재 플레이리스트 이름 설정
+        document.getElementById("editPlaylistName").value = playlistName;
+        // hidden input 필드의 값을 현재 플레이리스트 ID로 업데이트
+        currentPlaylistId = playlistId;
+        document.getElementById("playlistId").value = currentPlaylistId;
+    }
+    function updatePlaylist() {
+        // 업데이트된 플레이리스트 이름 가져오기
+        var updatedName = document.getElementById("editPlaylistName").value;
+        // hidden input 필드에서 플레이리스트 ID 가져오기
+        //currentPlaylistId=document.getElementById("playlistId").value; 
+        var playlistId =document.getElementById("playlistId").value;
         
-	
-
+        // 요청 매개변수 생성
+        var params = new URLSearchParams();
+        params.append('playlistId', playlistId);
+        params.append('editPlaylistName', updatedName);
+        // fetch API를 사용하여 POST 요청 보내기
+        fetch('/mute/updatePlaylistmy', {
+            method: 'POST',
+            body: params,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+        .then(response => response.text())
+        .then(data => {
+            // 여기서 응답 처리
+            console.log(data);
+            document.body.innerHTML='';
+            document.body.innerHTML=data;
+            //reloadPlaylists();
+        })
+        .catch(error => {
+            console.error('에러:', error);
+        });
+    }
 	<!-- 모달 오픈 함수 -->
 	
 	function toggleModal(modalId, playlistId) {
-		//alert(playlistId)
+		//alert(modalId)
 		$('#playlistId').val(playlistId);
 	    $('#' + modalId).modal('toggle');
-	}
+	}//수정폼
+	
+	function toggleModal2(modalId, playlistId) {
+		//alert(modalId+"<<<")
+		$('#playlistId2').val(playlistId);
+	    $('#' + modalId).modal('toggle');
+	}//삭제폼
 	
 	function checkAndSubmit() {
         const mcv = $('#modalContent').val().trim();
@@ -227,9 +235,11 @@
         $('#modalAlert').modal('show');
     }
     
-	/*function deletePlaylist(playlistId) {
+	function deletePlaylist() {
+		let playlistId=$('#playlistId2').val();
+		//alert(playlistId)
         $('#addModal').modal('hide');
-        window.alert('플레이리스트가 삭제 되었습니다');
+        
         fetch('/mute/deletePlaylistmy?playlistId=' + encodeURIComponent(playlistId), {
 	        method: 'DELETE',
 	        headers: {
@@ -240,26 +250,26 @@
 	        if (!response.ok) {
 	            throw new Error('Network response was not ok');
 	        }
+	        
 	        return response.text();
 	    })
 	    .then(data => {
 	        // 여기서 응답 처리 (예: 성공 메시지 출력 등)
-	        alert(data);
+	        //alert(data);
 	        // 삭제된 플레이리스트를 화면에서 제거
-	        var playlistElement = document.querySelector('li[data-playlist-id="' + playlistId + '"]');
+	        var playlistElement = document.querySelector('tr[data-playlist-id="' + playlistId + '"]');
+	        //alert(playlistElement)
 	        if (playlistElement) {
 	            playlistElement.remove();
-	            // 서버에서 플레이리스트 목록을 다시 불러오는 요청
-	            document.body.innerHTML='';
-                document.body.innerHTML=data;
+	            // 서버에서 플레이리스트 목록을 다시 불러오는 요청	            
                 //reloadPlaylists();
+                window.alert('플레이리스트가 삭제 되었습니다');
 	        }
 	    })
 	    .catch(error => {
 	        console.error('에러:', error);
 	    });
-	}*/
-	
+	}
 	/* 닉네임 수정 처리 */
 	function openNicknameModal() {
 	    $('#modifyNameModal').modal('show');
