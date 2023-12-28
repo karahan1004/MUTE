@@ -22,4 +22,7 @@ public interface MemberMapper {
 
     // 닉네임이 존재하는지 확인하는 쿼리 0이면 존재암함.
     int countNickname(String nickname);
+
+    // Userid가 존재하는지 확인하는 쿼리 0이면 존재암함.
+	int countUserid(String userid);
 }
