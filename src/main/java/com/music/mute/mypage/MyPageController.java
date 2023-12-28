@@ -9,10 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.music.mute.login.MemberVO;
 
@@ -40,7 +44,7 @@ public class MyPageController {
 		String accessToken = (String) session.getAttribute("accessToken");
 		String userid=(String)session.getAttribute("spotifyUserId");
 		MemberVO user=mypageService.mypageNickName(userid);
-		if (accessToken != null&& user!=null) {
+		if (accessToken != null && user!=null) {
 			try {
 				spotifyApi.setAccessToken(accessToken);
 				final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
@@ -90,7 +94,7 @@ public class MyPageController {
 	    }
 
 	    return "redirect:/mypage";
-	}
+	}//updatePlaylist----------------------------------------------
 	
 	@DeleteMapping("/deletePlaylistmy")
 	public ResponseEntity<String> deletePlaylist(@RequestParam String playlistId, HttpSession session) {
@@ -115,5 +119,21 @@ public class MyPageController {
 			// 사용자가 인증되지 않은 경우 401 Unauthorized 반환
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
 		}
-	}
+	}//deletePlaylist----------------------------------------------
+	
+	@RequestMapping(value = "/updateNickNameJson", method = RequestMethod.POST)
+	@ResponseBody
+    public ModelMap updateNickname(@RequestParam String nickName, HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("spotifyUserId");
+
+     // 닉네임 업데이트 쿼리 실행
+        MemberVO member = new MemberVO();
+        member.setS_ID(userId);
+        member.setS_NAME(nickName);
+        mypageService.updateNickname(member);
+        ModelMap map=new ModelMap();
+        map.put("result", "success");
+        // 예시: 사용 가능한 닉네임인 경우 업데이트 후 main 페이지로 리다이렉트
+        return map;
+    }
 }

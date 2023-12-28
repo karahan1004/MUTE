@@ -24,7 +24,7 @@
 			<tr>
 				<td class="head-lg" rowspan="2"><a href="main"><img class="logo"
 					src="resources/images/mutelogo.png"></a></td><!-- 로고를 눌러도 메인페이지로 이동 -->
-				<td class="head-na" rowspan="2"><a class="pl">안녕하세요 ${nickName}님~</a></td>
+				<td class="head-na" rowspan="2"><a class="pl">안녕하세요 ${nickName} 님~</a></td>
 				<td class="head-ba"><img class="back"
 					src="resources/images/gom_button.png"></td>
 			</tr>
@@ -281,12 +281,39 @@ function editPlaylist(playlistId, playlistName) {
         if (mcv1 === '') {
             openModalnickAlert();
         } else {
+        	updateNickname(mcv1);
         	$('#modifyNameModal').modal('hide');
         }
     }
 	function openModalnickAlert() {
         $('#nickAlert').modal('show');
     }
+	function updateNickname(mcv1){
+		fetch('/mute/updateNickNameJson', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/x-www-form-urlencoded',
+	        },
+	        body:'nickName='+mcv1,
+	    })
+	    .then(response => {
+	        if (!response.ok) {
+	            throw new Error('Network response was not ok');
+	        }
+	        
+	        return response.text();
+	    })
+	    .then(data => {
+	        if(data.result=='success'){
+                window.alert('닉네임이 변경 되었습니다');
+                
+	        }
+	        location.reload();
+	    })
+	    .catch(error => {
+	        console.error('에러:', error);
+	    });
+	}
 	
 </script>
 </body>
