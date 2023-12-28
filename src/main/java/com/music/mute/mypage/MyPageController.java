@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.music.mute.login.MemberVO;
+
 import lombok.extern.log4j.Log4j;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
@@ -28,16 +30,19 @@ public class MyPageController {
 	
 	@Autowired
 	private SpotifyApi spotifyApi;
-
+	
+	@Autowired
+	private MyPageService mypageService;
+	
 	@GetMapping("/mypage")
 	public String getUserPlaylists(Model model, HttpSession session) {
 		// 사용자의 Access Token을 세션에서 가져옴
 		String accessToken = (String) session.getAttribute("accessToken");
-		
-		if (accessToken != null) {
+		String userid=(String)session.getAttribute("spotifyUserId");
+		MemberVO user=mypageService.mypageNickName(userid);
+		if (accessToken != null&& user!=null) {
 			try {
 				spotifyApi.setAccessToken(accessToken);
-
 				final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
 						.getListOfCurrentUsersPlaylists().limit(10).build();
 
@@ -46,7 +51,7 @@ public class MyPageController {
 				PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
 				log.info("playlists="+playlists);
 				model.addAttribute("playlists", playlists);
-				
+				model.addAttribute("nickName",user.getS_NAME());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

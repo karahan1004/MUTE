@@ -24,7 +24,7 @@
 			<tr>
 				<td class="head-lg" rowspan="2"><a href="main"><img class="logo"
 					src="resources/images/mutelogo.png"></a></td><!-- 로고를 눌러도 메인페이지로 이동 -->
-				<td class="head-na" rowspan="2"><a class="pl">안녕하세요 USERID님~</a></td>
+				<td class="head-na" rowspan="2"><a class="pl">안녕하세요 ${nickName}님~</a></td>
 				<td class="head-ba"><img class="back"
 					src="resources/images/gom_button.png"></td>
 			</tr>
