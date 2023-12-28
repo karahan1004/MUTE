@@ -12,8 +12,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 사용자의 닉네임을 업데이트 -->
     <update id="updateNickname" parameterType="com.music.mute.login.MemberVO">
-       UPDATE MEMBER SET S_NAME = #{nickname} WHERE S_ID = #{userId}
+       UPDATE MEMBER SET S_NAME = #{S_NAME} WHERE S_ID = #{S_ID}
     </update>
+    <!-- parameterType이 memberVO로부터 받아오는 것임으로 #{} vo안에 있는 값을 넣어줘야함.  -->
     
      <select id="getMemberBySpotifyUserId" parameterType="java.lang.String" resultType="com.music.mute.login.MemberVO">
         SELECT * FROM MEMBER WHERE S_ID = #{userId}
@@ -27,6 +28,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="countNickname" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM MEMBER WHERE S_NAME = #{nickname}
     </select>
+
+	 <!-- 닉네임이 존재하는지 확인하는 쿼리 -->
+    <select id="countUserid" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM MEMBER WHERE S_ID = #{userId}
+    </select>
+    
 </mapper>
 
 

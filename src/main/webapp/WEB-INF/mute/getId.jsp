@@ -23,20 +23,42 @@
 <link rel="stylesheet" href="resources/css/modal.css">
 
 <script>
-/* function toggleModal(modalId) {
-	$('#' + modalId).modal('toggle');
-}
 
 
-//확인 버튼 클릭 시 닉네임 등록 함수 호출
-function checkAndSubmit() {
+/* //확인 버튼 클릭 시 닉네임 등록 함수 호출
+  function checkAndSubmit() {
     // 확인 로직 수행 후 필요한 작업 수행
     // 예시: 닉네임 등록 처리 등
     // ...
 	alert("modal")
     // 모달 창 닫기
     $('#addModal').modal('hide');
-} */
+}    */
+
+//확인 버튼 클릭 시 닉네임 등록 함수 호출
+  function checkAndSubmit() {
+      let nickname = $('#getId').val();
+
+      $.ajax({
+          url: "checkAndSubmit", // 서버의 컨트롤러 메소드 매핑 주소
+          type: "post",
+          data: {S_NAME: nickname},
+          dataType: 'json',
+          success: function(result) {
+              //alert(result.result); // 서버로부터 받은 응답 메시지를 출력하거나 필요한 작업 수행
+              $('#addModal').modal('hide'); // 모달 창 닫기
+              location.href="main";
+          },
+          error: function() {
+              alert("서버 요청 실패");
+          }
+      });
+  }
+
+/* 
+$('.submit').click(function(){
+	alert('success')
+}) */
 
 var cpath = "${pageContext.request.contextPath}";
 
@@ -71,12 +93,6 @@ $(document).ready(function(){
 
    });
    
-/* $(document).ready(function () {
-    // 삭제 버튼 클릭 시 모달 창 표시
-    $("#btn").click(function () {
-        $("#addModal").modal("show");
-    });
-}); */
 </script>
 </head>
 <body>
@@ -102,7 +118,7 @@ $(document).ready(function(){
 						        <h2 class="modal-title">&nbsp;&nbsp;&nbsp;닉네임을 등록하시겠습니까?</h2>
 						    </div>
 						    <div class="modal-footer">
-						        <button type="button" class="close-btn" onclick="checkAndSubmit()">확인</button>
+						        <button type="button" class="close-btn submit" onclick="checkAndSubmit()">확인</button>
 						        <button type="button" class="close-btn" data-dismiss="modal" >취소</button>
 						    </div>
 					</div>

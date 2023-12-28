@@ -54,11 +54,9 @@ public class LoginController {
 		
 		if (code != null) {
 			System.out.println("code>>>" + code);
-			 accessToken = spotifyService.requestAccessToken(code);
+			accessToken = spotifyService.requestAccessToken(code);
 			System.out.println("accessToken: " + accessToken);
 			session.setAttribute("accessToken", accessToken);
-		
-
 		
 		// Get Spotify user ID using the access token
 	    String userId = spotifyService.getSpotifyUserId(accessToken);
@@ -66,26 +64,49 @@ public class LoginController {
 	    // 세션에 Spotify 사용자 ID 저장 또는 필요한 대로 사용
 	    session.setAttribute("spotifyUserId", userId);
 
-	    // Spotify 사용자 ID가 데이터베이스에 있는지 확인
-	    MemberVO existingMember = memberMapper.getMemberBySpotifyUserId(userId);
-//	    						= sqlSession.selectOne("com.multi.mapper.MemberMapper.getMemberByNickname", userId);
 
+//	    ////////////nickname을 Model에 값을 담아서 JSP로 전달
+//	    if (existingMember != null) {
+//	        // 회원 정보가 있으면 회원 닉네임을 Model에 추가
+//	        model.addAttribute("nickname", existingMember.getS_NAME());
+//	    }
+//	    //////////////
+	    
+	    // JSP를 위해 Spotify 사용자 ID를 모델에 추가
+	    model.addAttribute("spotifyUserId", userId);
+	    // UserId가 이미 존재하는지 확인
+        if (!isUserIdExists(userId)) {
+        	// 추가된 로그
+            System.out.println("User ID doesn't exist, saving...");
+            // UserId가 존재하지 않으면 디비에 저장
+            MemberVO member = new MemberVO();
+            member.setS_ID(userId);
+            // user id 가 이미 있으면 저장하지 않아야 함.
+            memberMapper.saveSpotifyUserId(member);
+         
+        }
+
+        // Spotify 사용자 ID가 데이터베이스에 있는지 확인
+	    MemberVO existingMember = memberMapper.getMemberBySpotifyUserId(userId);
+	    //	    			= sqlSession.selectOne("com.multi.mapper.MemberMapper.getMemberByNickname", userId);
+		 // 추가된 로그
+	    System.out.println("Existing Member: " + existingMember);
+	    
+	    
+	    // 추가된 로그
+	    System.out.println("Existing Member S_NAME: " + (existingMember != null ? existingMember.getS_NAME() : "null"));
+	    
 	    if (existingMember == null ||"UNNAMED".equals(existingMember.getS_NAME())) {
 	        // Spotify 사용자 ID가 데이터베이스에 없으면 getId.jsp로 리다이렉트
 	        return "redirect:/getId";
-	    }
-	    
-	   
-	    // JSP를 위해 Spotify 사용자 ID를 모델에 추가
-	    model.addAttribute("spotifyUserId", userId);
-	    
-	    
-        // Save Spotify user ID in the database 유저 아이디를 디비에 받아와야 함.. 께속 오류난다!!!!
-	    MemberVO member = new MemberVO();
-	    member.setS_ID(userId);
-		//sqlSession.insert("com.multi.mapper.MemberMapper.saveSpotifyUserId", member); sqlSession 말고 Mapper로 변경. 
-		memberMapper.saveSpotifyUserId(member);
+	    }else {
+	        session.setAttribute("nickname", existingMember.getS_NAME());
+	        System.out.println("nickname =====>" + existingMember.getS_NAME());
+            // 이미 존재하는 사용자이고 S_NAME이 "UNNAMED"이 아닌 경우, 바로 메인 페이지로 리다이렉트
+	        System.out.println("!!!!!!");
 
+            return "redirect:/main";
+        }
 
 		}else {
 			 accessToken = (String)session.getAttribute("accessToken");
@@ -102,7 +123,7 @@ public class LoginController {
     }
 	
 
-
+	//닉네임 업데이트 	
     @RequestMapping(value = "/updateNickname", method = RequestMethod.POST)
     public String updateNickname(@RequestParam String S_NAME, HttpSession session, Model model) {
         String userId = (String) session.getAttribute("spotifyUserId");
@@ -112,7 +133,7 @@ public class LoginController {
         member.setS_ID(userId);
         member.setS_NAME(S_NAME);
         memberMapper.updateNickname(member);
-
+    
         // 예시: 사용 가능한 닉네임인 경우 업데이트 후 main 페이지로 리다이렉트
         return "/main";
     }
@@ -132,27 +153,39 @@ public class LoginController {
     }
     
 
-    // 닉네임이 이미 존재하는지 확인하는 메소드 (예시)
+    // 닉네임이 이미 존재하는지 확인하는 메소드 
     private boolean isNicknameExists(String nickname) {
         // MyBatis를 사용하여 디비 조회
         int count = memberMapper.countNickname(nickname); 
-//        		sqlSession.selectOne("com.multi.mapper.MemberMapper.countNickname", nickname);
+        //   		sqlSession.selectOne("com.multi.mapper.MemberMapper.countNickname", nickname);
         
         // count가 0이면 닉네임이 존재하지 않음, 1 이상이면 닉네임이 이미 존재함
         return count > 0;
     }
     
+    // UserId가 이미 존재하는지 확인하는 메소드 
+    private boolean isUserIdExists(String userid) {
+    	// MyBatis를 사용하여 디비 조회
+    	int count = memberMapper.countUserid(userid); 
+    	//  		sqlSession.selectOne("com.multi.mapper.MemberMapper.countNickname", nickname);
+    	System.out.println("count>>>>>"+count);
+    	// count가 0이면 닉네임이 존재하지 않음, 1 이상이면 닉네임이 이미 존재함
+    	return count > 0;
+    }
+    
     // checkAndSubmit 함수에 해당하는 부분
     @RequestMapping("/checkAndSubmit")
-    public String checkAndSubmit(@RequestParam String nickname, HttpSession session, Model model) {
-
+    @ResponseBody
+    public  Map<String, String> checkAndSubmit(@RequestParam String S_NAME, HttpSession session, Model model) {
+    	Map<String, String> result = new HashMap<>();
         // 업데이트할 값을 모델에 추가 (여기서는 예시로 직접 값을 설정)
-        model.addAttribute("S_NAME", nickname);
-
+        model.addAttribute("S_NAME", S_NAME);
+        System.out.println("nicknameeeeee:>>"+S_NAME);
         // 업데이트 실행
-        updateNickname(nickname, session, model);
+        updateNickname(S_NAME, session, model);
+        result.put("result", "success");
 
-        return "redirect:/main";
+        return result;
     }
 
 }

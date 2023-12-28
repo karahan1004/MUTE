@@ -64,7 +64,7 @@
 					<% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
 				        <td id="loggedIn">
 				            <!-- 로그인 상태에 대한 스타일 -->
-				            <a id="loginText" href="logout">로그아웃</a>
+				            <a id="loginText" href="logout">로그아웃 ${nickname} 님</a>
 				        </td>
 				    <% } else { %>
 				        <td id="loggedOut">
