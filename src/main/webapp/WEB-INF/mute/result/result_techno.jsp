@@ -10,15 +10,12 @@
 <link rel="stylesheet" href="resources/css/modal.css">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 
 </head>
@@ -134,6 +131,10 @@
     <div class="notification" id="notification">
     	음악을 플레이리스트에 저장했습니다!
 	</div>
+	
+    <div class="notification2" id="notification2">
+    	새로운 플레이리스트를 생성했습니다!
+	</div>
 </div>
 
 
@@ -141,7 +142,6 @@
 	<div class="modal fade" id="modalplus" tabindex="-1" role="dialog" data-target="#alert" onclick="">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <!-- <form id="playlistForm" action="addPlaylist" method="get"> -->
                 <div class="modal-header">
                     <h3 class="modal-title">플레이리스트 이름을 입력하세요</h3>
                 </div>
@@ -152,11 +152,9 @@
                     <button type="submit" class="close-btn" onclick="checkAndSubmit()">확인</button>
                     <button type="button" class="close-btn" data-dismiss="modal">취소</button>
                 </div>
-            <!-- </form> -->
         </div>
     </div>
 </div>
-
 
 	
 	<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog">
@@ -166,7 +164,7 @@
                 <h3>플레이리스트 제목은 공백일 수 없습니다</h3>
             </div>
             <div class="modal-footer">
-                <button type="button" class="close-btn" data-dismiss="modal" onclick="submitAlert()">확인</button>
+                <button type="button" class="close-btn" data-dismiss="modal">확인</button>
             </div>
         </div>
     </div>
@@ -174,15 +172,15 @@
 
 
 
-
 <script>
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    const pltitles = document.querySelectorAll('.pltitle'); // 여러 개의 .pltitle을 선택
+	
 	    const notification = document.getElementById('notification');
 	    const tareset = document.querySelector('#modalplus .close-btn');
 	    const mct = document.getElementById('modalContent');
-
+	
 	    // 각 .pltitle에 대해 이벤트 리스너 등록
 	    pltitles.forEach(function (pltitle) {
 	        pltitle.addEventListener('click', function (event) {
@@ -191,283 +189,257 @@
 	            notify();
 	        });
 	    });
-
-	     
+	    
 	    tareset.addEventListener('click', function () {
 	        mct.value = '';
 	    });
-	    
 	});
-		
+	
 	
 	function toggleModal(modalId) {
-        $('#' + modalId).modal('toggle');
-    }
+	    $('#' + modalId).modal('toggle');
+	}
+	
+	
+	function openModalAlert() {
+	    $('#modalAlert').modal('show');
+	}
+	
+	
+	function checkAndSubmit() {
+	    event.preventDefault();
+	    const mcv = $('#modalContent').val().trim();
+	    const trackId = $('#trackIdInput').val(); // trackId를 읽어옴
+	
+	    if (mcv === '') {
+	        openModalAlert();
+	    } else {
+	        // 사용자가 입력한 플레이리스트를 서버로 전송
+	        $.ajax({
+	            type: "POST",
+	            url: "/mute/addPlaylist", 
+	            data: { playlistName: mcv },
+	            success: function (res) {
+	            	var playlistId = res.playlistId;
+	            	console.log('새로운 플레이리스트를 생성했습니다!');
+	                $('#modalplus').modal('hide');
+	                // 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
+	                addPlaylistToTable(mcv, playlistId);
+	                
+	             	// 모달 리로드
+	                $('#addModal').find('.modal-body').load(location.href + ' #modaltable', function () {
+	                    $('#addModal').modal('show');
+	                });
+	                notify2();
+	            },
+	            error: function (err) {
+	                alert('error'+err);
+	                console.error('Error submitting playlist:', err);
+	            }
+	        });
+	    }
+	}
 
-
-    function openModalAlert() {
-        $('#modalAlert').modal('show');
-    }
-    
-    
-    function checkAndSubmit() {
-        event.preventDefault();
-        const mcv = $('#modalContent').val().trim();
-        const trackId = $('#trackIdInput').val(); // trackId를 읽어옴
-
-        if (mcv === '') {
-            openModalAlert();
-        } else {
-            // 사용자가 입력한 플레이리스트를 서버로 전송
-            $.ajax({
-                type: "POST",
-                url: "/mute/addPlaylist", 
-                data: { playlistName: mcv },
-                success: function (res) {
-                	const playlistId = res.playlistId; 
-                    $('#modalplus').modal('hide');
-                    
-                 	// 새로운 행을 모달에 추가
-                    addPlaylistToTable(mcv, playlistId);
-                 
-                 	// 모달 리로드
-                    $('#addModal').find('.modal-body').load(location.href + ' #modaltable', function () {
-                        $('#addModal').modal('show');
-                    });
-                 
-                 	// 서버로부터 받은 응답으로 플레이리스트 목록 업데이트
-                    addTrackToPlaylist(playlistId);
-                    
-                },
-                error: function (err) {
-                    alert('error'+err);
-                    console.error('Error submitting playlist:', err);
-                }
-            });
-        }
-    }
-
-    
-
- // 플레이리스트를 테이블에 동적으로 추가하는 함수
-    function addPlaylistToTable(playlistName, playlistId) {
-        var newRow = $('<tr>');
-
-        var coverCell = $('<td>').addClass('td').append($('<img>').attr({
-            'alt': 'gom_trot',
-            'src': 'resources/images/gom_button.png',
-            'height': '65',
-            'width': '65'
-        }));
-        newRow.append(coverCell);
-
-        var titleCell = $('<td>').addClass('td');
-        /* var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').text(playlistName); */
-
+	// 플레이리스트를 테이블에 동적으로 추가하는 함수
+	function addPlaylistToTable(playlistName, playlistId) {
+	    var newRow = $('<tr>');
+	
+	    var coverCell = $('<td>').addClass('td').append($('<img>').attr({
+	        'alt': 'gom_trot',
+	        'src': 'resources/images/gom_button.png',
+	        'height': '65',
+	        'width': '65'
+	    }));
+	    newRow.append(coverCell);
+	
+	    var titleCell = $('<td>').addClass('td');
+	    /* var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').text(playlistName); */
+	
 		var playlistLink = $('<a>').addClass('pltitle text-body').attr('href', '').data('playlist-id', playlistId).on('click', function(event) {
 		    event.preventDefault();
 		    var clickedPlaylistId = $(this).data('playlist-id');
 		    addTrackToPlaylist(playlistId);
 		    notify();
 		}).text(playlistName);
+	
+		
+	    titleCell.append(playlistLink);
+	    newRow.append(titleCell);
+	    
+	    $('#modaltable').prepend(newRow);
+	    console.log('addPlaylistToTable()의 playlistId : '+playlistId);
+	    
+	}
 
 
-        titleCell.append(playlistLink);
-        newRow.append(titleCell);
-        
-        $('#modaltable').prepend(newRow);
-        
-    }
-
- 
- 	//알림
+	//알림
     function notify() {
         var notification = $('#notification');
         notification.css('display', 'block');
 
         setTimeout(function() {
             notification.css('display', 'none');
-        }, 1000);
+        	$('#addModal').modal('hide');
+        }, 1500);
+    }
+
+    function notify2() {
+        var notification = $('#notification2');
+        notification.css('display', 'block');
+
+        setTimeout(function() {
+            notification.css('display', 'none');
+        }, 1500);
     }
 
 
-//-------------------------------------------------------------------
+//--------------------------------------------------------------
 
-    var trackId;
-    var playlistId;
+	var trackId;
+	var playlistId;
+	
+		// 모달이 열릴 때 trackIdInput에 trackId를 저장
+	$('#modalplus').on('show.bs.modal', function (event) {
+	    var button = $(event.relatedTarget);
+	    var trackId = button.data('track-id');
+	    $('#trackIdInput').val(trackId);
+	});
+	
+	function openPlaylistModal(trackId, playlistId) {
+	    console.log("Track ID: " + trackId);
+	    window.trackId = trackId;
+	    window.playlistId = playlistId; // 플레이리스트 ID를 전역 변수에 저장
+	    toggleModal('addModal');
+	}
+	
+	function toggleModal(modalId, trackId) {
+	    // 모달을 열 때 선택한 노래의 ID를 전달
+	    $('#' + modalId).data('track-id', trackId).modal('toggle');
+	}
+	
+	function addTrackToPlaylist(playlistId) {
+	    console.log("a Track ID:" + window.trackId); // window.trackId로 수정
+	    console.log("a playlist ID: " + playlistId);
+	    
+	    // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
+	    $.ajax({
+	        type: "POST",
+	        url: "/mute/addTrackToPlaylist",
+	        data: { trackId: window.trackId, playlistId: playlistId },
+	        success: function (response) {
+	            console.log('음악을 플레이리스트에 추가했습니다!');
+	        },
+	        error: function (error) {
+	            alert("에러: Failed to add track to playlist - " + error.responseText);
+	        }
+	    });
+	}
+//--------------------------------------------------------------
+
+let player;
+let device_id;
+let progress_ms;
+	window.onSpotifyWebPlaybackSDKReady = () => {
+	  const token = '${accessToken}'; // 사용자의 액세스 토큰을 여기에 설정
+	  player = new Spotify.Player({
+	    name: 'Web Playback SDK',
+	    getOAuthToken: (cb) => { cb(token); }
+	  });
+	  console.dir(player)
+	  // 로그인 및 초기화
+	   
+	player.on('player_state_changed', state => {
+	  if (state) {
+	      console.log('Current track:', state.track);
+	      console.log('Current progress (ms):', state.position);
+	      progress_ms=state.position;
+	    }
+	  })
+	  
+	  // Ready
+	player.on('ready', data => {
+	    console.log('Ready with Device ID', data.device_id);
+	    device_id=data.device_id;
+	    // Play a track using our new device ID
+	    //play(data.device_id);
+	});
+	  
+	  
+	  player.connect();
+	  console.log("===연결됨======================================")
+	};
+	
+    const SPOTIFY_API_BASE = 'https://api.spotify.com/v1/me/player';
+    const accessToken = "${accessToken}"; // Java 코드에서 받아온 accessToken
+    // 이미지 토글 상태를 나타내는 객체
+    var isPlayingMap = {};
+ 
     
- 	// 모달이 열릴 때 trackIdInput에 trackId를 저장
-    $('#modalplus').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var trackId = button.data('track-id');
-        $('#trackIdInput').val(trackId);
-    });
-
-    function openPlaylistModal(trackId, playlistId) {
-        console.log("Track ID: " + trackId);
-        window.trackId = trackId;
-        window.playlistId = playlistId; // 플레이리스트 ID를 전역 변수에 저장
-        toggleModal('addModal');
+ 	// 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
+    function togglePlayPause(trackUri, imageElement) {
+	    console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
+	    const isPlaying = imageElement.classList.contains('playing');
+	
+	    if (!isPlaying) {
+	        // 재생을 계속하는 경우 현재 트랙의 진행 상황을 가져옵니다.
+	        const currentState = player.getCurrentState();
+	        currentState.then(state=>{
+	        	if(state){
+	        	console.log('!isPlaying:'+state.position)
+	        	progress_ms=state.position
+	        	}
+	        });
+	    }
+	
+	    $.ajax({
+	        url: SPOTIFY_API_BASE + (isPlaying ? '/pause' : '/play') + '?device_id=' + device_id,
+	        type: 'PUT',
+	        headers: {
+	            'Authorization': 'Bearer ' + accessToken,
+	            'Content-Type': 'application/json',
+	        },
+	        data: JSON.stringify({
+	            uris: [trackUri],
+	            device_ids: [device_id],
+	            position_ms: progress_ms,
+	        }),
+	        success: function () {
+	            // 이미지 토글 호출
+	            togglePlayPauseImage(trackUri, imageElement);
+	        },
+	        error: function (error) {
+	            console.error('트랙 재생/일시정지 실패:', error);
+	            console.error('API 호출 실패 상세 정보:', error.responseText);
+	        },
+	    });
+	}
+ 	
+ // 이미지 토글 함수
+    function togglePlayPauseImage(trackUri, imageElement) {
+        // 이미지 토글
+        if (imageElement.classList.contains('playing')) {
+            imageElement.src = '<c:url value="/resources/images/play_pl.png"/>';
+            console.log("음악 일시정지");
+        } else {
+            imageElement.src = '<c:url value="/resources/images/pause_pl.png"/>';
+            console.log("음악 재생");
+        }
+        // 토글 클래스 추가/제거
+        imageElement.classList.toggle('playing');
     }
-    
-    function toggleModal(modalId, trackId) {
-        // 모달을 열 때 선택한 노래의 ID를 전달
-        $('#' + modalId).data('track-id', trackId).modal('toggle');
-    }
+ 
+    let position_ms = null;
 
-    function addTrackToPlaylist(playlistId) {
-        console.log("a Track ID:" + window.trackId); // window.trackId로 수정
-        console.log("a playlist ID: " + playlistId);
-        
-        // 선택한 노래의 ID와 플레이리스트의 ID를 서버로 전송
-        $.ajax({
-            type: "POST",
-            url: "/mute/addTrackToPlaylist",
-            data: { trackId: window.trackId, playlistId: playlistId },
-            success: function (response) {
-                $('#addModal').modal('hide');
-                alert(response); // 성공적으로 추가되었음을 알리는 메시지 표시
-            },
-            error: function (error) {
-                alert("에러: Failed to add track to playlist - " + error.responseText);
-            }
-        });
-    }
-    
-    
-  //--------------------------------------------------------------
-  
-    let player;
-    let device_id;
-    	window.onSpotifyWebPlaybackSDKReady = () => {
-    	  const token = '${accessToken}'; // 사용자의 액세스 토큰을 여기에 설정
-    	  player = new Spotify.Player({
-    	    name: 'Web Playback SDK',
-    	    getOAuthToken: (cb) => { cb(token); }
-    	  });
-    	  console.dir(player)
-    	  // 로그인 및 초기화
-    	   
-    	  // Ready
-    player.on('ready', data => {
-        console.log('Ready with Device ID', data.device_id);
-        device_id=data.device_id;
-        // Play a track using our new device ID
-        //play(data.device_id);
-    });
-    	  
-    	  
-    	  player.connect();
-    	  console.log("===연결됨======================================")
-    	};
-    	
-        const SPOTIFY_API_BASE = 'https://api.spotify.com/v1/me/player';
-        const accessToken = "${accessToken}"; // Java 코드에서 받아온 accessToken
-        // 이미지 토글 상태를 나타내는 객체
-        var isPlayingMap = {};
-     // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
-     
-        function togglePlayPause(trackUri, imageElement) {
-            console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
-            const isPlaying = imageElement.classList.contains('playing');
-            
-            $.ajax({
-                url: SPOTIFY_API_BASE + (isPlaying ? '/pause' : '/play') + '?device_id=' + device_id,
-                type: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Content-Type': 'application/json',
-                },
-                data: JSON.stringify({
-                    uris: [trackUri],
-                    device_ids: [device_id]
-                }),
-                success: function () {
-                    // 이미지 토글 호출
-                    togglePlayPauseImage(trackUri, imageElement);
-                },
-                error: function (error) {
-                    console.error('트랙 재생/일시정지 실패:', error);
-                    console.error('API 호출 실패 상세 정보:', error.responseText);
-                },
-            });
-        }
-     // 이미지 토글 함수
-        function togglePlayPauseImage(trackUri, imageElement) {
-            // 이미지 토글
-            if (imageElement.classList.contains('playing')) {
-                imageElement.src = '<c:url value="/resources/images/play_pl.png"/>';
-                console.log("음악 일시정지");
-            } else {
-                imageElement.src = '<c:url value="/resources/images/pause_pl.png"/>';
-                console.log("음악 재생");
-            }
-            // 토글 클래스 추가/제거
-            imageElement.classList.toggle('playing');
-        }
+ 	function playTest(uri){
+ 		const playlistUri = uri;
+ 		player.resume();
+ 		
+ 		/* player.play({
+ 		  uris: [playlistUri]
+ 		}); */
+ 	}
 
-        // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
-        function playPause(trackUri, playPauseImage) {
-            console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
-            $.ajax({
-                url: SPOTIFY_API_BASE + '/play?device_id=' + device_id,
-                type: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Content-Type': 'application/json',
-                },
-                data: JSON.stringify({
-                    uris: [trackUri],
-                    device_ids: [device_id]
-                }),
-                success: function () {
-                    // 이미지 토글 호출
-                    togglePlayPauseImage(trackUri, playPauseImage);
-                },
-                error: function (error) {
-                    console.error('트랙 재생/일시정지 실패:', error);
-                    console.error('API 호출 실패 상세 정보:', error.responseText);
-                },
-            });
-        }
-
-        // 일시정지 함수
-        function pausePlay(trackUri) {
-            console.log('음악 일시정지 시도 중...');
-            $.ajax({
-                url: SPOTIFY_API_BASE + '/pause?device_id=' + device_id,
-                type: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Content-Type': 'application/json',
-                },
-                data: JSON.stringify({
-                    uris: [trackUri],
-                    device_ids: [device_id]
-                }),
-                success: function () {
-                    console.log('음악 일시정지 성공');
-                    // 일시정지 성공 후 추가 작업 수행
-                    // 이미지 토글 호출
-                    togglePlayPauseImage(trackUri);
-                },
-                error: function (error) {
-                    console.error('음악 일시정지 실패:', error);
-                    // 일시정지 실패 후 추가 작업 수행
-                },
-            });
-        }
-
-     	function playTest(uri){
-     		const playlistUri = uri;
-     		player.resume();
-     		
-     		/* player.play({
-     		  uris: [playlistUri]
-     		}); */
-     	}
-    </script>
-
+</script>
 
 </body>
 </html>
