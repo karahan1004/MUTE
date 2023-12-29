@@ -44,7 +44,7 @@
  				</tr>
 
 			
-				<tr id="tr-2">
+				<tr class="tr-2">
 					<!-- <td></td> -->
 					<!-- <td></td> -->
 					 <% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
@@ -66,7 +66,7 @@
 					<% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
 				        <td id="loggedIn">
 				            <!-- 로그인 상태에 대한 스타일 -->
-				            <a id="loginText" href="logout">로그아웃 ${nickname} 님</a>
+				            <a id="loginText" href="logout">로그아웃</a><br> <span id="nickname">${nickname} 님</span>
 				        </td>
 				    <% } else { %>
 				        <td id="loggedOut">
@@ -78,11 +78,13 @@
 				</tr>
 
 			
-			<tr>
-				<td></td>
+			<tr class="tall-row">
+				 <td></td>
 				<!-- <td></td> -->
 				<td></td>
+				<% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
 				<td></td>
+				<% } %>
 			</tr>
 			
 			<tr class="bottom">
@@ -120,15 +122,15 @@
     		    <td><button type="submit">댓글달기</button></td>
 		    </tr>
 			
-  			  <!-- 사용자 정보 표시 예시 -->
+  			  <!-- 사용자 정보 표시 -->
   		<c:if test="${not empty boardVO.S_NAME}">
  			<tr>
    			   <td id="userId">USER ID: ${boardVO.S_NAME}</td>
    			</tr>
    		</c:if>
-   		<!-- 댓글 내용 출력 예시 -->
-	    <c:if test="${not empty boardVO.commentList}">
-	        <c:forEach var="comment" items="${boardVO.commentList}">
+   		<!-- 댓글 내용 출력  -->
+	    <c:if test="${not empty commentList}">
+	        <c:forEach var="comment" items="${commentList}">
 	            <tr>
 	                <td id="comment">${comment.RV_CONTENT}</td>
 	            </tr>
