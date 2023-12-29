@@ -18,7 +18,9 @@ public class BoardService {
 	    }
 
 	    public List<BoardVO> getCommentsByUserId(String userId) {
-	        return boardMapper.getCommentsByUserId(userId);
+	    	 // 댓글을 조회하는 로직을 여기에 구현
+	        List<BoardVO> commentList = boardMapper.getCommentsByUserId(userId);
+	        return commentList;
 	    }
 
 }
