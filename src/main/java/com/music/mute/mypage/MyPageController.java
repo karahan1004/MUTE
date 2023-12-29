@@ -48,7 +48,7 @@ public class MyPageController {
 			try {
 				spotifyApi.setAccessToken(accessToken);
 				final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
-						.getListOfCurrentUsersPlaylists().limit(10).build();
+						.getListOfCurrentUsersPlaylists().build();
 
 				final CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
 
