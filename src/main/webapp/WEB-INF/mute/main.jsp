@@ -82,7 +82,9 @@
 				 <td></td>
 				<!-- <td></td> -->
 				<td></td>
+				<% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
 				<td></td>
+				<% } %>
 			</tr>
 			
 			<tr class="bottom">
