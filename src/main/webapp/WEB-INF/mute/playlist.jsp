@@ -68,7 +68,7 @@
 							value="${fn:split(albumInfoArray[status.index], ',')}" /> <img
 						class="albumimg" src="${albumDetailsArray[1]}" alt="Album Cover"
 						width="100" height="100"></td>
-					<td class="si" data-track-id="${trackIdList[status.index]}">${track} / ${trackIdList[status.index]}</td>
+					<td class="si" data-track-id="${trackIdList[status.index]}">${track}</td>
 					<td class="ga">${artistInfoArray[status.index]}</td>
 					<td class="del"><a
 						onclick="handleDeleteAction('${playlist.id}', '${trackIdList[status.index]}');">

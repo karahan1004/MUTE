@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.music.mute" />
-	<context:component-scan base-package="com.music.mute.playlist" />
+	<!--<context:component-scan base-package="com.music.mute.playlist" />-->
 	
 	
 </beans:beans>
