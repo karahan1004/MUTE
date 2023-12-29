@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<!-- 타입 별칭 설정============================  -->
 	<typeAliases>
-		
 		<typeAlias type="com.music.mute.login.MemberVO" alias="Member"/>
+		<typeAlias type="com.music.mute.board.BoardVO" alias="Board"/>
 	</typeAliases>
 	<!-- 데이터베이스 트랜잭션 관리자 설정=========== -->
 	
@@ -14,5 +14,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<!-- <mapper resource="config/mapper/SampleMapper.xml"/> -->
 		<mapper resource="config/mapper/MemberMapper.xml"/>
+		<mapper resource="config/mapper/BoardMapper.xml"/>
 	</mappers>
 </configuration>

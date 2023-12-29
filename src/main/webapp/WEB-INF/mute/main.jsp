@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <title>MU:TE</title>
 <link rel="stylesheet" href="resources/css/main.css">
 	 <script>
@@ -106,21 +108,35 @@
 		</table>
 		<br>
 			<!-- 댓글 부분 !!!! -->
+	<form id="commentForm" action="/mute/saveComment" method="post">
 		<table class="table2">
 			<tr>
 				<td id="cnt">댓글 $(cnt)</td>
 			</tr>
-			<tr class="cmt">
-				<td class="input"><input type="text" id="cmtBox"></td>
-				<td><button id="submit">댓글달기</button></td>
-			</tr>
-			<tr>
-				<td id="userId">USER ID: $(S_NAME)</td>
-			</tr>
-			<tr>
-				<td id="comment">댓글 입니당~</td>
-			</tr>
+		
+    		<!-- 댓글 입력 폼 -->
+   			 <tr class="cmt">
+   			    <td class="input"><input type="text" id="cmtBox" name="RV_CONTENT"></td>
+    		    <td><button type="submit">댓글달기</button></td>
+		    </tr>
+			
+  			  <!-- 사용자 정보 표시 예시 -->
+  		<c:if test="${not empty boardVO.S_NAME}">
+ 			<tr>
+   			   <td id="userId">USER ID: ${boardVO.S_NAME}</td>
+   			</tr>
+   		</c:if>
+   		<!-- 댓글 내용 출력 예시 -->
+	    <c:if test="${not empty boardVO.commentList}">
+	        <c:forEach var="comment" items="${boardVO.commentList}">
+	            <tr>
+	                <td id="comment">${comment.RV_CONTENT}</td>
+	            </tr>
+	        </c:forEach>
+	    </c:if>
+			
 		</table> 
+  </form>
 	
 	</body>
 
