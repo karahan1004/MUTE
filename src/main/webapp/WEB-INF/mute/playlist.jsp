@@ -9,12 +9,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
 <!-- jQuery 라이브러리 추가 -->
-<!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JS와 Popper.js -->
 <script
@@ -22,8 +17,12 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page
+	import="se.michaelthelin.spotify.model_objects.specification.Track"%>
 
 
 
@@ -60,17 +59,19 @@
 	</div>
 	<hr>
 	<div id="scroll">
+	
 		<table id="sing-mi">
+		
 			<c:forEach var="track" items="${trackInfoArray}" varStatus="status">
 				<tr>
 					<td class="pi"><c:set var="albumDetailsArray"
 							value="${fn:split(albumInfoArray[status.index], ',')}" /> <img
 						class="albumimg" src="${albumDetailsArray[1]}" alt="Album Cover"
 						width="100" height="100"></td>
-					<td class="si">${track}</td>
+					<td class="si">${track} / ${trackIdList[status.index]}</td>
 					<td class="ga">${artistInfoArray[status.index]}</td>
 					<td class="del"><a
-						onclick="handleDeleteAction('${playlist.id}', '${fn:split(trackIdList[status.index], '#')}');">
+						onclick="handleDeleteAction('${playlist.id}', '${trackIdList[status.index]}');">
 							<img class="del_img" src="resources/images/del_pl.png">
 					</a></td>
 
@@ -86,11 +87,14 @@
 	<footer>
 		<table id="navi-foot">
 			<tr>
-				<td class="si_btn"><img class="bt_img"
-					src="resources/images/before_pl.png"></td>
-				<td class="si_btn"><img id="ft_img" onclick="toggleImg()"
-					src="resources/images/play_pl.png"></td>
-				<td class="si_btn"><img class="at_img"
+				<td class="si_btn" onclick="previousTrack()"><img
+					class="bt_img" src="resources/images/before_pl.png"></td>
+				<td class="si_btn"><img class="playPauseImage" id="ft_img"
+					src="<c:url value='/resources/images/play_pl.png'/>"
+					alt="Play/Pause" width="50" height="50"
+					data-track-uri="${track.uri}"
+					onclick="togglePlayPause('${track.uri}', this);"></td>
+				<td class="si_btn" onclick="nextTrack()"><img class="at_img"
 					src="resources/images/after_pl.png"></td>
 				<td class="si_btn"><img class="im_foot"
 					src="resources/images/gom_button.png"></td>
@@ -98,9 +102,9 @@
 				<td class="ga_foot"></td>
 				<td class="sa_btn" onclick="toggleVolumeSlider()"><img
 					class="so_img" src="resources/images/sound_pl.png"></td>
-				<td class="volume-container"><input type="range"
-					class="volume-slider" id="volumeSlider" min="0" max="100"
-					value="50" oninput="setVolume(this.value)"></td>
+				<td class="volume-container"><input type="range" min="0"
+					max="100" value="50" class="volume-slider" id="volumeSlider"
+					onchange="setVolume(this.value)"></td>
 				<td></td>
 			</tr>
 		</table>
@@ -148,11 +152,11 @@
 					: 'none';
 		}
 
-		function setVolume(volume) {
+		/* function setVolume(volume) {
 			// 여기에서 실제로 음량을 조절하는 코드를 추가할 수 있습니다.
 			console.log("Volume set to: " + volume);
 		}
-
+ */
 		function toggleModal(modalId) {
 			$('#' + modalId).modal('toggle');
 		}
@@ -169,7 +173,8 @@
 		
 		function handleDeleteAction(playlistId, trackId) {
 		    // 삭제 전이나 후에 수행할 공통 작업을 추가하세요
-
+			console.log('playlistId:', playlistId);
+    		console.log('trackId:', trackId);
 		    $('#addModal').data('playlistId', playlistId);
 		    $('#addModal').data('trackId', trackId);
 
@@ -187,15 +192,12 @@
 		    // 저장된 playlistId와 trackId 검색
 		    var playlistId = $('#addModal').data('playlistId');
 		    var trackId = $('#addModal').data('trackId');
-
+			alert(trackId);
 		    // Ajax를 이용하여 서버에 삭제 요청을 보낼 수 있습니다.
 		    $.ajax({
-		        type: 'DELETE',
-		        url: '/deleteTrack',
-		        data: {
-		            playlistId: playlistId,
-		            trackId: trackId
-		        },
+		        type: 'POST',
+		        url: '/mute/deleteTrack',
+		        data:`playlistId=\${playlistId}&trackId=\${trackId[0]}`,
 		        success: function(response) {
 		            // 서버에서 성공적으로 응답을 받으면 모달을 닫습니다.
 		            alert(response); // 또는 적절한 메시지를 표시
@@ -282,6 +284,200 @@
 								'resources/images/pause_pl.png');
 					}
 				});
+		
+		let player;
+	    let device_id;
+	    	window.onSpotifyWebPlaybackSDKReady = () => {
+	    		const token = '${accessToken}'; // 사용자의 액세스 토큰을 여기에 설정
+	    	  player = new Spotify.Player({
+	    	    name: 'Web Playback SDK',
+	    	    getOAuthToken: (cb) => { cb(token); }
+	    	  });
+	    	  console.dir(player)
+	    	  // 로그인 및 초기화
+	    	  player.connect();
+	    	   
+	    	  // Ready
+	    player.on('ready', data => {
+	        console.log('Ready with Device ID', data.device_id);
+	        device_id=data.device_id;
+	        // Play a track using our new device ID
+	        //play(data.device_id);
+	    });
+	    	  
+	    	  
+	    	  player.connect();
+	    	  console.log("===연결됨======================================")
+	    	};
+	    	
+	        const SPOTIFY_API_BASE = 'https://api.spotify.com/v1/me/player';
+	        const accessToken = "${accessToken}"; // Java 코드에서 받아온 accessToken
+	        // 이미지 토글 상태를 나타내는 객체
+	        var isPlayingMap = {};
+	     // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
+	     
+	        function togglePlayPause(trackUri, imageElement) {
+	            console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
+	            const isPlaying = imageElement.classList.contains('playing');
+	            
+	            $.ajax({
+	                url: SPOTIFY_API_BASE + (isPlaying ? '/pause' : '/play') + '?device_id=' + device_id,
+	                type: 'PUT',
+	                headers: {
+	                    'Authorization': 'Bearer ' + accessToken,
+	                    'Content-Type': 'application/json',
+	                },
+	                data: JSON.stringify({
+	                    uris: ["spotify:track:" + trackId],
+	                    device_ids: [device_id]
+	                }),
+	                success: function () {
+	                    // 이미지 토글 호출
+	                    togglePlayPauseImage(trackUri, imageElement);
+	                },
+	                error: function (error) {
+	                    console.error('트랙 재생/일시정지 실패:', error);
+	                    console.error('API 호출 실패 상세 정보:', error.responseText);
+	                },
+	            });
+	        }
+	     // 이미지 토글 함수
+	        function togglePlayPauseImage(trackUri, imageElement) {
+	            // 이미지 토글
+	            if (imageElement.classList.contains('playing')) {
+	                imageElement.src = '<c:url value="/resources/images/play_pl.png"/>';
+	                console.log("음악 일시정지");
+	            } else {
+	                imageElement.src = '<c:url value="/resources/images/pause_pl.png"/>';
+	                console.log("음악 재생");
+	            }
+	            // 토글 클래스 추가/제거
+	            imageElement.classList.toggle('playing');
+	        }
+
+	        // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
+	        function playPause(trackUri, playPauseImage) {
+	            console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
+	            $.ajax({
+	                url: SPOTIFY_API_BASE + '/play?device_id=' + device_id,
+	                type: 'PUT',
+	                headers: {
+	                    'Authorization': 'Bearer ' + accessToken,
+	                    'Content-Type': 'application/json',
+	                },
+	                data: JSON.stringify({
+	                    uris: [trackUri],
+	                    device_ids: [device_id]
+	                }),
+	                success: function () {
+	                    // 이미지 토글 호출
+	                    togglePlayPauseImage(trackUri, playPauseImage);
+	                },
+	                error: function (error) {
+	                    console.error('트랙 재생/일시정지 실패:', error);
+	                    console.error('API 호출 실패 상세 정보:', error.responseText);
+	                },
+	            });
+	        }
+
+	        // 일시정지 함수
+	        function pausePlay(trackUri) {
+	            console.log('음악 일시정지 시도 중...');
+	            $.ajax({
+	                url: SPOTIFY_API_BASE + '/pause?device_id=' + device_id,
+	                type: 'PUT',
+	                headers: {
+	                    'Authorization': 'Bearer ' + accessToken,
+	                    'Content-Type': 'application/json',
+	                },
+	                data: JSON.stringify({
+	                    uris: [trackUri],
+	                    device_ids: [device_id]
+	                }),
+	                success: function () {
+	                    console.log('음악 일시정지 성공');
+	                    // 일시정지 성공 후 추가 작업 수행
+	                    // 이미지 토글 호출
+	                    togglePlayPauseImage(trackUri);
+	                },
+	                error: function (error) {
+	                    console.error('음악 일시정지 실패:', error);
+	                    // 일시정지 실패 후 추가 작업 수행
+	                },
+	            });
+	        }
+
+	        
+	     	function playTest(uri){
+	     		const playlistUri = uri;
+	     		player.resume();
+	     		
+	     		/* player.play({
+	     		  uris: [playlistUri]
+	     		}); */
+	     	}
+	     	
+	     	function setVolume(volume) {
+	     	    console.log('볼륨 조절: ' + volume);
+	     	    $.ajax({
+	     	        url: SPOTIFY_API_BASE + '/volume?volume_percent=' + volume,
+	     	        type: 'PUT',
+	     	        headers: {
+	     	            'Authorization': 'Bearer ' + accessToken,
+	     	            'Content-Type': 'application/json', // 헤더에 Content-Type 추가
+	     	        },
+	     	        success: function () {
+	     	            console.log('볼륨 조절 성공');
+	     	        },
+	     	        error: function (error) {
+	     	            console.error('볼륨 조절 실패:', error);
+	     	            console.error('API 호출 실패 상세 정보:', error.responseJSON);
+	     	            
+	     	            // 에러 처리: HTTP 404 Not Found일 때
+	     	            if (error.status === 404) {
+	     	                console.error('Spotify 장치를 찾을 수 없음');
+	     	                // 여기에서 다른 작업을 수행하거나 사용자에게 메시지를 표시할 수 있습니다.
+	     	            }
+	     	        },
+	     	    });
+	     	    // UI에 현재 볼륨 표시
+	     	    $('#volumeLabel').text(volume);
+	     	}
+
+	        // 이전 트랙으로 이동 함수
+	        function previousTrack() {
+	            console.log('이전 트랙으로 이동');
+	            $.ajax({
+	                url: SPOTIFY_API_BASE + '/previous',
+	                type: 'POST',
+	                headers: {
+	                    'Authorization': 'Bearer ' + accessToken,
+	                },
+	                success: function () {
+	                    console.log('이전 트랙으로 이동 성공');
+	                },
+	                error: function (error) {
+	                    console.error('이전 트랙으로 이동 실패:', error);
+	                },
+	            });
+	        }
+	        // 다음 트랙으로 이동 함수
+	        function nextTrack() {
+	            console.log('다음 트랙으로 이동');
+	            $.ajax({
+	                url: SPOTIFY_API_BASE + '/next',
+	                type: 'POST',
+	                headers: {
+	                    'Authorization': 'Bearer ' + accessToken,
+	                },
+	                success: function () {
+	                    console.log('다음 트랙으로 이동 성공');
+	                },
+	                error: function (error) {
+	                    console.error('다음 트랙으로 이동 실패:', error);
+	                },
+	            });
+	        }
 	</script>
 
 
