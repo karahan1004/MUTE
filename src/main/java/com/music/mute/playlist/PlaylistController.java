@@ -32,6 +32,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.music.mute.api.SpotifyPlaybackService;
 
@@ -277,32 +278,24 @@ public class PlaylistController {
 		log.info(">>>>>"+trackId);
 	    String accessToken = (String) session.getAttribute("accessToken");
 	    //log.info(trackIdArray);
-	    JSONObject obj=new JSONObject(); 
-	    obj.put("uri", "spotify:track:"+trackId);
-	    String objJson=obj.toString();
 	    // 트랙을 삭제하기 위한 Spotify API 요청 준비
-	    String escapedTrackId = StringEscapeUtils.escapeJson(trackId);
-	    JsonArray jsArr=new JsonArray();
-	    jsArr.add(objJson);
-	  
 	    String jsonString = "[{\"uri\":\"spotify:track:"+trackId+"\"}]";
-	    log.info("jsonString: "+jsonString);
-	    
-	    // JsonParser를 사용하여 JSON 배열을 JsonElement로 파싱
-	    JsonElement jsonElement = JsonParser.parseString(jsonString);
-	    System.out.println("1: "+jsonElement);
-	    
-	    // JsonElement를 JsonArray로 변환
-	    JsonArray jsonArray = jsonElement.getAsJsonArray();
-	    System.out.println("2: "+jsonArray);
-	    
+        // JsonParser를 사용하여 JSON 배열을 JsonElement로 파싱
+        JsonElement jsonElement = JsonParser.parseString(jsonString);
+        // JsonElement를 JsonArray로 변환
+        JsonArray jsonArray = jsonElement.getAsJsonArray();
+        // JsonArray를 순회하면서 각 Track의 URI 값을 활용하여 요청을 보낼 수 있음
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+            System.out.println(jsonObject);
+            String trackUri = jsonObject.getAsJsonPrimitive("uri").getAsString();
+            System.out.println("trackUri: "+trackUri);
+            // 각 Track의 URI 값을 활용하여 요청을 보내는 로직
+            //sendRequest(trackUri);
+        }
+ 
 	    RemoveItemsFromPlaylistRequest removeItemsRequest = spotifyApi.removeItemsFromPlaylist(playlistId, jsonArray).build();
-	    
-	   
-	    //JsonArray tracks = JsonParser.parseString("[{\"uri\":\"spotify:track:" + escapedTrackId + "\"}]").getAsJsonArray();
-	    //JsonArray tracks = JsonParser.parseString("[{\"uri\":\"spotify:track:" + trackId + "\"}]").getAsJsonArray();
-	    //log.info("tracks: "+tracks.toString());
-	    //RemoveItemsFromPlaylistRequest removeItemsRequest = spotifyApi.removeItemsFromPlaylist(playlistId, jsonString).build();
+
 
 	    try {
 	        // Spotify API를 통해 트랙 삭제 실행
@@ -316,6 +309,7 @@ public class PlaylistController {
 	                .body("Error deleting track: " + e.getMessage());
 	    }
 	}
+	
 	
 	private Device getCurrentDevice(String accessToken) throws IOException, SpotifyWebApiException, ParseException {
 		try {
@@ -357,6 +351,7 @@ public class PlaylistController {
 	
 	@GetMapping("/play/{trackId}")
 	public String playTrack(@PathVariable String trackId, HttpSession session) {
+		System.out.println("Received trackId: " + trackId);
 		try {
 			String accessToken = (String) session.getAttribute("accessToken");
 			if (accessToken != null) {
