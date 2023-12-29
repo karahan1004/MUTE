@@ -197,7 +197,7 @@
 		    $.ajax({
 		        type: 'POST',
 		        url: '/mute/deleteTrack',
-		        data:`playlistId=\${playlistId}&trackId=\${trackId[0]}`,
+		        data:`playlistId=\${playlistId}&trackId=\${trackId}`,
 		        success: function(response) {
 		            // 서버에서 성공적으로 응답을 받으면 모달을 닫습니다.
 		            alert(response); // 또는 적절한 메시지를 표시
@@ -317,6 +317,8 @@
 	     // 이미지 클릭 이벤트에 플레이/일시정지 기능 추가
 	     
 	        function togglePlayPause(trackUri, imageElement) {
+	        	console.log("Received trackUri: " + trackUri);
+    			var trackId = trackUri.split(":")[2];	
 	            console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
 	            const isPlaying = imageElement.classList.contains('playing');
 	            
