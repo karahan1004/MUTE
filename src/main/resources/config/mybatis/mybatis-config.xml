@@ -15,5 +15,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- <mapper resource="config/mapper/SampleMapper.xml"/> -->
 		<mapper resource="config/mapper/MemberMapper.xml"/>
 		<mapper resource="config/mapper/BoardMapper.xml"/>
+		<mapper resource="config/mapper/QuestionMapper.xml"/>
 	</mappers>
 </configuration>
