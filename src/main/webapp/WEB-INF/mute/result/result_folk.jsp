@@ -334,6 +334,7 @@
 let player;
 let device_id;
 let progress_ms;
+let trackPositions = {};
 	window.onSpotifyWebPlaybackSDKReady = () => {
 	  const token = '${accessToken}'; // 사용자의 액세스 토큰을 여기에 설정
 	  player = new Spotify.Player({
@@ -345,12 +346,11 @@ let progress_ms;
 	   
 	player.on('player_state_changed', state => {
 	  if (state) {
-	      console.log('Current track:', state.track);
-	      console.log('Current progress (ms):', state.position);
-	      progress_ms=state.position;
-	    }
-	  })
-	  
+	    console.log('Current track:', state.track_window.current_track);
+	    console.log('Current progress (ms):', state.position);
+	    trackPositions[state.track_window.current_track.uri] = state.position;
+	  }
+	});
 	  // Ready
 	player.on('ready', data => {
 	    console.log('Ready with Device ID', data.device_id);
@@ -379,10 +379,10 @@ let progress_ms;
 	        // 재생을 계속하는 경우 현재 트랙의 진행 상황을 가져옵니다.
 	        const currentState = player.getCurrentState();
 	        currentState.then(state=>{
-	        	if(state){
-	        	console.log('!isPlaying:'+state.position)
-	        	progress_ms=state.position
-	        	}
+	            if(state){
+	                console.log('!isPlaying:'+state.position)
+	                trackPositions[trackUri] = state.position;
+	            }
 	        });
 	    }
 	
@@ -396,7 +396,7 @@ let progress_ms;
 	        data: JSON.stringify({
 	            uris: [trackUri],
 	            device_ids: [device_id],
-	            position_ms: progress_ms,
+	            position_ms: trackPositions[trackUri] || 0,
 	        }),
 	        success: function () {
 	            // 이미지 토글 호출
