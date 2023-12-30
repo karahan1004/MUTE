@@ -17,10 +17,14 @@ public class BoardService {
 	    	boardMapper.saveComment(boardVO);
 	    }
 
-	    public List<BoardVO> getCommentsByUserId(String userId) {
+	    public List<BoardVO> getComments() {
 	    	 // 댓글을 조회하는 로직을 여기에 구현
-	        List<BoardVO> commentList = boardMapper.getCommentsByUserId(userId);
+	        List<BoardVO> commentList = boardMapper.getComments();
 	        return commentList;
+	    }
+	    
+	    public int getReviewCount() {
+	        return boardMapper.getReviewCount();
 	    }
 
 }

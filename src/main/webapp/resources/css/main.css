@@ -131,14 +131,15 @@
  	padding-left:10%;
  } 
   #cmtBox{
- 	width: 60%;/* calc(50% - 10px) */
- 	height:30px;
- 	margin-right: 5px;
+ 	width: 70%;/* calc(50% - 10px) */
+ 	height:40px;
+ 	margin-right: 15px;
  	background-color: rgba(215, 215, 215, 0.29);
- 	
+ 	margin-left:105px;
  } 
  .input{
- 	 text-align: center; /* Center the content horizontally */
+ 	 
+ 	 /* text-align: center; */ /* Center the content horizontally */
             vertical-align: middle; /* Center the content vertically */
  }
   #userId{
@@ -152,12 +153,12 @@
 	background-color: #FFC6F2;
 	color: #000000;
 	border: none;
-	width: calc(50% - 10px); 수정: 왼쪽과 오른쪽 여백 동일하게 조절
+	width: calc(60% - 10px); 수정: 왼쪽과 오른쪽 여백 동일하게 조절
 	height:100%;
 	font-size:26px;
 	box-shadow:0px 4px 4px 0px #CBCBCB;
 	border-radius:20px;
-	margin-left: 5px; 수정: 왼쪽 여백 추가
+	margin-left: 11px; 수정: 왼쪽 여백 추가
 	
 }
 #submit{

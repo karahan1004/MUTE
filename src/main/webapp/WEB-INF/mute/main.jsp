@@ -113,13 +113,18 @@
 	<form id="commentForm" action="/mute/saveComment" method="post">
 		<table class="table2">
 			<tr>
-				<td id="cnt">댓글 $(cnt)</td>
+				<td id="cnt">댓글 <c:out value="${reviewCount}" /></td>
 			</tr>
 		
     		<!-- 댓글 입력 폼 -->
    			 <tr class="cmt">
    			    <td class="input"><input type="text" id="cmtBox" name="RV_CONTENT"></td>
-    		    <td><button type="submit">댓글달기</button></td>
+   			    <% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
+    		    <td><button type="submit" id="submit">댓글달기</button></td>
+    		    <% } else { %>
+    		    <td><button id="submit" onclick="checkLoginAndRedirect()">댓글달기</button></td>
+    		    <% } %>
+    		    
 		    </tr>
 			
   			  <!-- 사용자 정보 표시 -->
@@ -129,13 +134,19 @@
    			</tr>
    		</c:if>
    		<!-- 댓글 내용 출력  -->
-	    <c:if test="${not empty commentList}">
-	        <c:forEach var="comment" items="${commentList}">
-	            <tr>
-	                <td id="comment">${comment.RV_CONTENT}</td>
-	            </tr>
-	        </c:forEach>
-	    </c:if>
+		
+		<c:if test="${not empty commentList}">
+		    <c:forEach var="comment" items="${commentList}">
+		        <tr>
+		            <td id="comment">
+		                <c:if test="${not empty comment.S_NAME}">${comment.S_NAME}</c:if>:
+		                <c:if test="${not empty comment.RV_CONTENT}">${comment.RV_CONTENT}</c:if>
+		            </td>
+		        </tr>
+		    </c:forEach>
+		</c:if>
+		
+
 			
 		</table> 
   </form>

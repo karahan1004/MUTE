@@ -12,9 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <!-- 댓글 선택  -->
-     <select id="getCommentsByUserId" parameterType="java.lang.String" resultType="com.music.mute.board.BoardVO">
-        SELECT * FROM REVIEW WHERE S_ID = #{userId}
+     <select id="getComments" parameterType="java.lang.String" resultType="com.music.mute.board.BoardVO">
+        SELECT S_NAME, RV_CONTENT FROM REVIEW;
     </select>
     
-    
+    <!-- 댓글 수 카운트 쿼리 -->
+	<select id="getReviewCount" resultType="int">
+	    SELECT COUNT(*) FROM REVIEW;
+	</select>
 </mapper>

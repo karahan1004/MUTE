@@ -9,8 +9,9 @@ public interface BoardMapper {
     void saveComment(BoardVO boardVO);
 
     // 댓글 가져오기
-    List<BoardVO> getCommentsByUserId(String userId);
+    List<BoardVO> getComments();
     
+    int getReviewCount();
 
 }
 

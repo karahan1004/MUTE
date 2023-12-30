@@ -2,6 +2,7 @@
 package com.music.mute.login;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.music.mute.board.BoardService;
+import com.music.mute.board.BoardVO;
 import com.music.mute.mapper.MemberMapper;
 
 @Controller
@@ -30,7 +33,8 @@ public class LoginController {
 	private SpotifyService spotifyService;
 	
 	@Autowired
-    private MemberDAO memberDAO;
+    private BoardService boardService;
+
 	
 	@Autowired
     private MemberMapper memberMapper; 
@@ -64,16 +68,16 @@ public class LoginController {
 	    // 세션에 Spotify 사용자 ID 저장 또는 필요한 대로 사용
 	    session.setAttribute("spotifyUserId", userId);
 
-
-//	    ////////////nickname을 Model에 값을 담아서 JSP로 전달
-//	    if (existingMember != null) {
-//	        // 회원 정보가 있으면 회원 닉네임을 Model에 추가
-//	        model.addAttribute("nickname", existingMember.getS_NAME());
-//	    }
-//	    //////////////
 	    
 	    // JSP를 위해 Spotify 사용자 ID를 모델에 추가
 	    model.addAttribute("spotifyUserId", userId);
+	    
+	    int reviewCount = boardService.getReviewCount();
+	    System.out.println("reviewCount>>>>"+reviewCount);
+	    // Add the review count to the model so that it can be accessed in the view (JSP)
+	    model.addAttribute("reviewCount", reviewCount);
+
+	    
 	    // UserId가 이미 존재하는지 확인
         if (!isUserIdExists(userId)) {
         	// 추가된 로그
@@ -114,6 +118,13 @@ public class LoginController {
 				 System.out.println("로그인을 하지않았습니다!!");
 			 }
 		}
+		
+		 int reviewCount = boardService.getReviewCount();
+		 System.out.println("reviewCount>>>>"+reviewCount);
+		    // Add the review count to the model so that it can be accessed in the view (JSP)
+		 model.addAttribute("reviewCount", reviewCount);
+
+		
         return "main";
 	}
 	
