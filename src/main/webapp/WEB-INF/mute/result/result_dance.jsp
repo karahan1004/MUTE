@@ -26,7 +26,7 @@
         <td class="head-ba"><img class="back" src="resources/images/gom_button.png"></td>
       </tr>
       <tr>
-        <td class="head-ba" rowspan="3"><a class="backft" style="color: lightgray;" href="http://localhost:9089/mute/mypage">마이페이지</a></td>
+        <td class="head-ba" rowspan="3"><a class="backft" style="color: lightgray;" href="/mute/mypage">마이페이지</a></td>
       </tr>
     </table>
   </div>
@@ -90,14 +90,59 @@
 		<br>
 		<table class="table3">
 			<tr>
-				<td id="tdfoot"><a class="rereco" href="" style="color: black;">유사한 3곡 다시 추천받기</a></td>
-				<td id="tdfoot"><a class="rereco" href="http://localhost:9089/mute/main" style="color: black;">다시 테스트하기</a></td>
+				<td><button class="brereco"><a class="rereco" href="" style="color: black;"><img alt="rrreco" src="resources/images/rereco.png"> 유사한 3곡 다시 추천받기</a></button></td>
+				<td><button class="brereco"><a class="rereco" href="/mute/main" style="color: black;"><img alt="rrreco" src="resources/images/repeat.png"> 다시 테스트하기</a></button></td>
 			</tr>
 		</table>
 		<br>
 		</div>
+		<!-- <br> -->
+		
+		<div class="table4div">
+			<table class="table4">
+				<tr>
+					<td class="table4head yeshover-container" colspan="2">　이것도 하나 주세요!　<img class="yes" src="resources/images/question.png">
+					<div id="yeshover">내 취향과 비슷한 장르입니다!<br>친구들과 결과를 공유해보세요</div>
+					</td>
+				</tr>
+				<tr>
+					<td><a href="/mute/result_disco"><img class="table4img" src="resources/images/gom_disco.png"></a></td>
+					<td><a href="/mute/result_techno"><img class="table4img" src="resources/images/gom_trot.png"></a></td>
+				</tr>
+				<tr>
+					<td class="table4icname"><a href="/mute/result_disco" style="color:#C56834;">아몬드봉봉</a></td>
+					<td class="table4icname"><a href="/mute/result_techno" style="color:#FF3232;">베리베리스트로베리</a></td>
+				</tr>
+				<tr>
+					<td class="table4tag"><a href="/mute/result_disco" style="color: black;">#디스코</a></td>
+					<td class="table4tag"><a href="/mute/result_techno" style="color: black;">#테크노</a></td>
+				</tr>
+			</table>
+			
+			<table class="table4">
+				<tr>
+					<td class="table4head nohover-container" colspan="2">　이 맛은 빼고 주세요!　<img class="no" src="resources/images/question.png">
+					<div id="nohover">내 취향과 거리가 먼 장르입니다!<br>친구들과 결과를 공유해보세요</div>
+					</td>
+				</tr>
+				<tr>
+					<td><a href="/mute/result_folk"><img class="table4img" src="resources/images/gom_ballad.png"></a></td>
+					<td><a href="/mute/result_jazz"><img class="table4img" src="resources/images/gom_jazz.png"></a></td>
+				</tr>
+				<tr>
+					<td  class="table4icname"><a href="/mute/result_folk" style="color:#512626;">초코,우리이제헤이즐넛</a></td>
+					<td class="table4icname"><a href="/mute/result_jazz" style="color:#C07A56;">뉴욕치즈케이크</a></td>
+				</tr>
+				<tr>
+					<td class="table4tag"><a href="/mute/result_folk" style="color: black;">#발라드</a></td>
+					<td class="table4tag"><a href="/mute/result_jazz" style="color: black;">#재즈</a></td>
+				</tr>
+			</table>
+		</div>
+
 		<br>
 	</div>
+	<br>
 	<!-- ================================================ -->
 	<!-- The Modal -->
 	<!-- 첫 번째 모달 -->
@@ -189,6 +234,28 @@
 	        mct.value = '';
 	    });
 	});
+	
+	$(document).ready(function() {
+	    $(".yes").hover(
+	      function() {
+	        $("#yeshover").css("display", "block");
+	      },
+	      function() {
+	        $("#yeshover").css("display", "none");
+	      }
+	    );
+	 });
+	
+	$(document).ready(function() {
+	    $(".no").hover(
+	      function() {
+	        $("#nohover").css("display", "block");
+	      },
+	      function() {
+	        $("#nohover").css("display", "none");
+	      }
+	    );
+	 });
 
 	
 	function toggleModal(modalId) {
