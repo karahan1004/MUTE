@@ -41,6 +41,17 @@ public class BoardVO {
 	public void setS_NAME(String s_NAME) {
 		S_NAME = s_NAME;
 	}
+	
+	@Override
+	public String toString() {
+	    return "BoardVO{" +
+	            "RV_NUM=" + RV_NUM +
+	            ", RV_CONTENT='" + RV_CONTENT + '\'' +
+	            ", S_NUM=" + S_NUM +
+	            ", S_ID='" + S_ID + '\'' +
+	            ", S_NAME='" + S_NAME + '\'' +
+	            '}';
+	}
 
 
 	

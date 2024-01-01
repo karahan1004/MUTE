@@ -6,14 +6,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.music.mute.mapper.BoardMapper">
    <!-- 댓글을 저장하는 쿼리 -->
     <insert id="saveComment" parameterType="com.music.mute.board.BoardVO" useGeneratedKeys="true" keyProperty="S_NUM">
-	    INSERT INTO REVIEW (RV_CONTENT, S_NUM, S_ID, S_NAME) 
-	    VALUES (#{RV_CONTENT}, (SELECT S_NUM FROM MEMBER WHERE S_ID = #{S_ID}), #{S_ID}, 
+	    INSERT INTO REVIEW (RV_CONTENT, S_ID, S_NAME) 
+	    VALUES (#{RV_CONTENT}, #{S_ID}, 
 	    (SELECT S_NAME FROM MEMBER WHERE S_ID = #{S_ID}))
     </insert>
     
     <!-- 댓글 선택  -->
      <select id="getComments" parameterType="java.lang.String" resultType="com.music.mute.board.BoardVO">
-        SELECT S_NAME, RV_CONTENT FROM REVIEW;
+        SELECT S_NAME, RV_CONTENT FROM REVIEW ORDER BY UPLOAD_DATE DESC;
     </select>
     
     <!-- 댓글 수 카운트 쿼리 -->

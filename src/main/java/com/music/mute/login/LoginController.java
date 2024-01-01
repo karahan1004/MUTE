@@ -124,7 +124,12 @@ public class LoginController {
 		    // Add the review count to the model so that it can be accessed in the view (JSP)
 		 model.addAttribute("reviewCount", reviewCount);
 
-		
+		// 댓글 가져오기
+		List<BoardVO> commentList = boardService.getComments();
+		    // Add the comment list to the model
+		  model.addAttribute("commentList", commentList);
+		   System.out.println("commentList>>>>"+commentList);
+		    
         return "main";
 	}
 	
