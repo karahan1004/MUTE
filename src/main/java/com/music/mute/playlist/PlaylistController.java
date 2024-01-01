@@ -72,11 +72,6 @@ public class PlaylistController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PlaylistController.class);
 	
-	@GetMapping("/testB")
-	public String testA() {
-		return "main";
-	}
-
 	@GetMapping("/playlist")
 	public String getPlaylisttracks(Model model, HttpSession session, Locale locale,
 			@RequestParam("playlistId") String playlistId) throws org.apache.hc.core5.http.ParseException {
@@ -359,7 +354,7 @@ public class PlaylistController {
 		return "redirect:/playlist";
 	}
 	
-	@GetMapping("/pause/{trackId}")
+	@GetMapping("/pause")
 	public String pausePlayback(@PathVariable String trackId, HttpSession session) {
 	    try {
 	        String accessToken = (String) session.getAttribute("accessToken");
@@ -378,7 +373,7 @@ public class PlaylistController {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    return "redirect:/track/" + trackId;
+	    return "redirect:/track";
 	}
 	
 	@GetMapping("/previous")
