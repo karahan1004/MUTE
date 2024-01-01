@@ -14,8 +14,14 @@
 	       alert("로그인이 필요합니다.");
       	   console.log('checkLoginAndRedirect 함수 호출됨');
 
+      	// 메인으로 리다이렉트 
+      	  var redirectPath = "/mute/main";
 
+      	// 리다이렉트 수행
+      	  window.location.href = redirectPath;
+			/* 버튼을 누르면 바로 saveComment로 넘어가는 듯함  */
 		    }
+		
 		</script> 
 
 </head>
@@ -95,13 +101,13 @@
     		<!-- 댓글 입력 폼 -->
    			 <tr class="cmt">
    			    <td class="input"><input type="text" id="cmtBox" name="RV_CONTENT"></td>
-   			    <% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
-    		    <td><button type="submit" id="submit">댓글달기</button></td>
-    		    <% } else { %>
-    		    <td><button id="submit" onclick="checkLoginAndRedirect()">댓글달기</button></td>
-    		    <% } %>
-    		    
-		    </tr>
+    		    <% if (session.getAttribute("accessToken") != null && !session.getAttribute("accessToken").toString().isEmpty()) { %>
+  		  <td><button type="submit" id="submit">댓글달기</button></td>
+  		  <% } else { %>
+  		  <td><button id="submit" onclick="checkLoginAndRedirect()">댓글달기</button></td>
+  		  <% } %>
+   		  
+		  </tr>
 		</table>
   
    		<!-- 댓글 내용 출력  -->
@@ -127,8 +133,19 @@
 	</div>
   </form>
 	
-	</body>
-
+		<!-- 웹사이트 소개 -->
+		<div class="intro">
+			<h2>  <img src="resources/images/gom_button.png" alt="gom" id="gom"> </h2>
+			<h1>안녕하세요!</h1>
+			<h2>MU:TE와 함께 음악이 주는 행복을 느껴보세요</h2>
+			<h2>어느샌가 머리속의 잡음이 사라질거에요!</h2>
+			<h3>OUR REPOSITORY : <a href="https://github.com/cgmlwjd/MUTE.git" target="_blank">
+       			 <img src="resources/images/git_logo.png" alt="git" id="git"></a>
+       		</h3>
+			<br>
+		</div>
+		</body>
+<!--  <a href="https://github.com/cgmlwjd/MUTE.git" target="_blank" style="color: black;">https://github.com/cgmlwjd/MUTE.git</a> -->
 
 </html>
 
