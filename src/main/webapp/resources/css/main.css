@@ -28,52 +28,82 @@
 
 
 
- .table1,.table2 {
+ .header, .table1,.table2{
     width: 80%;
-    /* border: 1px solid #444444; */  
+    /* border: 1px solid #444444; */ 
     margin:auto;
   }
+  .table1{
+  	background-color:#FFDAF6;
+  	border-radius: 30px; 
+  }
+  
+  .table2{
+  	margin-bottom: 20px; 
+  }
+  .table3{
+  	background-color:#D9D9D9;
+  	border-radius: 30px; 
+ 	width:100%;
+  	
+  }
+  
+  #please{
+   	overflow-y:scroll; 
+  	height:340px;
+ 	width:80%;
+ 	margin:auto;
+ 	border-radius: 30px; 
+  }
+  
   td {
-        /*  border: 1px solid #444444; */ 
+      /* border: 1px solid #444444;  */
     }
   
-  
+  #button{
+  	height:150px;
+  }
   /* 상단바 부분 image 위치 및 크기 조정 */
 	/* td별 width % 지정  */
 	#logo{
-		width:30%;
+		width:15%;
 		/* vertical-align:middle; */
 		text-align:right;
-	
 		top: 0; 
 		right: 0;
 	}
+	#empty{
+		width:38%
+	}
+	.nickname{
+		width:16%;
+		text-align:right;
+	}
+	.mypage{
+		vertical-align:center;
+		padding-bottom:15px;
+		width:17%;
+		text-align:right;
+	}
+	
+		
+	#loggedOut,#loggedIn{
+		width:14%;
+		vertical-align:center;
+		padding-bottom:15px;
+		text-align:right;
+	}
+	
 	#mainGom{
 		width:24%;
 		height:480px;
 		margin:0;
 		padding:0;
+		text-align:center;
 	}
-	#btnGom{
-		width:14%;
-		vertical-align:bottom;
-	}
-	.mypage{
-	vertical-align:top;
-		padding-bottom:15px;
-	}
-	#loggedOut{
-		width:12%;
-		vertical-align:top;
-		padding-bottom:15px;
-		
-	}
-	#loggedIn{
-		width:12%;
-		vertical-align:top;
-		padding-bottom:15px;
-		padding-left:25px;
-	}
+
+	 
+	
 	.tr-2{
 		height:10px;
 	}
@@ -98,24 +128,27 @@
 	}
 	
 	#title{
-		padding:0;
-		margin:0;
+		padding:0px;
+		margin-bottom:0px;
+		
 	}
 	#mypageFont{
 		color:lightgray;
 		text-decoration:none;
-		margin-right:25%;
-		font-size:32px;
+		font-size:200%;
 	}
   /* 글꼴 크기 변경 및 스타일 */
 	  #loginText{
-		font-size:32px;
+		font-size:200%;/* 32px */
 		color: #002EA5;
 		text-decoration:none;
 		/* vertical-align: top; */
 		/* margin-top: 25px; */
  	}
- 	
+ 	h1{
+ 		font-size:2.5em;
+ 		margin-bottom: 0;
+ 	}
   /* 메인 가운데 부분 센터 정렬  */
   .bottom{
   	text-align:center;
@@ -126,43 +159,55 @@
  }
  /* 댓글 부분 */
 
-  #cnt,#cmtBox,#userId{
+  #cmtBox,#userId{
  	font-size:28px;
  	padding-left:10%;
  } 
+ #cnt{
+ 	font-size:28px;
+ 	padding-left:3%;
+ }
   #cmtBox{
- 	width: 70%;/* calc(50% - 10px) */
+ 	width: 86%;/* calc(50% - 10px) */
  	height:40px;
- 	margin-right: 15px;
  	background-color: rgba(215, 215, 215, 0.29);
- 	margin-left:105px;
+ 	margin-left:10px;
  } 
  .input{
- 	 
- 	 /* text-align: center; */ /* Center the content horizontally */
-            vertical-align: middle; /* Center the content vertically */
+ 	width:80%; 
+    vertical-align: middle; /* Center the content vertically */
  }
   #userId{
  	font-size:25px;
  } 
   #comment{
- 	font-size:20px;
- 	padding-left:15%;
+ 	font-size:25px;
+ 	padding-left:10%;
  } 
+ #content{
+ 	font-size:30px;
+ 	padding-left:10%;
+ 	padding-bottom:40px;
+ }
+ #empty2{
+ 	height:50px;
+ }
+ 
   #submit{
 	background-color: #FFC6F2;
 	color: #000000;
 	border: none;
-	width: calc(60% - 10px); 수정: 왼쪽과 오른쪽 여백 동일하게 조절
-	height:100%;
+	width: calc(60% - 10px); 
+	height:50px;
 	font-size:26px;
 	box-shadow:0px 4px 4px 0px #CBCBCB;
 	border-radius:20px;
 	margin-left: 11px; 수정: 왼쪽 여백 추가
 	
 }
-#submit{
-	height:55px;
+#cmtCount{
+	margin-left:5px;
+	
 }
 
 .tall-row {
@@ -174,6 +219,6 @@
     vertical-align: top;
     padding-bottom: 15px;
     padding-left: 5px;
-    font-size:20px;
-    color:#C3C3C3;
+    font-size:200%;
+    color:#9E9A9A;
 	}
