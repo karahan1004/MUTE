@@ -22,6 +22,7 @@ import com.music.mute.login.MemberVO;
 
 import lombok.extern.log4j.Log4j;
 import se.michaelthelin.spotify.SpotifyApi;
+import se.michaelthelin.spotify.exceptions.detailed.UnauthorizedException;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
@@ -38,6 +39,12 @@ public class MyPageController {
 	@Autowired
 	private MyPageService mypageService;
 	
+	 private final MyPageService myPageService;
+
+	    @Autowired
+	    public MyPageController(MyPageService myPageService) {
+	        this.myPageService = myPageService;}
+	
 	@GetMapping("/mypage")
 	public String getUserPlaylists(Model model, HttpSession session) {
 		// 사용자의 Access Token을 세션에서 가져옴
@@ -49,9 +56,7 @@ public class MyPageController {
 				spotifyApi.setAccessToken(accessToken);
 				final GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
 						.getListOfCurrentUsersPlaylists().build();
-
 				final CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
-
 				PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
 				log.info("playlists="+playlists);
 				model.addAttribute("playlists", playlists);
@@ -59,67 +64,43 @@ public class MyPageController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else {
+		} else{
 			// Access Token이 없는 경우, 로그인 페이지로 리다이렉트 또는 에러 처리
-			return "redirect:/login"; // 예시: 로그인 페이지로 리다이렉트
+			return "redirect:/login";
 		}
 		return "/mypage";
 	}//getUserPlaylists-----------------------------------------
-	
+	    
 	//mypage 플리 이름 수정 ==> Ambiguous mapping에러 발생, apiplaylist 랑 이름 겹쳐서 변경함
-	@PostMapping("/updatePlaylistmy")
-	public String updatePlaylist(Model model, HttpSession session, @RequestParam String playlistId, @RequestParam String editPlaylistName) {
-	    String accessToken = (String) session.getAttribute("accessToken");
-
-	    if (accessToken != null) {
+	 @PostMapping("/updatePlaylistmy")
+	    public String updatePlaylist(Model model, HttpSession session, @RequestParam String playlistId, @RequestParam String editPlaylistName) {
+	        String accessToken = (String) session.getAttribute("accessToken");
 	        try {
-	            spotifyApi.setAccessToken(accessToken);
-
-	            // Spotify API를 사용하여 플레이리스트의 이름을 변경
-	            final ChangePlaylistsDetailsRequest changePlaylistDetailsRequest = spotifyApi
-	                    .changePlaylistsDetails(playlistId)
-	                    .name(editPlaylistName)
-	                    .build();
-
-	            changePlaylistDetailsRequest.execute();
-
-	            // 수정 후, 사용자에게 적절한 메시지를 전달
+	            myPageService.updatePlaylist(accessToken, playlistId, editPlaylistName);
 	            model.addAttribute("message", "Playlist updated successfully");
+	        } catch (UnauthorizedException e) {
+	            return "redirect:/login";
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            model.addAttribute("error", "Error updating playlist");
 	        }
-	    } else {
-	        return "redirect:/login";
-	    }
 
-	    return "redirect:/mypage";
-	}//updatePlaylist----------------------------------------------
+	        return "redirect:/mypage";
+	    }//updatePlaylist------------------------------------------
 	
-	@DeleteMapping("/deletePlaylistmy")
-	public ResponseEntity<String> deletePlaylist(@RequestParam String playlistId, HttpSession session) {
-		String accessToken = (String) session.getAttribute("accessToken");
-
-		if (accessToken != null) {
-			try {
-				spotifyApi.setAccessToken(accessToken);
-
-				// 플레이리스트 언팔로우 API 요청
-				final UnfollowPlaylistRequest unfollowPlaylistRequest = spotifyApi.unfollowPlaylist(playlistId).build();
-				unfollowPlaylistRequest.execute();
-
-				// 삭제 후, 적절한 응답 반환
-				return ResponseEntity.ok("Playlist delete successfully");
-			} catch (Exception e) {
-				e.printStackTrace();
-				// 에러가 발생하면 500 Internal Server Error 반환
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting playlist");
-			}
-		} else {
-			// 사용자가 인증되지 않은 경우 401 Unauthorized 반환
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
-		}
-	}//deletePlaylist----------------------------------------------
+	 @DeleteMapping("/deletePlaylistmy")
+	    public ResponseEntity<String> deletePlaylist(@RequestParam String playlistId, HttpSession session) {
+	        String accessToken = (String) session.getAttribute("accessToken");
+	        try {
+	            myPageService.deletePlaylist(accessToken, playlistId);
+	            return ResponseEntity.ok("Playlist delete successfully");
+	        } catch (UnauthorizedException e) {
+	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting playlist");
+	        }
+	}//deletePlaylist---------------------------------------------
 	
 	@RequestMapping(value = "/updateNickNameJson", method = RequestMethod.POST)
 	@ResponseBody
@@ -133,7 +114,6 @@ public class MyPageController {
         mypageService.updateNickname(member);
         ModelMap map=new ModelMap();
         map.put("result", "success");
-        // 예시: 사용 가능한 닉네임인 경우 업데이트 후 main 페이지로 리다이렉트
         return map;
-    }
+    }//updateNickname----------------------------------------------
 }
