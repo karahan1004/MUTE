@@ -35,7 +35,7 @@ import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 
 @Service
 public class ResultServiceImpl implements ResultService {
-	
+
 	@Autowired
     private SpotifyApi spotifyApi;
 
@@ -46,21 +46,21 @@ public class ResultServiceImpl implements ResultService {
 	public String getResultPage(Model model, HttpSession session, String genre) {
 		String accessToken = (String) session.getAttribute("accessToken");
         List<TrackWithImageUrlVO> recommendationsList = new ArrayList<>();
-        
+
         if (accessToken != null) {
             try {
                 spotifyApi.setAccessToken(accessToken);
              // 현재 재생 중인 디바이스의 정보 가져오기
 				Device currentDevice = getCurrentDevice(accessToken);
 				model.addAttribute("currentDevice", currentDevice);
-				
+
                 GetListOfCurrentUsersPlaylistsRequest playlistsRequest = spotifyApi
                         .getListOfCurrentUsersPlaylists()
-                        .limit(10)
+						/* .limit(10) */
                         .build();
                 CompletableFuture<Paging<PlaylistSimplified>> playlistsFuture = playlistsRequest.executeAsync();
                 PlaylistSimplified[] playlists = playlistsFuture.join().getItems();
-                
+
                 model.addAttribute("playlists", playlists);
 
                 String playlistId = playlists[0].getId();
@@ -77,16 +77,13 @@ public class ResultServiceImpl implements ResultService {
                     String coverImageUrl = getAlbumCoverImageUrl(trackAlbumId, accessToken);
                     TrackWithImageUrlVO newTrack = new TrackWithImageUrlVO(track, coverImageUrl);
                     recommendationsList.add(newTrack);
-                    
+
                 }
-                
+
 				model.addAttribute("recommendations", recommendationsList);
                 System.out.println("getGenreRecommendations 메서드가 호출되었습니다.");
                 System.out.println("Recommendations List: " + recommendationsList);
-                
-             /* model.addAttribute("recommendations", recommendations);
-				model.addAttribute("recommendationsList", recommendationsList); JH:현재 수정 중*/
-                
+
             } catch (Exception e) {
                 System.out.println("hi" + e);
                 model.addAttribute("error", "음악 추천을 가져오는 중에 오류가 발생했습니다.");
@@ -95,7 +92,7 @@ public class ResultServiceImpl implements ResultService {
         } else {
             return "redirect:/login";
         }
-        
+
         // 여기서 페이지 정보에 따라 다른 결과 페이지를 반환
         return "result/result_" + genre;
 	}
