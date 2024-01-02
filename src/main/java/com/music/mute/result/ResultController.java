@@ -33,6 +33,7 @@ import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
 @Controller
+
 public class ResultController {
 	
 	@Autowired
@@ -134,7 +135,7 @@ public class ResultController {
 		}
 		return map;
 	}
-	
+	/*
     @GetMapping("/pause/{trackId}")
     public String pausePlayback(@PathVariable String trackId, HttpSession session) {
         try {
@@ -156,7 +157,7 @@ public class ResultController {
         }
         return "redirect:/track/" + trackId;
     }
-	
+
 	@GetMapping("/devices/{trackId}")
     public String getDevices(@PathVariable String trackId, Model model, HttpSession session) {
         String accessToken = (String) session.getAttribute("accessToken");
@@ -227,7 +228,7 @@ public class ResultController {
 	        return "redirect:/login";
 	    }
 	    return "redirect:/getCurrentPlayback/" + userId; 
-    }
+    }*/
     
     @PostMapping(value="/addPlaylist", produces = {"application/json"})
     @ResponseBody
@@ -299,3 +300,4 @@ public class ResultController {
     
 
 }
+
