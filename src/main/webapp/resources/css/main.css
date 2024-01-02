@@ -142,12 +142,16 @@
 	#title{
 		padding:0px;
 		margin-bottom:0px;
+		padding-top:15px;
 		
 	}
 	#mypageFont{
 		color:lightgray;
 		text-decoration:none;
 		font-size:200%;
+	}
+	#mypageFont:hover{
+		color:#6C6C6C;
 	}
   /* 글꼴 크기 변경 및 스타일 */
 	  #loginText{
@@ -156,6 +160,9 @@
 		text-decoration:none;
 		/* vertical-align: top; */
 		/* margin-top: 25px; */
+ 	}
+ 	#loginText:hover{
+ 		color:#F691FF;
  	}
  	h1{
  		font-size:2.5em;
@@ -218,6 +225,9 @@
 	margin-left: 25%;
 	
 }
+ #submit:hover {
+        background-color: #FFA6EB; /* 올렸을 때의 배경색 */
+    }
 #cmtCount{
 	margin-left:5px;
 	
