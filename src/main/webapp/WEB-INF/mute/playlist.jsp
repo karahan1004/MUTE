@@ -66,7 +66,8 @@
                             <img class="albumimg" src="${albumDetailsArray[1]}" alt="Album Cover" width="100"
                                 height="100">
                         </td>
-                        <td class="si" data-track-id="${trackIdList[status.index]}">${track}</td>
+                        <td class="si" data-track-id="${trackIdList[status.index]}"
+                            data-track-uri="${trackUriArray[status.index]}">${track}</td>
                         <td class="ga">${artistInfoArray[status.index]}</td>
                         <td class="del"><a
                                 onclick="handleDeleteAction('${playlist.id}', '${trackIdList[status.index]}');">
@@ -85,8 +86,7 @@
         <footer>
             <table id="navi-foot">
                 <tr>
-                    <td class="si_btn"><img class="bt_img"
-                            src="resources/images/before_pl.png"></td>
+                    <td class="si_btn"><img class="bt_img" src="resources/images/before_pl.png"></td>
                     <td class="si_btn"><img class="playPauseImage" id="ft_img"
                             src="<c:url value='/resources/images/play_pl.png'/>" alt="Play/Pause" width="50"
                             height="50"></td>
@@ -129,11 +129,12 @@
         <script>
             var originalImgSrc = "resources/images/play_pl.png";
             var altImgSrc = "resources/images/pause_pl.png";
-
+            let trackUri = {};
             function toggleImg() {
                 var imgElement = document.getElementById("ft_img");
                 if (imgElement.getAttribute("src") === originalImgSrc) {
                     imgElement.src = altImgSrc;
+
                 } else {
                     imgElement.src = originalImgSrc;
                 }
@@ -145,11 +146,6 @@
                     : 'none';
             }
 
-            /* function setVolume(volume) {
-                // 여기에서 실제로 음량을 조절하는 코드를 추가할 수 있습니다.
-                console.log("Volume set to: " + volume);
-            }
-     */
             function toggleModal(modalId) {
                 $('#' + modalId).modal('toggle');
             }
@@ -170,8 +166,6 @@
                 console.log('trackId:', trackId);
                 $('#addModal').data('playlistId', playlistId);
                 $('#addModal').data('trackId', trackId);
-
-                // 삭제 후에 수행할 다른 작업을 추가하세요
 
                 // 삭제 후 모달을 토글하려면 다음과 같이 할 수 있습니다:
                 toggleModal('addModal');
@@ -217,16 +211,17 @@
                 btnPlayer.setAttribute('isPlay_test', '0'); // 0 정지, 1 재생
 
                 /* 재생/정지 클릭 이벤트 */
-                btnPlayer.addEventListener("click", function(event) {
+                btnPlayer.addEventListener("click", function (event) {
                     if (event.target.getAttribute('isPlay_test') === '0') {
                         musicPlay();
+                        btnPlayer.setAttribute('isPlay_test', '1'); // 0 정지, 1 재생
                     } else {
                         musicPause();
+                        btnPlayer.setAttribute('isPlay_test', '0'); // 0 정지, 1 재생
                     }
                 });
-
                 /* 이전 곡 클릭 이벤트 */
-                btnPrevious.addEventListener("click", function(event) {
+                btnPrevious.addEventListener("click", function (event) {
                     console.log('이전 트랙으로 이동');
                     if (currentIndex > 0) {
                         currentIndex--;
@@ -251,7 +246,7 @@
                 });
 
                 /* 다음 곡 클릭 이벤트 */
-                btnNext.addEventListener("click", function(event) {
+                btnNext.addEventListener("click", function (event) {
                     console.log('다음 트랙으로 이동');
                     var totalRows = $('.pi').length;
                     if (currentIndex < totalRows - 1) {
@@ -283,9 +278,10 @@
                     var songTitle = $(this).closest('tr').find('.si').text();
                     var artistName = $(this).closest('tr').find('.ga').text();
                     var trackId = $(this).closest('tr').find('.si').attr('data-track-id');
-
+                    var trackUri = $(this).closest('tr').find('.si').attr('data-track-uri');
                     // 선택한 행에 맞게 footer 부분 변경
                     $('#ft_img').attr('data-track-id', trackId);
+                    $('#ft_img').attr('data-track-uri', trackUri);
                     $('.im_foot').attr('src', albumImageSrc);
                     $('.si_foot').text(songTitle);
                     $('.ga_foot').text(artistName);
@@ -302,9 +298,11 @@
                     var songTitle = $('.si').eq(currentIndex).text();
                     var artistName = $('.ga').eq(currentIndex).text();
                     var trackId = $('.si').eq(currentIndex).attr('data-track-id');
+                    var trackUri = $('.si').eq(currentIndex).attr('data-track-uri');
 
                     // footer 부분 변경
                     $('#ft_img').attr('data-track-id', trackId);
+                    $('#ft_img').attr('data-track-uri', trackUri);
                     $('.im_foot').attr('src', albumImageSrc);
                     $('.si_foot').text(songTitle);
                     $('.ga_foot').text(artistName);
@@ -315,29 +313,53 @@
                     $('.ft_img').attr('src',
                         'resources/images/pause_pl.png');
 
-                if(isPlay) {
-                    btnPlayer.setAttribute('isPlay_test', '1');
-                    btnPlayer.setAttribute('src', '/mute/resources/images/pause_pl.png');
-                } else {
-                    btnPlayer.setAttribute('isPlay_test', '0');
-                    btnPlayer.setAttribute('src', '/mute/resources/images/play_pl.png');
+                    if (isPlay) {
+                        btnPlayer.setAttribute('isPlay_test', '1');
+                        btnPlayer.setAttribute('src', '/mute/resources/images/pause_pl.png');
+                    } else {
+                        btnPlayer.setAttribute('isPlay_test', '0');
+                        btnPlayer.setAttribute('src', '/mute/resources/images/play_pl.png');
+                    }
                 }
-                }
-
+                /* function musicPlay2(){
+                    let n=btnPlayer.getAttribute('isplay_test');
+                    var trackUri = btnPlayer.getAttribute('data-track-uri');
+                    alert("n="+n)
+                    if(n=='1'){
+                        player.resume().then(()=>{
+                            trackState[trackUri]=true;
+                        })
+                    }else{
+                        player.pause().then(()=>{
+                            trackState[trackUri]=false;
+                        })
+                    }
+                } */
                 /* 음악 재생 */
                 function musicPlay() {
                     var trackId = btnPlayer.getAttribute('data-track-id');
+                    var currentTrackUri = btnPlayer.getAttribute('data-track-uri');
+
+                    let pos_ms = 0;
+                    if (trackUri == currentTrackUri) {
+                        pos_ms = trackPositions[trackUri];
+                        //alert("trackPositions%%%%"+trackPositions[trackUri]);
+
+                    }
                     $.ajax({
                         url: SPOTIFY_API_BASE + '/play' + '?device_id=' + device_id,
                         type: 'PUT',
+                        async: false,//동기적으로 수행하도
                         headers: {
                             'Authorization': 'Bearer ' + accessToken,
                             'Content-Type': 'application/json',
                         },
                         data: JSON.stringify({
                             uris: ["spotify:track:" + trackId],
-                            device_ids: [device_id]
+                            device_ids: [device_id],
+                            position_ms: pos_ms || 0,
                         }),
+
                         success: function () {
                             changePlayerImage(true);
                         },
@@ -350,13 +372,27 @@
 
                 /* 음악 정지 */
                 function musicPause() {
+                    var trackId = btnPlayer.getAttribute('data-track-id');
+
+                    var currentTrackUri = btnPlayer.getAttribute('data-track-uri');
+                    let pos_ms = 0;
+                    if (trackUri == currentTrackUri) {
+                        pos_ms = trackPositions[trackUri];
+
+                    }
                     $.ajax({
                         url: SPOTIFY_API_BASE + '/pause' + '?device_id=' + device_id,
                         type: 'PUT',
+                        async: false,
                         headers: {
                             'Authorization': 'Bearer ' + accessToken,
                             'Content-Type': 'application/json',
                         },
+                        data: JSON.stringify({
+                            uris: ["spotify:track:" + trackId],
+                            device_ids: [device_id],
+                            position_ms: pos_ms || 0,
+                        }),
                         success: function (response) {
                             changePlayerImage(false);
                         },
@@ -370,11 +406,16 @@
                         }
                     });
                 }
-            }  
-            
+            }
+
 
             let player;
             let device_id;
+            let progress_ms;
+            let trackPositions = {};
+            let trackIds = {};
+            let trackState = {};
+
             window.onSpotifyWebPlaybackSDKReady = () => {
                 const token = '${accessToken}'; // 사용자의 액세스 토큰을 여기에 설정
                 player = new Spotify.Player({
@@ -382,8 +423,22 @@
                     getOAuthToken: (cb) => { cb(token); }
                 });
                 console.dir(player)
-                // 로그인 및 초기화
                 player.connect();
+
+                player.on('player_state_changed', state => {
+                    if (state) {
+                        console.log('Current track:', state.track_window.current_track);
+                        //console.log('Current track Id:', state.track_window.current_track.id);
+
+                        console.log('Current progress (ms):', state.position);
+                        trackPositions[state.track_window.current_track.uri] = state.position;
+                        trackIds[state.track_window.current_track.uri] = state.track_window.current_track.id;
+                        trackState[state.track_window.current_track.uri] = state.paused;//재생 중인지 여부
+                        console.log('trackState: ' + trackState[state.track_window.current_track.uri])
+                        console.log('trackIds: ' + trackIds[state.track_window.current_track.uri])
+                        trackUri = state.track_window.current_track.uri;
+                    }
+                });
 
                 // Ready
                 player.on('ready', data => {
@@ -407,9 +462,25 @@
 
 
             function togglePlayPause(trackUri, imageElement) {
-                console.log("Received trackUri: " + trackUri);
-                console.log("트랙에 대한 재생/일시정지 클릭: " + trackUri);
-                const isPlaying = imageElement.classList.contains('playing');
+
+
+                if (!isPlaying) {
+                    // 재생을 계속하는 경우 현재 트랙의 진행 상황을 가져옵니다.
+                    const currentState = player.getCurrentState();
+                    currentState.then(state => {
+                        if (state) {
+                            console.log('!isPlaying:' + state.position)
+                            trackPositions[trackUri] = state.position;
+                            trackState[trackUri] = true;
+                        }
+                    });
+                    imageElement.classList.add('playing')
+
+                } else {
+                    trackState[trackUri] = false;
+                    imageElement.classList.remove('playing')
+                }
+                //imageElement.classList.toggle('playing');
 
                 // 서버에서 trackId 값을 받아오는 예시
                 $.ajax({
@@ -421,38 +492,24 @@
                     },
                     data: JSON.stringify({
                         uris: [trackUri],
-                        device_ids: [device_id]
+                        device_ids: [device_id],
+                        position_ms: trackPositions[trackUri] || 0,
                     }),
                     success: function (response) {
                         // 이 부분에서 응답을 확인하고 trackId를 추출하는 로직을 추가
-                        let trackId;
+                        let trackId = trackIds[trackUri];
+                        console.log('success1: ' + trackId)
+                        togglePlayPauseImage(trackUri, imageElement);
                         if (response && response.trackId) {
                             trackId = response.trackId;
+                            console.log('success2: ' + trackId)
                         } else {
                             console.error('trackId를 찾을 수 없습니다. 응답 구조를 확인하세요.');
                             return;
                         }
 
-                        $.ajax({
-                            url: SPOTIFY_API_BASE + (isPlaying ? '/play' : '/pause') + '?device_id=' + device_id,
-                            type: 'PUT',
-                            headers: {
-                                'Authorization': 'Bearer ' + accessToken,
-                                'Content-Type': 'application/json',
-                            },
-                            data: JSON.stringify({
-                                uris: ["spotify:track:" + trackId],
-                                device_ids: [device_id]
-                            }),
-                            success: function () {
-                                // 이미지 토글 호출
-                                togglePlayPauseImage(trackUri, imageElement);
-                            },
-                            error: function (error) {
-                                console.error('트랙 재생/일시정지 실패:', error);
-                                console.error('API 호출 실패 상세 정보:', error.responseText);
-                            },
-                        });
+
+
                     },
                     error: function (error) {
                         console.error('API 호출 실패:', error);
@@ -469,16 +526,18 @@
             // 이미지 토글 함수
             function togglePlayPauseImage(trackUri, imageElement) {
                 // 이미지 토글
-                if (imageElement.classList.contains('playing')) {
+                /* if (imageElement.classList.contains('playing')) {
                     imageElement.src = '<c:url value="/resources/images/play_pl.png"/>';
                     console.log("음악 일시정지");
                 } else {
                     imageElement.src = '<c:url value="/resources/images/pause_pl.png"/>';
                     console.log("음악 재생");
                 }
-                // 토글 클래스 추가/제거
+                //  */
                 imageElement.classList.toggle('playing');
             }
+
+            let position_ms = null;
 
             function playTest(uri) {
                 const playlistUri = uri;
