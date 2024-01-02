@@ -195,6 +195,7 @@ public class PlaylistController {
 			m.addAttribute("trackTotal", playlistTrackPaging.getTotal());
 			PlaylistTrack[] arr = playlistTrackPaging.getItems();
 			String trackInfo = "";
+			String trackUri = "";
 			String trackId = "";
 			String artistInfo = "";
 			String albumInfo = "";
@@ -202,8 +203,10 @@ public class PlaylistController {
 			List<String> trackIdList = new ArrayList<>();//트랙삭제 구현 중 추가
 			for (PlaylistTrack pt : arr) {
 				Track tr = (Track) pt.getTrack();// 트랙 정보
+				//System.out.println(tr.getUri());
 				ArtistSimplified[] artists = ((Track) pt.getTrack()).getArtists();
 				trackInfo += tr.getName() + "#";
+				trackUri+=tr.getUri()+"#";
 				trackId=tr.getId();
 				log.info("====trackId: "+trackId);
 				trackIdList.add(trackId);
@@ -225,11 +228,13 @@ public class PlaylistController {
 			// playlistTrackPaging.getItems()[0].getTrack().getName()
 			// 컨트롤러의 일부분
 			String[] trackInfoArray = trackInfo.split("#");
+			String[] trackUriArray = trackUri.split("#");
 			String[] artistInfoArray = artistInfo.split("-");
 			String[] albumInfoArray = albumInfo.split("#");
 			String[] trackIdArray = trackId.split("#");
 			
 			m.addAttribute("trackInfoArray", trackInfoArray);
+			m.addAttribute("trackUriArray", trackUriArray);
 			m.addAttribute("artistInfoArray", artistInfoArray);
 			m.addAttribute("albumInfoArray", albumInfoArray);
 			m.addAttribute("trackIdList", trackIdList);
@@ -323,7 +328,7 @@ public class PlaylistController {
 	}
 	
 	
-	@GetMapping("/play/{trackId}")
+	@GetMapping("/playTrack/{trackId}")
 	public String playTrack(@PathVariable String trackId, HttpSession session) {
 		log.info(">>>>>2:"+trackId);
 		System.out.println("Received trackId: " + trackId);
@@ -373,7 +378,7 @@ public class PlaylistController {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    return "redirect:/track";
+	       return "redirect:/track/" + trackId;
 	}
 	
 	@GetMapping("/previous")
@@ -505,16 +510,6 @@ public class PlaylistController {
         return "redirect:/getCurrentPlayback/" + userId; 
     }
 	
-	@Configuration
-	public class WebConfig implements WebMvcConfigurer {
-
-	    @Override
-	    public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/**")
-	                .allowedOrigins("http://localhost:9089/mute")
-	                .allowedMethods("GET", "POST", "PUT", "DELETE");
-	    }
-	}
-
+	
 
 }
