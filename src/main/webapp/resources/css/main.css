@@ -15,16 +15,7 @@
 	font-family: 'KOTRAHOPE';
 }
 
-.button{
-	background-color: #FFE2F8;
-	color: #002EA5;
-	border: none;
-	width: 331px;
-	height: 110px;
-	font-size:30px;
-	border-radius:30px;
-	box-shadow:0px 4px 4px 0px #CBCBCB;
-}
+
 
 
 
@@ -57,6 +48,7 @@
   }
   .intro{
   	margin:auto;
+  	margin-top:2%;
   	width:80%;
   	border-radius: 30px;
   	background-color:#FFF6FD;
@@ -72,6 +64,17 @@
   #button{
   	height:150px;
   }
+  
+  .button{
+	background-color: #FFE2F8;
+	color: #002EA5;
+	border: none;
+	width: 331px;
+	height: 110px;
+	font-size:30px;
+	border-radius:30px;
+	box-shadow:0px 4px 4px 0px #CBCBCB;
+}
   /* 상단바 부분 image 위치 및 크기 조정 */
 	/* td별 width % 지정  */
 	#logo{
@@ -157,6 +160,7 @@
  	h1{
  		font-size:2.5em;
  		margin-bottom: 0;
+ 		margin-top: 0;
  	}
   /* 메인 가운데 부분 센터 정렬  */
   .bottom{
@@ -224,13 +228,14 @@
     }
     
     #nickname {
-    width: 12%;
-    vertical-align: top;
-    padding-bottom: 15px;
-    padding-left: 5px;
-    font-size:200%;
-    color:#9E9A9A;
+	    width: 12%;
+	    vertical-align: top;
+	    padding-bottom: 15px;
+	    padding-left: 5px;
+	    font-size:200%;
+	    color:#9E9A9A;
 	}
+	
 	
 	#gom{
 		width:10%;
