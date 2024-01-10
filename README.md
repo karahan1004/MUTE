@@ -1,4 +1,4 @@
-# Spring Legacy - Project - MUTE
+# Spring Legacy - Project - MUTE 🎵🎧
 STS  + Spotify API_ Music Recommendation website
 
 ## 💻About Project
@@ -12,19 +12,30 @@ Music recommendation & Playing website built with STS and Spotify API.
 
 ## Authors
 Heejeong Choi : Playlist page, API
+
 Jeongseo Han : Main page, login page (API), Comment 
+
 Inhye Guk : Test reult page, API
+
 Jihee Kim : Test reult page, API
+
 Chaehee Lee : Test page, User page 
 
 ## 🔧Build with
 Java 11
+
 JDK 1.8.0
+
 IDE : STS 3.9
+
 Framework : Spring legacy
+
 Database : MySql, Naver Cloud Platform, DBeaver
+
 API :  Spotify API
+
 ORM : Mybatis
+
 Languages: HTML, CSS, JS, Java, JSP, JQuery, Bootstrap, Ajax
 
 ## Main functions
