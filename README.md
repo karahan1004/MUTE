@@ -5,7 +5,10 @@ STS  + Spotify API_ Music Recommendation website
 Music recommendation & Playing website built with STS and Spotify API.
 
 ### 🎯The project's aim
-
+- Song recommendations based on user preferences through testing.
+- One-line review feature for sharing opinions among users.
+- Music recommendations provided through the Spotify API.
+- Save records of interested recommendations.
 
 ## 🕰️ctivity Duration
 2023.11.24 ~ 2024.01.04
@@ -49,7 +52,7 @@ Languages: HTML, CSS, JS, Java, JSP, JQuery, Bootstrap, Ajax
 - Change member information
 
 #### Test Page
-- 사용자의 선택에 따라 테스트 결과 나오도록 처리
+- Process the test results according to the user's choice.
 
 #### Playlist Page
 - Add/delete songs from User's playlists
