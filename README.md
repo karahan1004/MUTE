@@ -10,10 +10,10 @@ Music recommendation & Playing website built with STS and Spotify API.
 - Music recommendations provided through the Spotify API.
 - Save records of interested recommendations.
 
-## 🕰️ctivity Duration
+## 🕰️Activity Duration
 2023.11.24 ~ 2024.01.04
 
-## Authors
+## Authors 👥
 Heejeong Choi : Playlist page, API
 
 Jeongseo Han : Main page, login page (API), Comment 
